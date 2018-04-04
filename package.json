@@ -8,6 +8,7 @@
     "test": "vue-cli-service test"
   },
   "dependencies": {
+    "element-ui": "^2.3.3",
     "register-service-worker": "^1.0.0",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1",

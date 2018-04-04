@@ -1,5 +1,5 @@
 <template>
-  <button v-on:click="handleClick">Login</button>
+  <el-button type="primary" v-on:click="handleClick">Login</el-button>
 </template>
 
 <script>
@@ -19,9 +19,11 @@ export default {
         () => this.$store.commit(mutations.LOGIN_BEGIN),
         () => {
           this.googleApi.getUser()
-            .then(user => {
+            .then(authResponse => {
 
-              this.$store.commit(mutations.LOGIN_SUCCESS, {user});
+              this.$store.commit(mutations.LOGIN_SUCCESS, {
+                user: authResponse.user
+              });
 
               gapi.client.init({
                 apiKey: config.google.API_KEY,
