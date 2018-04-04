@@ -5,7 +5,6 @@
 <script>
 import GoogleApi from "../../application/googleApi";
 import mutations from "../../vuex/mutations";
-import config from "../../../config";
 
 export default {
   data() {
@@ -26,7 +25,7 @@ export default {
               });
 
               gapi.client.init({
-                apiKey: config.google.API_KEY,
+                apiKey: API_KEY,
                 discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/fitness/v1/rest"]
               }).then(() => {
 
