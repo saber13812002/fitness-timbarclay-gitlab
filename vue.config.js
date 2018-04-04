@@ -30,5 +30,18 @@ module.exports = {
         }
       })
     ]
+  },
+  chainWebpack: config => {
+    config
+      .plugin("html")
+        .tap(args => {
+          args[0].template = "static/index.html"
+          return args;
+        })
+      
+    config.plugin("copy")
+        .tap(args => {
+          args[0].from = "static"
+        })
   }
 }
