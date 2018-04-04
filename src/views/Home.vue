@@ -3,20 +3,20 @@
     <img src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
     
-    <login-button></login-button>
+    <login-container/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
-import LoginButton from "../components/login/LoginButton.vue";
+import LoginContainer from "../components/login/LoginContainer.vue";
 
 export default {
   name: 'home',
   components: {
     HelloWorld,
-    LoginButton
+    LoginContainer
   }
 }
 </script>

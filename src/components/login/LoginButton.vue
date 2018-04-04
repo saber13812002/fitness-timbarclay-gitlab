@@ -4,6 +4,7 @@
 
 <script>
 import GoogleApi from "../../application/googleApi";
+import mutations from "../../vuex/mutations";
 import config from "../../../config";
 
 export default {
@@ -15,10 +16,12 @@ export default {
   methods: {
     handleClick() {
       this.googleApi.signIn(false,
-        () => {},
+        () => this.$store.commit(mutations.LOGIN_BEGIN),
         () => {
           this.googleApi.getUser()
             .then(user => {
+
+              this.$store.commit(mutations.LOGIN_SUCCESS, {user});
 
               gapi.client.init({
                 apiKey: config.google.API_KEY,
@@ -33,7 +36,7 @@ export default {
               })
             })
         },
-        err => {})
+        err => this.$store.commit(mutations.LOGIN_FAILURE, err))
     }
   }
 }
