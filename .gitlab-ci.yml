@@ -8,11 +8,11 @@ pages:
   script:
   - npm install
   - npm run build
-  - mv dist public
+  - mv dist deploy
 
   artifacts:
     paths:
-    - public
+    - deploy
 
   only:
     - master

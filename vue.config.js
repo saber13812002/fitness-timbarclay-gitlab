@@ -1,12 +1,11 @@
 const webpack = require("webpack");
 
-const isCi = !!process.env.CI;
-
 let clientId;
 let clientSecret;
 let apiKey;
 
-if(isCi) {
+if(process.env.CI) {
+  // We're running in Gitlab CI environment so use secret variables
   clientId = process.env.CLIENT_ID;
   clientSecret = process.env.CLIENT_SECRET;
   apiKey = process.env.API_KEY;
@@ -16,8 +15,6 @@ if(isCi) {
   clientSecret = config.google.CLIENT_SECRET;
   apiKey = config.google.API_KEY;
 }
-
-console.log(clientId);
 
 module.exports = {
   configureWebpack: {
