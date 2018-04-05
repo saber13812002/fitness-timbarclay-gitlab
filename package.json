@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "test": "vue-cli-service test"
+    "start": "npm run build",
+    "test": "cross-env NODE_ENV=test vue-cli-service test"
   },
   "dependencies": {
     "element-ui": "^2.3.3",
@@ -23,6 +24,7 @@
     "@vue/cli-service": "^3.0.0-beta.6",
     "@vue/test-utils": "^1.0.0-beta.10",
     "chai": "^4.1.2",
+    "cross-env": "^5.1.4",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "vue-template-compiler": "^2.5.13"
