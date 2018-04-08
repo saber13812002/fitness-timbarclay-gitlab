@@ -50,23 +50,6 @@ if(!isTest) {
       if(isCiBuild) {
         config.output.publicPath = "/fitness/"
       }
-    },
-    chainWebpack: config => {
-      config
-        .plugin("html")
-          .tap(args => {
-            args[0].template = "static/index.html"
-            return args;
-          })
-        
-      config
-        .plugin("copy")
-          .tap(args => {
-            if(args.length) {
-              args[0][0].from = path.resolve(__dirname, 'static');
-            }
-            return args;
-          })
     }
   }
 }

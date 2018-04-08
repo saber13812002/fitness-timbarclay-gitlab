@@ -13,6 +13,7 @@ pages:
   script:
   - npm install
   - npm run build
+  - rm -r public
   - mv dist public
 
   artifacts:
