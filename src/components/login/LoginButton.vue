@@ -24,6 +24,7 @@ export default {
                 user: authResponse.user
               });
 
+              // TODO all this stuff should happen somewhere else
               gapi.client.init({
                 apiKey: API_KEY,
                 discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/fitness/v1/rest"]
