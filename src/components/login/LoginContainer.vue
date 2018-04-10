@@ -51,6 +51,6 @@ export default {
 img {
   border-radius: 50%;
   cursor: pointer;
-  height: $nav-height;
+  height: 40px;
 }
 </style>

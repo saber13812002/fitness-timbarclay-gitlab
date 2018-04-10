@@ -9,7 +9,6 @@ import store from "./store";
 Vue.use(Router);
 
 function ensureLoggedIn(to, from, next) {
-  console.log(store);
   if (store.getters.isLoggedIn) {
     next();
   } else {
@@ -17,7 +16,7 @@ function ensureLoggedIn(to, from, next) {
   }
 }
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: IS_LIVE ? "/fitness/" : "/",
   routes: [
@@ -50,3 +49,13 @@ export default new Router({
     }
   ]
 });
+
+store.watch(() => store.getters.isLoggedIn, isLoggedIn => {
+  if(isLoggedIn) {
+    router.replace("/");
+  } else {
+    router.replace("/login");
+  }
+})
+
+export default router;

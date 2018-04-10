@@ -27,8 +27,10 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/_variables.scss";
 
+// TODO might be cool to do this https://codepen.io/jmperez/pen/wrVxga
 .login-container {
-  background-image: url("../assets/images/main-bg-1920-1281-orig.jpg");
+  background: url("../assets/images/main-bg-1920-1281-orig.jpg") no-repeat center center;
+  background-size: cover;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
