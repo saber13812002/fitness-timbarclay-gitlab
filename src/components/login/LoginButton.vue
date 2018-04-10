@@ -25,7 +25,7 @@ export default {
               });
 
               // TODO all this stuff should happen somewhere else
-              gapi.client.init({
+              /* gapi.client.init({
                 apiKey: API_KEY,
                 discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/fitness/v1/rest"]
               }).then(() => {
@@ -35,7 +35,14 @@ export default {
                 }).then(res => {
                   const s = res.result.dataSource;
                 })
-              })
+              }) */
+
+              /* this.googleApi.getDataSources()
+                .then(dataSource => {
+                  debugger;
+                  var a = dataSource;
+                }) */
+              this.googleApi.getSessions()
             })
         },
         err => this.$store.commit(mutations.LOGIN_FAILURE, err))

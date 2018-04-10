@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const initParams = {
   client_id: CLIENT_ID,
   scope: "profile email https://www.googleapis.com/auth/fitness.activity.read https://www.googleapis.com/auth/fitness.activity.write https://www.googleapis.com/auth/fitness.blood_glucose.read https://www.googleapis.com/auth/fitness.blood_glucose.write https://www.googleapis.com/auth/fitness.blood_pressure.read https://www.googleapis.com/auth/fitness.blood_pressure.write https://www.googleapis.com/auth/fitness.body.read https://www.googleapis.com/auth/fitness.body.write https://www.googleapis.com/auth/fitness.body_temperature.read https://www.googleapis.com/auth/fitness.body_temperature.write https://www.googleapis.com/auth/fitness.location.read https://www.googleapis.com/auth/fitness.location.write https://www.googleapis.com/auth/fitness.nutrition.read https://www.googleapis.com/auth/fitness.nutrition.write https://www.googleapis.com/auth/fitness.oxygen_saturation.read https://www.googleapis.com/auth/fitness.oxygen_saturation.write https://www.googleapis.com/auth/fitness.reproductive_health.read https://www.googleapis.com/auth/fitness.reproductive_health.write"
@@ -7,6 +9,10 @@ const signInOptions = {
   fetch_basic_profile: true,
   redirect_uri: "postmessage"
 };
+
+const exerciseSource = "com.google.activity.exercise";
+
+const exerciseType = 80;
 
 export default class GoogleApi {
   static initialiseGoogleApi() {
@@ -65,6 +71,42 @@ export default class GoogleApi {
       this._onlineSignIn(auth, onSuccess, onFailure);
     } else {
       this._grantOfflineAccess(auth, onSuccess, onFailure);
+    }
+  }
+
+  getDataSources() {
+    return this._ensureFitness()
+      .then(() => gapi.client.fitness.users.dataSources.list({
+        userId: "me",
+        dataTypeName: exerciseSource
+      })
+        .then(res => res.result.dataSource));
+  }
+
+  getSessions(/* start, end */) {
+    const now = moment();
+    const start = moment().subtract(3, "months");
+    
+    return this._ensureFitness()
+      .then(() => gapi.client.fitness.users.sessions.list({
+        userId: "me",
+        endTime: now.toISOString(),
+        startTime: start.toISOString(),
+        key: API_KEY,
+        fields: "hasMoreData,nextPageToken,session",
+        includeDeleted: false
+      }))
+      .then(res => res.result.session.filter(s => s.activityType === exerciseType));
+  }
+
+  _ensureFitness() {
+    if(gapi.client.fitness) {
+      return new Promise.resolve();
+    } else {
+      return gapi.client.init({
+        apiKey: API_KEY,
+        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/fitness/v1/rest"]
+      });
     }
   }
 
