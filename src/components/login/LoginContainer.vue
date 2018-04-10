@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <span>
     <el-dropdown v-if="isLoggedIn" @command="handleDropdown">
       <img :src="user.imageUrl" class="el-dropdown-link"></img>
       <el-dropdown-menu slot="dropdown">
@@ -7,10 +7,10 @@
       </el-dropdown-menu>
     </el-dropdown>
 
-    <div v-else-if="isLoggingIn">Loading...</div>
+    <span v-else-if="isLoggingIn">Loading...</span>
     
-    <div v-else><login-button /></div>
-  </div>
+    <login-button :size="buttonSize" v-else />
+  </span>
 </template>
 
 <script>
@@ -19,6 +19,9 @@ import mutations from "../../vuex/mutations";
 import {mapState, mapMutations, mapGetters} from "vuex";
 
 export default {
+  props: {
+    buttonSize: {type: String, required: false}
+  },
   components: {
     LoginButton
   },
@@ -43,8 +46,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "../../sass/_variables.scss";
+
 img {
   border-radius: 50%;
   cursor: pointer;
+  height: $nav-height;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <el-button type="primary" v-on:click="handleClick">Login</el-button>
+  <el-button type="primary" round v-on:click="handleClick">Login</el-button>
 </template>
 
 <script>
@@ -43,7 +43,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
