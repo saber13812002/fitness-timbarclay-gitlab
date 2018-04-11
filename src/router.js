@@ -25,7 +25,13 @@ export default new Router({
       path: "/",
       name: "home",
       component: Home,
-      beforeEnter: ensureLoggedIn
+      beforeEnter: ensureLoggedIn,
+      props(route) {
+        return {
+          start: route.query.start,
+          end: route.query.end
+        }
+      }
     },
     {
       path: "/login",

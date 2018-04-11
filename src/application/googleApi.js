@@ -1,4 +1,8 @@
 import moment from "moment";
+import {momentToNanos} from "./timeHelpers";
+import {Set} from "../application/models/Set";
+import {DataSource} from "../application/models/DataSource";
+import {Session} from "../application/models/Session";
 
 const initParams = {
   client_id: CLIENT_ID,
@@ -11,7 +15,7 @@ const signInOptions = {
 };
 
 const exerciseSource = "com.google.activity.exercise";
-
+const dataSourceId = "derived:com.google.activity.exercise:com.google.android.gms:merged";
 const exerciseType = 80;
 
 export default class GoogleApi {
@@ -79,24 +83,39 @@ export default class GoogleApi {
       .then(() => gapi.client.fitness.users.dataSources.list({
         userId: "me",
         dataTypeName: exerciseSource
-      })
-        .then(res => res.result.dataSource));
+      }))
+      .then(res => res.result.dataSource)
+      .then(sources => sources.map(s => new DataSource(s)));
   }
 
-  getSessions(/* start, end */) {
-    const now = moment();
-    const start = moment().subtract(3, "months");
-    
+  getSessions(start, end) {
     return this._ensureFitness()
       .then(() => gapi.client.fitness.users.sessions.list({
+          userId: "me",
+          endTime: end.toISOString(),
+          startTime: start.toISOString(),
+          key: API_KEY,
+          fields: "hasMoreData,nextPageToken,session",
+          includeDeleted: false
+        }))
+      .then(res => res.result.session)
+      .then(sessions => sessions.filter(s => s.activityType === exerciseType))
+      .then(sessions => sessions.map(s => new Session(s)));
+  }
+
+  getDataSets(start, end) {
+    const datasetId = `${momentToNanos(start)}-${momentToNanos(end)}`;
+
+    return this._ensureFitness()
+      .then(() => gapi.client.fitness.users.dataSources.datasets.get({
         userId: "me",
-        endTime: now.toISOString(),
-        startTime: start.toISOString(),
+        dataSourceId: dataSourceId,
+        fields: "dataSourceId,maxEndTimeNs,minStartTimeNs,nextPageToken,point",
         key: API_KEY,
-        fields: "hasMoreData,nextPageToken,session",
-        includeDeleted: false
+        datasetId: datasetId
       }))
-      .then(res => res.result.session.filter(s => s.activityType === exerciseType));
+      .then(res => res.result.point)
+      .then(sets => sets.map(p => new Set(p)));
   }
 
   _ensureFitness() {
