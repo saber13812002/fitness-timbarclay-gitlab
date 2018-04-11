@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import {mapState, mapGetters} from "vuex";
 import actions from "../../vuex/actions";
 
 export default {
@@ -14,10 +14,24 @@ export default {
     ...mapState({
       sessions: state => state.exercise.sessions,
       loadingSessions: state => state.exercise.loadingSessions
-    })
+    }),
+    ...mapGetters([
+      "dates"
+    ])
   },
-  mounted() {
+  /* mounted() {
     this.$store.dispatch(actions.FETCH_SESSIONS);
+  }, */
+  watch: {
+    dates: {
+      handler: "fetchData",
+      immediate: true
+    }
+  },
+  methods: {
+    fetchData() {
+      this.$store.dispatch(actions.FETCH_SESSIONS);
+    }
   }
 }
 </script>

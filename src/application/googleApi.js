@@ -120,7 +120,7 @@ export default class GoogleApi {
 
   _ensureFitness() {
     if(gapi.client.fitness) {
-      return new Promise.resolve();
+      return Promise.resolve();
     } else {
       return gapi.client.init({
         apiKey: API_KEY,
