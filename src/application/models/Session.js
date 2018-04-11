@@ -10,3 +10,10 @@ export class Session {
     this.modified = moment(+json.modifiedTimeMillis);
   }
 }
+
+export class WorkoutSession {
+  constructor(session, sets) {
+    this.session = session;
+    this.sets = sets;
+  }
+}

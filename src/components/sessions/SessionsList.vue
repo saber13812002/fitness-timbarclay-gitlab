@@ -1,9 +1,9 @@
 <template>
   <div>
     <div v-if="loadingSessions">Loading</div>
-    <div v-else v-for="session in sessions" :key="session.id">
+    <router-link v-else v-for="session in sessions" :to="sessionLink(session)" :key="session.id">
       {{session.start.format("Do MMM")}} {{session.name}}
-    </div>
+    </router-link>
   </div>
 </template>
 
@@ -15,7 +15,18 @@ export default {
     ...mapState({
       sessions: state => state.exercise.sessions,
       loadingSessions: state => state.exercise.loadingSessions
-    })
+    }),
+    reversedSessions() {
+      return this.sessions.reverse();
+    }
+  },
+  methods: {
+    sessionLink(session) {
+      return {
+        name: "session",
+        params: { id: session.id }
+      }
+    }
   }
 }
 </script>

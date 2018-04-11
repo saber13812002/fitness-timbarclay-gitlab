@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import About from "./views/About.vue";
 import Sessions from "./views/Sessions.vue";
+import Session from "./views/Session.vue";
 import NotFound from "./views/NotFound.vue";
 import store from "./store";
 
@@ -18,7 +19,7 @@ function ensureLoggedIn(to, from, next) {
   }
 }
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: IS_LIVE ? "/fitness/" : "/",
   routes: [
@@ -44,8 +45,9 @@ export default new Router({
           component: Sessions,
           children: [
             {
-              path: "session",
-              component: About // TODO
+              path: "session/:id",
+              name: "session",
+              component: Session
             }
           ]
         }
@@ -74,3 +76,5 @@ export default new Router({
     }
   ]
 });
+
+export default router;

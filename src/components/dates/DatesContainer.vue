@@ -9,6 +9,7 @@ import mutations from "../../vuex/mutations";
 import {isValidDate} from "../../application/timeHelpers";
 import {mapGetters} from "vuex";
 import _ from "lodash";
+import moment from "moment";
 
 export default {
   props: {
@@ -21,11 +22,8 @@ export default {
     ])
   },
   watch: {
-    dates(dates) {
-      const query = _.assign({}, this.$route.query, {
-        start: dates[0].toISOString(),
-        end: dates[1].toISOString()
-      });
+    dates() {
+      const query = this.getQueryWithDates();
       this.$router.push({query});
     },
     start() {
@@ -33,6 +31,13 @@ export default {
     },
     end() {
       this.commitDates();
+    },
+    "$route"(route) {
+      const {start, end} = route.query;
+      if(!(start && end)) {
+        const query = this.getQueryWithDates();
+        this.$router.replace({query});
+      }
     }
   },
   mounted() {
@@ -41,9 +46,22 @@ export default {
   methods: {
     commitDates() {
       if(isValidDate(this.start) && isValidDate(this.end)) {
-        const dates = [new Date(this.start), new Date(this.end)];
-        this.$store.commit(mutations.SET_DATES, {dates});
+        const currentStart = this.dates[0];
+        const currentEnd = this.dates[1];
+        const start = new Date(this.start);
+        const end = new Date(this.end);
+        if(!(moment(currentStart).isSame(start) && moment(currentEnd).isSame(end))) {
+          const dates = [start, end];
+          this.$store.commit(mutations.SET_DATES, {dates});  
+        }
       }
+    },
+
+    getQueryWithDates() {
+      return _.assign({}, this.$route.query, {
+        start: this.dates[0].toISOString(),
+        end: this.dates[1].toISOString()
+      })
     }
   }
 }
