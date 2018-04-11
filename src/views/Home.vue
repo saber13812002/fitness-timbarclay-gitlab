@@ -6,7 +6,11 @@
     <el-col :xs="24" :md="18">
       <date-picker />
 
-      <fitness-container />
+      <dates-container :start="start" :end="end">
+        <fitness-container>
+          <router-view></router-view>
+        </fitness-container>
+      </dates-container>
     </el-col>
   </el-row>
 </template>
@@ -14,10 +18,8 @@
 <script>
 import DatePicker from "../components/DatePicker.vue";
 import FitnessContainer from "../components/fitness/FitnessContainer.vue";
-import mutations from "../vuex/mutations";
-import {isValidDate} from "../application/timeHelpers";
-import {mapGetters} from "vuex";
-import _ from "lodash";
+import SessionsList from "../components/sessions/SessionsList.vue";
+import DatesContainer from "../components/dates/DatesContainer.vue";
 
 export default {
   name: 'home',
@@ -25,40 +27,11 @@ export default {
     start: {type: String, required: false},
     end: {type: String, required: false}
   },
-  computed: {
-    ...mapGetters([
-      "dates"
-    ])
-  },
-  watch: {
-    dates(dates) {
-      const query = _.assign({}, this.$route.query, {
-        start: dates[0].toISOString(),
-        end: dates[1].toISOString()
-      });
-      this.$router.push({query});
-    },
-    start() {
-      this.commitDates();
-    },
-    end() {
-      this.commitDates();
-    }
-  },
-  mounted() {
-    this.commitDates();
-  },
   components: {
     DatePicker,
-    FitnessContainer
-  },
-  methods: {
-    commitDates() {
-      if(isValidDate(this.start) && isValidDate(this.end)) {
-        const dates = [new Date(this.start), new Date(this.end)];
-        this.$store.commit(mutations.SET_DATES, {dates});
-      }
-    }
+    FitnessContainer,
+    SessionsList,
+    DatesContainer
   }
 }
 </script>

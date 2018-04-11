@@ -3,6 +3,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import About from "./views/About.vue";
+import Sessions from "./views/Sessions.vue";
 import NotFound from "./views/NotFound.vue";
 import store from "./store";
 
@@ -31,7 +32,24 @@ export default new Router({
           start: route.query.start,
           end: route.query.end
         }
-      }
+      },
+      children: [
+        {
+          path: "",
+          redirect: "/sessions"
+        },
+        {
+          path: "sessions",
+          name: "sessions",
+          component: Sessions,
+          children: [
+            {
+              path: "session",
+              component: About // TODO
+            }
+          ]
+        }
+      ]
     },
     {
       path: "/login",

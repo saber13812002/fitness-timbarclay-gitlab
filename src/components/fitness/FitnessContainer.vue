@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div v-if="loadingSessions">Loading</div>
-    <div v-else v-for="session in sessions" :key="session.id">{{session.name}}</div>
+    <slot></slot>
   </div>
 </template>
 
 <script>
+import SessionsList from "../sessions/SessionsList.vue";
 import {mapState, mapGetters} from "vuex";
 import actions from "../../vuex/actions";
 
@@ -19,23 +19,20 @@ export default {
       "dates"
     ])
   },
-  /* mounted() {
-    this.$store.dispatch(actions.FETCH_SESSIONS);
-  }, */
   watch: {
     dates: {
       handler: "fetchData",
       immediate: true
     }
   },
+  components: {
+    SessionsList
+  },
   methods: {
     fetchData() {
       this.$store.dispatch(actions.FETCH_SESSIONS);
+      this.$store.dispatch(actions.FETCH_SETS);
     }
   }
 }
 </script>
-
-<style>
-
-</style>
