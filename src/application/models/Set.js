@@ -15,4 +15,12 @@ export class Set {
     this.duration = setJson.value[2].intVal;
     this.resistance = setJson.value[4].fpVal;
   }
+
+  static volumeLoad(set) {
+    return set.reps * set.resistance;
+  }
+
+  static exerciseDensityLoad(set) {
+    return Set.volumeLoad(set) / (set.duration / 1000);
+  }
 }

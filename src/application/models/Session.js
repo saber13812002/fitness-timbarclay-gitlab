@@ -1,4 +1,5 @@
 import moment from "moment";
+import _ from "lodash";
 
 export class Session {
   constructor(json) {
@@ -15,5 +16,17 @@ export class WorkoutSession {
   constructor(session, sets) {
     this.session = session;
     this.sets = sets;
+  }
+
+  totalSessionIntensity(intensityFunc) {
+    return this.sets.reduce((acc, current) => intensityFunc(current) + acc, 0);
+  }
+
+  meanSessionIntensity(intensityFunc) {
+    return this.totalSessionIntensity(intensityFunc) / this.sets.length;
+  }
+
+  maxSessionIntensity(intensityFunc) {
+    return _.maxBy(this.sets, s => intensityFunc(s));
   }
 }
