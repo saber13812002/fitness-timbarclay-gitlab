@@ -81,7 +81,7 @@ export default {
   color: $secondary-text;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 990px) {
   .refresh-button {
     position: fixed;
     top: 90vh;

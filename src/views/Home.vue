@@ -50,14 +50,26 @@ export default {
   margin: 0 auto;
 }
 .sidebar {
-  padding: 1em;
+  padding: $normal-space;
 }
 .main-content {
-  padding: 1em 1em 2em 1em;
+  padding: $normal-space $normal-space ($normal-space * 2) $normal-space;
   position: relative;
 }
 .date-picker {
-  margin-bottom: 1em;
+  margin-bottom: $normal-space;
   text-align: center;
+}
+@media only screen and (max-width: 990px) {
+  .home {
+    font-size: 0.7em;
+    padding-top: $nav-height;
+  }
+  .sidebar {
+    padding: 0;
+  }
+  .main-content {
+    padding: $small-space $small-space $normal-space $small-space;
+  }
 }
 </style>

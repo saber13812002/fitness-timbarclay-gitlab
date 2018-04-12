@@ -47,7 +47,7 @@ html, body {
 .container {
   min-height: 100vh;
 }
-.el-main {
+main.el-main {
   padding: 0;
   margin-top: -$nav-height;
   min-height: 100vh;
