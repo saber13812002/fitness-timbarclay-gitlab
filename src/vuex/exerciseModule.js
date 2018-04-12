@@ -2,7 +2,9 @@ import mutations from "./mutations";
 import actions from "./actions";
 import GoogleApi from "../application/googleApi";
 import {WorkoutSession} from "../application/models/Session";
+import {Exercise} from "../application/models/Exercise";
 import moment from "moment";
+import _ from "lodash";
 
 const googleApi = new GoogleApi();
 
@@ -108,6 +110,11 @@ export default {
           set.end.isSameOrBefore(session.end));
         return new WorkoutSession(session, sets);
       });
+    },
+
+    exercises(state, getters) {
+      const allExerciseNames = _.uniq(state.sets.map(set => set.exerciseName));
+      return allExerciseNames.map(exercise => new Exercise(exercise, getters.workoutSessions))
     }
   }
 }

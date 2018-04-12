@@ -5,6 +5,8 @@ import Login from "./views/Login.vue";
 import About from "./views/About.vue";
 import Sessions from "./views/Sessions.vue";
 import Session from "./views/Session.vue";
+import Exercises from "./views/Exercises.vue";
+import Exercise from "./views/Exercise.vue";
 import NotFound from "./views/NotFound.vue";
 import store from "./store";
 
@@ -47,6 +49,18 @@ const router = new Router({
               path: "session/:id",
               name: "session",
               component: Session
+            }
+          ]
+        },
+        {
+          path: "exercises",
+          name: "exercises",
+          component: Exercises,
+          children: [
+            {
+              path: "exercise/:name",
+              name: "exercise",
+              component: Exercise
             }
           ]
         }

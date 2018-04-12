@@ -2,7 +2,7 @@ import {nanosToMoment} from "../timeHelpers";
 import _ from "lodash";
 
 function normaliseName(name) {
-  return _.capitalize(name.split(".").reverse().join(" "));
+  return _.capitalize(name.split(".").reverse().join(" ").replace("_", " "));
 }
 
 export class Set {

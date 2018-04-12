@@ -1,6 +1,12 @@
 <template>
   <div>
-    <sets-list :session="session" :loading="loadingSessions || loadingSets" />
+    <div v-if="loadingSessions || loadingSets">Loading</div>
+    <div v-else-if="!session">There doesn't seem to be anything here</div>
+    <div v-else>
+      <h2>{{session.session.name}}</h2>
+      <span>{{session.session.start.format("dddd Do MMM YYYY, h:mm a")}}</span>
+      <sets-list :sets="session.sets" />
+    </div>
   </div>
 </template>
 
