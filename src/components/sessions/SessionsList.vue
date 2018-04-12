@@ -1,5 +1,5 @@
 <template>
-  <div class="session-list-container">
+  <div>
     <h2>Sessions from {{formatDate(start)}} to {{formatDate(end)}}</h2>
     <card-link v-for="session in sessions" :to="sessionLink(session)" :key="session.id">
       <span slot="ball">{{session.start.format("Do MMM")}}</span>
@@ -41,11 +41,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import "../../sass/variables";
-
-.session-list-container {
-  width: 50em;
-}
-</style>
