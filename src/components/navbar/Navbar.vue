@@ -1,7 +1,7 @@
 <template>
   <nav :class="{light: light}">
     <div class="nav-group">
-      <router-link class="title-link" to="/"><h1>Fitness</h1></router-link>
+      <router-link class="title-link" to="/sessions"><h1>Fitness</h1></router-link>
     </div>
 
     <div class="nav-group">

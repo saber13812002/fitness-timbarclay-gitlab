@@ -2,7 +2,7 @@
   <div>
     <exercises-list v-if="!isChildRoute"/>
     <div v-else>
-      <router-link to="/exercises">Back</router-link>
+      <router-link to="/exercises">Back to exercises</router-link>
       <router-view></router-view>
     </div>
   </div>

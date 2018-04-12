@@ -21,6 +21,8 @@ export default {
     setsStart: null,
     setsEnd: null,
 
+    lastRequest: null,
+
     loadingDataSources: false,
     loadingSessions: false,
     loadingSets: false,
@@ -51,6 +53,7 @@ export default {
     [mutations.EXERCISE_SESSIONS_FETCH_SUCCESS](state, {sessions}) {
       state.loadingSessions = false;
       state.sessions = sessions;
+      state.lastRequest = new Date();
     },
     [mutations.EXERCISE_SESSIONS_FETCH_FAILURE](state, {err}) {
       state.loadingSessions = false;
@@ -65,6 +68,7 @@ export default {
     [mutations.EXERCISE_SETS_FETCH_SUCCESS](state, {sets}) {
       state.loadingSets = false;
       state.sets = sets;
+      state.lastRequest = new Date();
     },
     [mutations.EXERCISE_SETS_FETCH_FAILURE](state, {err}) {
       state.loadingSets = false;
@@ -82,23 +86,18 @@ export default {
 
     [actions.FETCH_SESSIONS](context) {
       const {start, end} = context.rootState.dates;
-      // If the current date range is the same as the last time we fetched, we won't bother fetching
-      if(!(moment(start).isSame(context.state.sessionsStart) && moment(end).isSame(context.state.sessionsEnd))) {
-        context.commit(mutations.EXERCISE_SESSIONS_FETCH_BEGIN, {start, end});
-        googleApi.getSessions(start, end)
-          .then(sessions => context.commit(mutations.EXERCISE_SESSIONS_FETCH_SUCCESS, {sessions}))
-          .catch(err => context.commit(mutations.EXERCISE_SESSIONS_FETCH_FAILURE, {err}));
-      }
+      context.commit(mutations.EXERCISE_SESSIONS_FETCH_BEGIN, {start, end});
+      googleApi.getSessions(start, end)
+        .then(sessions => context.commit(mutations.EXERCISE_SESSIONS_FETCH_SUCCESS, {sessions}))
+        .catch(err => context.commit(mutations.EXERCISE_SESSIONS_FETCH_FAILURE, {err}));
     },
 
     [actions.FETCH_SETS](context) {
       const {start, end} = context.rootState.dates;
-      if(!(moment(start).isSame(context.state.setsStart) && moment(end).isSame(context.state.setsEnd))) {
       context.commit(mutations.EXERCISE_SETS_FETCH_BEGIN, {start, end});
       googleApi.getDataSets(start, end)
         .then(sets => context.commit(mutations.EXERCISE_SETS_FETCH_SUCCESS, {sets}))
         .catch(err => context.commit(mutations.EXERCISE_SETS_FETCH_FAILURE, {err}));
-      }
     }
   },
 

@@ -9,6 +9,7 @@
     start-placeholder="Start date"
     end-placeholder="End date"
     format="dd/MM/yyyy"
+    :clearable="false"
     :picker-options="pickerOptions2"
     :default-time="['00:00:00', '23:59:59']">
   </el-date-picker>

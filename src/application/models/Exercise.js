@@ -18,6 +18,7 @@ export class Exercise {
    * @returns {Number}
    */
   maxResistance() {
+    debugger;
     return this._getMaxResistance(_.flatMap(this.sessions, session => session.sets));
   }
 

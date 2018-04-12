@@ -2,7 +2,7 @@
   <div>
     <sessions-list v-if="!isChildRoute"/>
     <div v-else>
-      <router-link to="/sessions">Back</router-link>
+      <router-link to="/sessions">Back to sessions</router-link>
       <router-view></router-view>
     </div>
   </div>

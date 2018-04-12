@@ -1,7 +1,7 @@
 <template>
   <el-row class="home">
     <el-col :xs="24" :md="6" class="sidebar">
-      Menu or something here probably
+      <side-menu/>
     </el-col>
     <el-col :xs="24" :md="18" class="main-content">
       <div class="date-picker">
@@ -22,6 +22,7 @@ import DatePicker from "../components/DatePicker.vue";
 import FitnessContainer from "../components/fitness/FitnessContainer.vue";
 import SessionsList from "../components/sessions/SessionsList.vue";
 import DatesContainer from "../components/dates/DatesContainer.vue";
+import SideMenu from "../components/navbar/SideMenu.vue";
 
 export default {
   name: 'home',
@@ -33,8 +34,10 @@ export default {
     DatePicker,
     FitnessContainer,
     SessionsList,
-    DatesContainer
-  }
+    DatesContainer,
+    SideMenu
+  },
+
 }
 </script>
 
@@ -51,6 +54,7 @@ export default {
 }
 .main-content {
   padding: 1em 1em 2em 1em;
+  position: relative;
 }
 .date-picker {
   margin-bottom: 1em;
