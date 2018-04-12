@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div v-if="loadingSessions || loadingSets"></div>
-    <div v-else v-for="set in session.sets" :key="set.valueOf()">
-      {{set.exerciseName}} - {{set.reps}} reps - {{set.resistance}}kg
-    </div>
+    <sets-list :session="session" :loading="loadingSessions || loadingSets" />
   </div>
 </template>
 
 <script>
+import SetsList from "../components/sessions/SetsList.vue";
 import {mapGetters, mapState} from "vuex";
 import _ from "lodash";
 
@@ -28,6 +26,9 @@ export default {
     session() {
       return _.find(this.workoutSessions, s => s.session.id === this.sessionId);
     }
+  },
+  components: {
+    SetsList
   }
 }
 </script>

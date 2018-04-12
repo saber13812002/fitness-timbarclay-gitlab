@@ -1,10 +1,12 @@
 <template>
   <el-row class="home">
-    <el-col :xs="24" :md="6">
+    <el-col :xs="24" :md="6" class="sidebar">
       Menu or something here probably
     </el-col>
-    <el-col :xs="24" :md="18">
-      <date-picker />
+    <el-col :xs="24" :md="18" class="main-content">
+      <div class="date-picker">
+        <date-picker />
+      </div>
 
       <dates-container :start="start" :end="end">
         <fitness-container>
@@ -41,5 +43,17 @@ export default {
 
 .home {
   padding-top: $nav-height + 20px;
+  max-width: 1470px;
+  margin: 0 auto;
+}
+.sidebar {
+  padding: 1em;
+}
+.main-content {
+  padding: 1em 1em 2em 1em;
+}
+.date-picker {
+  margin-bottom: 1em;
+  text-align: center;
 }
 </style>
