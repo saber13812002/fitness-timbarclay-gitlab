@@ -1,57 +1,37 @@
 <template>
-  <router-link :to="to" class="card-container">
-    <div class="ball" v-if="$slots.ball">
-      <slot name="ball"></slot>
-    </div>
-    <div class="card">
+  <router-link class="card-link" :to="to">
+    <card>
+      <slot slot="ball" name="ball"></slot>
       <slot></slot>
-    </div>
+    </card>
   </router-link>
 </template>
 
 <script>
+import Card from "./Card.vue";
+
 export default {
   props: {
     to: {type: [String, Object], required: false}
+  },
+  components: {
+    Card
   }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../sass/variables";
 
 $ball-size: 6em;
 $line-width: 2px;
 $space-between: 1em;
 
-.card-container {
-  display: flex;
-  color: $primary-text;
-  margin: $space-between 0;
-  position: relative;
+.card-link {
   text-decoration: none;
-  .ball {
-    display: inline-block;
-    min-height: $ball-size;
-    min-width: $ball-size;
-    border-radius: 50%;
-    background-color: $warning;
-    margin-right: $space-between;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .card {
-    display: inline-block;
-    height: calc(#{$ball-size} - $space-between);
-    width: 100%;
-    background-color: $base-border;
-    padding: $space-between;
-    position: relative;
-  }
 }
 
-.card-container:hover {
+.card-link:hover {
   .ball {
     background-color: darken($warning, 10%);
     box-shadow: $placeholder-text ($space-between / 2) ($space-between / 2) 0 0;
@@ -61,7 +41,8 @@ $space-between: 1em;
   }
 }
 
-.card-container:not(:last-child) .ball:after {
+// TODO this is duplicated here from Card.vue because otherwise we can't tell if we're last child
+.card-link:not(:last-child) .card-container .ball:after {
   content: '';
   width: $line-width;
   height: $space-between;

@@ -1,4 +1,5 @@
 import {WorkoutSession} from "./Session";
+import {Set} from "./Set";
 import _ from "lodash";
 
 export class Exercise {
@@ -15,16 +16,15 @@ export class Exercise {
 
   /**
    * Get the maximum resistance ever achieved for this exercise in the timeframe
-   * @returns {Number}
+   * @returns {Set}
    */
   maxResistance() {
-    debugger;
     return this._getMaxResistance(_.flatMap(this.sessions, session => session.sets));
   }
 
   /**
    * Get the maximum resistance achieved during the most recent session of the time frame
-   * @returns {Number}
+   * @returns {Set}
    */
   maxResistanceLastSession() {
     const lastSession = _.maxBy(this.sessions, s => s.session.start.valueOf());
@@ -33,6 +33,6 @@ export class Exercise {
 
   _getMaxResistance(sets) {
     const allLoads = sets.map(set => set.resistance);
-    return _.max(allLoads);
+    return _.maxBy(sets, set => set.resistance);
   }
 }

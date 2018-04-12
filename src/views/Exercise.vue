@@ -4,15 +4,15 @@
     <div v-else-if="!exercise">There doesn't seem to be anything here</div>
     <div v-else>
       <h2>{{exercise.name}}</h2>
-      <div>
-        Max resistance: {{exercise.maxResistance()}}
-        Max last session: {{exercise.maxResistanceLastSession()}}
-      </div>
+      <exercise-summary :exercise="exercise"/>
+      <exercise-workout-list :exercise="exercise" />
     </div>
   </div>
 </template>
 
 <script>
+import ExerciseSummary from "../components/exercises/ExerciseSummary.vue";
+import ExerciseWorkoutList from "../components/exercises/ExerciseWorkoutList.vue";
 import {mapGetters, mapState} from "vuex";
 import _ from "lodash";
 
@@ -32,7 +32,17 @@ export default {
     ]),
     exercise() {
       return _.find(this.exercises, e => e.name.toLowerCase() === this.exerciseName.toLowerCase());
+    },
+    maxResistance() {
+      return this.exercise.maxResistance();
+    },
+    maxResistanceLastSession() {
+      return this.exercise.maxResistanceLastSession();
     }
+  },
+  components: {
+    ExerciseSummary,
+    ExerciseWorkoutList
   }
 }
 </script>
