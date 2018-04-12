@@ -5,14 +5,17 @@ import store from './store'
 import './registerServiceWorker'
 
 import ElementUi from "element-ui";
+import locale from "element-ui/lib/locale/lang/en";
 import "element-ui/lib/theme-chalk/index.css";
 import "./sass/style.scss";
 
 import GoogleApi from "./application/googleApi";
+import mutations from "./vuex/mutations";
 
-GoogleApi.initialiseGoogleApi();
+GoogleApi.initialiseGoogleApi()
+  .then(() => store.commit(mutations.INIT_COMPLETE));
 
-Vue.use(ElementUi);
+Vue.use(ElementUi, {locale});
 
 Vue.config.productionTip = false
 

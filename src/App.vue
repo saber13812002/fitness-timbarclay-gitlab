@@ -1,21 +1,25 @@
 <template>
-  <el-container class="container">
-    <el-header>
-      <navbar :light="light" />
-    </el-header>
-    
-    <el-main>
-      <router-view/>
-    </el-main>
-
-    <el-footer>
+  <div>
+    <el-container v-if="initialised" class="container">
+      <el-header>
+        <navbar :light="light" />
+      </el-header>
       
-    </el-footer>
-  </el-container>
+      <el-main>
+        <router-view/>
+      </el-main>
+
+      <el-footer>
+        
+      </el-footer>
+    </el-container>
+    <div v-else></div>
+  </div>
 </template>
 
 <script>
 import Navbar from "./components/navbar/Navbar.vue";
+import {mapState} from "vuex";
 
 
 export default {
@@ -25,7 +29,10 @@ export default {
   computed: {
     light() {
       return this.$route.name === "login";
-    }
+    },
+    ...mapState({
+      initialised: state => state.initialised
+    })
   }
 }
 </script>

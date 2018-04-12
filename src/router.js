@@ -3,6 +3,8 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import About from "./views/About.vue";
+import Sessions from "./views/Sessions.vue";
+import Session from "./views/Session.vue";
 import NotFound from "./views/NotFound.vue";
 import store from "./store";
 
@@ -24,7 +26,31 @@ const router = new Router({
       path: "/",
       name: "home",
       component: Home,
-      beforeEnter: ensureLoggedIn
+      beforeEnter: ensureLoggedIn,
+      props(route) {
+        return {
+          start: route.query.start,
+          end: route.query.end
+        }
+      },
+      children: [
+        {
+          path: "",
+          redirect: "/sessions"
+        },
+        {
+          path: "sessions",
+          name: "sessions",
+          component: Sessions,
+          children: [
+            {
+              path: "session/:id",
+              name: "session",
+              component: Session
+            }
+          ]
+        }
+      ]
     },
     {
       path: "/login",
