@@ -2,7 +2,7 @@
   <div>
     <h2>Sessions from {{formatDate(start)}} to {{formatDate(end)}}</h2>
     <card-link v-for="session in reversedSessions" :to="sessionLink(session)" :key="session.id">
-      <span slot="ball">{{session.start.format("Do MMM")}}</span>
+      <span slot="head">{{session.start.format("Do MMM")}}</span>
       {{session.name}}
     </card-link>
   </div>

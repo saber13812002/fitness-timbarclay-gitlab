@@ -1,7 +1,7 @@
 <template>
   <router-link class="card-link" :to="to">
     <card>
-      <slot slot="ball" name="ball"></slot>
+      <slot slot="head" name="head"></slot>
       <slot></slot>
     </card>
   </router-link>
@@ -23,7 +23,9 @@ export default {
 <style lang="scss">
 @import "../sass/variables";
 
-$ball-size: 6em;
+$min-card-height: 6em;
+$head-width: 6em;
+$ball-size: 10px;
 $line-width: 2px;
 $space-between: 1em;
 
@@ -31,13 +33,12 @@ $space-between: 1em;
   text-decoration: none;
 }
 
-.card-link:hover {
+.card-link:hover .card-container {
   .ball {
-    background-color: darken($warning, 10%);
-    box-shadow: $placeholder-text ($space-between / 2) ($space-between / 2) 0 0;
+    background-color: $primary-brand;
   }
   .card {
-    box-shadow: $placeholder-text ($space-between / 2) ($space-between / 2) 0 0;
+    box-shadow: rgba($primary-text, .8) 0 0 20px 0;
   }
 }
 
@@ -45,12 +46,12 @@ $space-between: 1em;
 .card-link:not(:last-child) .card-container .ball:after {
   content: '';
   width: $line-width;
-  height: $space-between;
-  background-color: black;
+  height: calc(#{$min-card-height} + #{$ball-size});
+  background-color: $secondary-brand;
   display: block;
   position: absolute;
-  bottom: -$space-between;
-  left: calc(#{$ball-size / 2} - #{$line-width / 2});
+  top: calc(50% + 5px);
+  left: calc(#{($ball-size / 2)} - #{($line-width / 2)});
 }
 </style>
 

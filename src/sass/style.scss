@@ -1,6 +1,36 @@
 @import "./variables";
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: $regular-text;
+}
+
+h1, h2, h3, h4, h5, h6 {
   color: $primary-text;
+}
+
+h1, h2 {
+  margin-top: 1em;
+  margin-bottom: 1.5em;
+}
+
+.brand {
+  color: $primary-brand;
+}
+
+.secondary-brand {
+  color: $secondary-brand;
+}
+
+.secondary {
+  color: $secondary-text;
+}
+
+.low-emphasis {
+  color: $placeholder-text;
 }

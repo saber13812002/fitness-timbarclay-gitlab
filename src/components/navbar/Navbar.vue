@@ -1,7 +1,7 @@
 <template>
   <nav :class="{light: light}">
     <div class="nav-group">
-      <router-link class="title-link" to="/sessions"><h1>Fitness</h1></router-link>
+      <router-link class="title-link" to="/sessions"><h1 class="brand">Fitness</h1></router-link>
     </div>
 
     <div class="nav-group">
@@ -34,6 +34,7 @@ nav {
 
   h1 {
     display: inline;
+    font-size: 1.6em;
   }
 
   a {

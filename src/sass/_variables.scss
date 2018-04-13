@@ -1,5 +1,12 @@
 $nav-height: 60px;
 
+$white: #ffffff;
+$primary-brand: #FF3B3F;
+$secondary-brand: #CAEBF2;
+$neutral: #EFEFEF;
+
+$muted-primary: rgba($primary-brand, 0.6);
+
 $main: #409EFF;
 $success: #67C23A;
 $warning: #E6A23C;
@@ -18,3 +25,11 @@ $extra-light-border: #F2F6FC;
 
 $normal-space: 1em;
 $small-space: 8px;
+$box-corner-radius: 8px;
+
+$--color-primary: $primary-brand;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";

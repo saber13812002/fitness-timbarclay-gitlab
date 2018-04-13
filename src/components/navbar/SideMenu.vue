@@ -24,6 +24,35 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "../../sass/variables";
 
+ul.el-menu {
+  background-color: inherit;
+  border-right-color: $base-border;
+  li.el-menu-item {
+    border-left: solid 1px transparent;
+    font-size: 1.3em;
+    &.is-active {
+      border-color: $primary-brand;
+    }
+  }
+}
+
+@media only screen and (min-width: 990px) {
+ul.el-menu li.el-menu-item {
+    border-left: solid 1px transparent;
+    &.is-active {
+      border-color: $primary-brand;
+    }
+    &:hover {
+      border-color: rgba($primary-brand, 0.6);
+      background-color: transparent;
+      color: rgba($primary-brand, 0.6);
+    }
+    &:focus {
+      background-color: transparent;
+    }
+  }
+}
 </style>

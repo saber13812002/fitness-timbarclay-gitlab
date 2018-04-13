@@ -40,14 +40,15 @@ export default {
 <style lang="scss">
 @import "./sass/_variables.scss";
 
-html, body {
-  margin: 0;
-  padding: 0;
+header.el-header {
+  background-color: $white;
+  box-shadow: rgba($primary-text, .6) 0 0 20px 0;
 }
 .container {
   min-height: 100vh;
 }
 main.el-main {
+  background-color: $neutral;
   padding: 0;
   margin-top: -$nav-height;
   min-height: 100vh;
