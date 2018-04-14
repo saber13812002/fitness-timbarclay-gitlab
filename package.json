@@ -10,6 +10,8 @@
     "test": "cross-env NODE_ENV=test vue-cli-service test"
   },
   "dependencies": {
+    "d3": "^5.0.0",
+    "d3fc": "^13.1.1",
     "element-ui": "^2.3.3",
     "lodash": "^4.17.5",
     "moment": "^2.22.0",

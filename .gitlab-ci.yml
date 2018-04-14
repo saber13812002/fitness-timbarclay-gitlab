@@ -12,7 +12,7 @@ tests:
 pages:
   script:
   - npm install
-  - npm run build
+  - npm run prod
   - rm -r public
   - mv dist public
   # Hack to allow all routes to be picked up by front end router
