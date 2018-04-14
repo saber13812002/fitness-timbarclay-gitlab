@@ -42,7 +42,7 @@ export default {
 
 header.el-header {
   background-color: $white;
-  box-shadow: rgba($primary-text, .6) 0 0 20px 0;
+  @include drop-shadow;
 }
 .container {
   min-height: 100vh;

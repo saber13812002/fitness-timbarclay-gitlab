@@ -69,4 +69,11 @@ nav {
     }
   }
 }
+
+@media only screen and (max-width: 990px) {
+  nav a {
+    padding: 0 4px;
+    margin: 0;
+  }
+}
 </style>

@@ -35,10 +35,13 @@ $space-between: 1em;
 
 .card-link:hover .card-container {
   .ball {
-    background-color: $primary-brand;
+    background-color: $secondary-brand;
   }
   .card {
-    box-shadow: rgba($primary-text, .8) 0 0 20px 0;
+    box-shadow:
+      0 3px 3px 0 rgba(0,0,0,0.14),
+      0 4px 2px -1px rgba(0,0,0,0.12),
+      0 2px 6px 2px rgba(0,0,0,0.2);
   }
 }
 
@@ -47,7 +50,7 @@ $space-between: 1em;
   content: '';
   width: $line-width;
   height: calc(#{$min-card-height} + #{$ball-size});
-  background-color: $secondary-brand;
+  background-color: $base-border;
   display: block;
   position: absolute;
   top: calc(50% + 5px);

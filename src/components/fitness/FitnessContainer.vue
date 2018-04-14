@@ -82,15 +82,17 @@ export default {
 }
 
 @media only screen and (max-width: 990px) {
+  $button-size: 4em;
+
   .refresh-button {
     position: fixed;
-    top: 90vh;
-    right: 1em;
+    top: calc(100vh - 6em - #{$normal-space});
+    right: $normal-space;
     z-index: 10;
     .el-button {
       border-radius: 50%;
-      height: 4em;
-      width: 4em;
+      height: $button-size;
+      width: $button-size;
       text-align: center;
       padding: 0;
     }

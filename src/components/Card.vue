@@ -3,7 +3,7 @@
     <div class="head" v-if="$slots.head">
       <slot name="head"></slot>
     </div>
-    <div class="ball"></div>
+    <div class="ball hidden-sm-and-down"></div>
     <div class="card">
       <slot></slot>
     </div>
@@ -36,7 +36,7 @@ $min-card-total-height: $min-card-height + ($space-between * 2);
     height: $ball-size;
     width: $ball-size;
     border-radius: 50%;
-    background-color: $secondary-brand;
+    background-color: $base-border;
     margin-right: $space-between;
     position: absolute;
     top: calc(50% - #{$ball-size / 2});
@@ -50,7 +50,7 @@ $min-card-total-height: $min-card-height + ($space-between * 2);
     border-radius: $box-corner-radius;
     padding: $space-between;
     position: relative;
-    box-shadow: rgba($primary-text, .6) 0 0 20px 0;
+    @include drop-shadow;
   }
 }
 
@@ -73,11 +73,17 @@ $min-card-total-height: $min-card-height + ($space-between * 2);
   content: '';
   width: $line-width;
   height: calc(#{min-card-height} + #{$ball-size});
-  background-color: $secondary-brand;
+  background-color: $base-border;
   display: block;
   position: absolute;
   top: calc(50% + 5px);
   left: calc(#{($head-width / 2)} - #{($line-width / 2)});
+}
+
+@media only screen and (max-width: 990px) {
+  .card-container .card {
+    margin-left: 0;
+  }
 }
 </style>
 

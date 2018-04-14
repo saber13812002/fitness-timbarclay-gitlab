@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path');
 
 let clientId;
@@ -11,11 +12,16 @@ const isCiBuild = !!process.env.CI;
 // Indicates that we're running unit tests, in which case we don't want to do certain webpack things
 const isTest = process.env.NODE_ENV === "test";
 
+const isProd = process.env.NODE_ENV === "production";
+
 if(isCiBuild) {
   console.log("Building on CI server");
 }
 if(isTest) {
   console.log("Building for tests");
+}
+if(isProd) {
+  console.log("Building for production");
 }
 
 if(isCiBuild) {
@@ -46,6 +52,14 @@ if(!isTest) {
             }
           }
         }))
+
+      if(isProd) {
+        config.plugins.push(
+          new CompressionPlugin({
+
+          })
+        );
+      }
   
       if(isCiBuild) {
         config.output.publicPath = "/fitness/"

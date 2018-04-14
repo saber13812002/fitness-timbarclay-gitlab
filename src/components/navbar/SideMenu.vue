@@ -31,11 +31,7 @@ ul.el-menu {
   background-color: inherit;
   border-right-color: $base-border;
   li.el-menu-item {
-    border-left: solid 1px transparent;
     font-size: 1.3em;
-    &.is-active {
-      border-color: $primary-brand;
-    }
   }
 }
 

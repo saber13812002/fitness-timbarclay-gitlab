@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="Description" content="Get more value from your Google Fit strength training data">
     <link rel="shortcut icon" href="<%= webpackConfig.output.publicPath %>favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <title>fitness</title>
   </head>
   <body>
+    <script>
+      var url = window.location.href;
+      if(url.indexOf("localhost") >= 0) {
+        if(!url.startsWith("https")) {
+          const newUrl = url.replace("http:", "https:");
+        }
+      }
+    </script>
     <noscript>
       <strong>We're sorry but fitness doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
