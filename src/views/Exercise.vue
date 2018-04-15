@@ -5,7 +5,7 @@
     <div v-else>
       <h2>{{exercise.name}}</h2>
       <exercise-summary :exercise="exercise"/>
-      <exercise-chart/>
+      <exercise-chart :workout-sessions="exercise.sessions"/>
       <exercise-workout-list :exercise="exercise" />
     </div>
   </div>
