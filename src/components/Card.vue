@@ -72,12 +72,12 @@ $min-card-total-height: $min-card-height + ($space-between * 2);
 .card-container:not(:last-child) .ball:after {
   content: '';
   width: $line-width;
-  height: calc(#{min-card-height} + #{$ball-size});
+  height: calc(#{$min-card-total-height} + #{$ball-size});
   background-color: $base-border;
   display: block;
   position: absolute;
   top: calc(50% + 5px);
-  left: calc(#{($head-width / 2)} - #{($line-width / 2)});
+  left: calc(#{($ball-size / 2)} - #{($line-width / 2)});
 }
 
 @media only screen and (max-width: 990px) {
