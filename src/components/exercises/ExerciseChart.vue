@@ -6,6 +6,7 @@
 import * as d3 from "d3";
 import * as fc from "d3fc";
 import moment from "moment";
+import Vue from "vue";
 
 // This will hold a reference to the tooltip div. It doesn't need to be reactive, so we'll keep it outside the vue model
 let tooltipDiv;
@@ -48,7 +49,7 @@ export default {
                 .duration(200)
                 .style("opacity", 1);
               tooltipDiv
-                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${d.intensity}`)
+                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${d.intensity}kg`)
                 .style("left", `${d3.event.pageX - 80}px`)
                 .style("top", `${d3.event.pageY - 80}px`);
             })
@@ -94,11 +95,12 @@ export default {
         .xDomain(xExtent(mapped))
         .yDomain(yExtent(mapped))
 
-      d3.select('#chart-element')
-        .datum(mapped)
-        .transition()
-        .duration(500)
-        .call(chart);
+      Vue.nextTick(() => 
+        d3.select('#chart-element')
+          .datum(mapped)
+          .transition()
+          .duration(500)
+          .call(chart));
     }
   }
 }

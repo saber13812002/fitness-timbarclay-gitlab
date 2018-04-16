@@ -22,13 +22,9 @@ export default new Vuex.Store({
     exercise
   },
   state: {
-    thing: "hello",
     initialised: false
   },
   mutations: {
-    change(state) {
-      state.thing = state.thing.split("").reverse().join("");
-    },
     [mutations.INIT_COMPLETE](state) {
       state.initialised = true;
     }

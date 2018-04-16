@@ -1,7 +1,7 @@
 <template>
   <div>
     <exercise-summary :exercise="exercise"/>
-    <exercise-chart :workout-sessions="exercise.sessions" :get-intensity="intensityFunc" style="height: 500px"/>
+    <exercise-chart :workout-sessions="exercise.sessions" :get-intensity="intensityFunc" style="height: 300px"/>
     <exercise-workout-list :exercise="exercise" />
   </div>
 </template>
