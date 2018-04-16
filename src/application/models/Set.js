@@ -18,10 +18,19 @@ export class Set {
     this.resistance = setJson.value[4].fpVal;
   }
 
+  // These are a number of functions for quantifying the intensity of a set
+  /**
+   * Volume Load. A simple and quite widely used metric for measuring intensity of a set
+   * @param {Set} set 
+   */
   static volumeLoad(set) {
     return set.reps * set.resistance;
   }
 
+  /**
+   * Exercise Density Load (Volume Load). Volume load per second.
+   * @param {Set} set 
+   */
   static exerciseDensityLoad(set) {
     return Set.volumeLoad(set) / (set.duration / 1000);
   }
