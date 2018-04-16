@@ -5,23 +5,62 @@
 <script>
 import * as d3 from "d3";
 import * as fc from "d3fc";
+import moment from "moment";
+
+// This will hold a reference to the tooltip div. It doesn't need to be reactive, so we'll keep it outside the vue model
+let tooltipDiv;
 
 export default {
   props: {
     workoutSessions: {type: Array, default: () => {}},
     getIntensity: {type: Function, required: true}
   },
-  mounted() {
-    this.setupChart(this.workoutSessions);
-  },
   watch: {
-    workoutSessions(sessions) {
-      this.setupChart(sessions);
+    workoutSessions: {
+      handler: "setupChart",
+      immediate: true
+    },
+    getIntensity() {
+      this.setupChart(this.workoutSessions)
     }
+  },
+  mounted() {
+    tooltipDiv = d3.select("body").append("div")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+  },
+  destroyed() {
+    d3.select(".tooltip").remove();
   },
   methods: {
     setupChart(data) {
-      var point = fc.seriesSvgPoint()
+      // A series of points that won't show up on the chart but are there as a hover target for the tooltips
+      const hoverPoint = fc.seriesSvgPoint()
+        .size(80)
+        .crossValue(d => d.date)
+        .mainValue(d => d.intensity)
+        .decorate(selection => {
+          selection.enter()
+            .attr("class", "hover-point")
+            .on("mouseover", d => {
+              tooltipDiv
+                .transition()
+                .duration(200)
+                .style("opacity", 1);
+              tooltipDiv
+                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${d.intensity}`)
+                .style("left", `${d3.event.pageX - 80}px`)
+                .style("top", `${d3.event.pageY - 80}px`);
+            })
+            .on("mouseout", d => {
+              tooltipDiv
+                .transition()
+                .duration(200)
+                .style("opacity", 0);
+            });
+        });
+
+      const visiblePoint = fc.seriesSvgPoint()
         .size(20)
         .crossValue(d => d.date)
         .mainValue(d => d.intensity);
@@ -30,8 +69,8 @@ export default {
         .mainValue(d => d.intensity)
         .crossValue(d => d.date);
 
-      var pointLineSeries = fc.seriesSvgMulti()
-        .series([point, lineSeries]);
+      const pointLineSeries = fc.seriesSvgMulti()
+        .series([lineSeries, visiblePoint, hoverPoint]);
 
       const xExtent = fc.extentDate()
         .accessors([d => d.date]);
@@ -40,8 +79,6 @@ export default {
         .pad([0.1, 0.1])
         .accessors([d => d.intensity]);
 
-      const parseDate = d3.timeParse("%d-%b-%y");
-
       const mapped = data.map(row => {
         return {
           intensity: this.getIntensity(row),
@@ -49,10 +86,7 @@ export default {
         }
       });
 
-      const chart = fc.chartSvgCartesian(
-            d3.scaleTime(),
-            d3.scaleLinear()
-          )
+      const chart = fc.chartSvgCartesian(d3.scaleTime(), d3.scaleLinear())
         .yOrient('left')
         .yLabel("Intensity")
         .xLabel("Date")
@@ -62,6 +96,8 @@ export default {
 
       d3.select('#chart-element')
         .datum(mapped)
+        .transition()
+        .duration(500)
         .call(chart);
     }
   }
@@ -78,6 +114,22 @@ export default {
 .point {
   fill: $primary-brand;
   stroke: $primary-brand;
+}
+.hover-point {
+  fill: transparent;
+  stroke: transparent;
+}
+div.tooltip {	
+  position: absolute;
+  text-align: left;
+  padding: $small-space;
+  background: $primary-text;
+  color: $white;
+  font-size: 0.8em;
+  border: 0px;
+  border-radius: $box-corner-radius;
+  pointer-events: none;
+  @include drop-shadow;
 }
 </style>
 
