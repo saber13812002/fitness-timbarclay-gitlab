@@ -6,8 +6,8 @@ import './registerServiceWorker'
 
 import ElementUi from "element-ui";
 import locale from "element-ui/lib/locale/lang/en";
-//import "element-ui/lib/theme-chalk/index.css";
-import 'element-ui/lib/theme-chalk/display.css';
+import "element-ui/lib/theme-chalk/display.css";
+import "./sass/fonts.scss";
 import "./sass/style.scss";
 
 import GoogleApi from "./application/googleApi";

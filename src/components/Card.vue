@@ -44,7 +44,7 @@ $min-card-total-height: $min-card-height + ($space-between * 2);
   .card {
     margin-left: $space-between * 2;
     display: inline-block;
-    height: $min-card-height;
+    min-height: $min-card-height;
     width: 100%;
     background-color: $white;
     border-radius: $box-corner-radius;
