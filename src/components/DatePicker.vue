@@ -1,65 +1,55 @@
 <template>
-  <el-date-picker
-    :value="dates"
-    v-on:input="onInput"
-    type="daterange"
-    align="right"
-    unlink-panels
-    range-separator="To"
-    start-placeholder="Start date"
-    end-placeholder="End date"
-    format="dd/MM/yyyy"
-    :clearable="false"
-    :picker-options="pickerOptions2"
-    :default-time="['00:00:00', '23:59:59']">
-  </el-date-picker>
+  <div class="date-container">
+    <div class="el-input"><date-time :value="start.toISOString()" :auto="true" input-class="el-input__inner" v-on:input="updateStart"/></div>
+    <div class="el-input"><date-time :value="end.toISOString()" :auto="true" input-class="el-input__inner" v-on:input="updateEnd"/></div>
+  </div>
 </template>
 
 <script>
-import {mapGetters, mapMutations} from "vuex";
+import {mapState, mapMutations} from "vuex";
 import mutations from "../vuex/mutations";
+import {Datetime} from "vue-datetime";
 
 export default {
-  data() {
-    return {
-      pickerOptions2: {
-        shortcuts: [{
-          text: 'Last week',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: 'Last month',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-            picker.$emit('pick', [start, end]);
-          }
-        }, {
-          text: 'Last 3 months',
-          onClick(picker) {
-            const end = new Date();
-            const start = new Date();
-            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-            picker.$emit('pick', [start, end]);
-          }
-        }]
-      },
-    };
+  components: {
+    "date-time": Datetime
   },
   computed: {
-    ...mapGetters([
-      "dates"
-    ])
+    ...mapState({
+      start: state => state.dates.start,
+      end: state => state.dates.end
+    })
   },
   methods: {
     onInput(dates) {
       this.$store.commit(mutations.SET_DATES, {dates});
+    },
+    updateStart(date) {
+      this.onInput([new Date(date), this.end]);
+    },
+    updateEnd(date) {
+      this.onInput([this.start, new Date(date)]);
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+@import "../sass/variables";
+
+.date-container {
+  .el-input {
+    width: 10em;
+    margin: 0 ($normal-space / 2);
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .date-container {
+    .el-input {
+      width: 50%;
+      margin: 0;
+    }
+  }
+}
+</style>

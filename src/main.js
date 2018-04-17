@@ -7,6 +7,7 @@ import './registerServiceWorker'
 import ElementUi from "element-ui";
 import locale from "element-ui/lib/locale/lang/en";
 import "element-ui/lib/theme-chalk/display.css";
+import 'vue-datetime/dist/vue-datetime.css';
 import "./sass/fonts.scss";
 import "./sass/style.scss";
 

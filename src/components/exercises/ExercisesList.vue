@@ -2,7 +2,11 @@
   <div>
     <h2>Exercises done between {{formatDate(start)}} and {{formatDate(end)}}</h2>
     <card-link v-for="exercise in orderedExercises" :to="exerciseLink(exercise)" :key="exercise.name">
-      {{exercise.name}}
+      <div>{{exercise.name}}</div>
+      <div class="exercise-details">
+        <div>{{numberOfSessions(exercise)}}</div>
+        <div>Max resistance: {{exercise.maxResistance().resistance}}kg</div>
+      </div>
     </card-link>
   </div>
 </template>
@@ -40,7 +44,17 @@ export default {
     },
     formatDate(date) {
       return moment(date).format("Do MMM YY");
+    },
+    numberOfSessions(exercise) {
+      return `${exercise.sessions.length} sessions`;
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.exercise-details {
+  font-size: 0.8em;
+  font-style: italic;
+}
+</style>

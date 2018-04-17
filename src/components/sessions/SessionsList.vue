@@ -1,28 +1,33 @@
 <template>
   <div>
     <h2>Sessions from {{formatDate(start)}} to {{formatDate(end)}}</h2>
-    <card-link v-for="session in reversedSessions" :to="sessionLink(session)" :key="session.id">
-      <span slot="head">{{session.start.format("Do MMM")}}</span>
-      {{session.name}}
+    <card-link v-for="session in reversedSessions" :to="sessionLink(session.session)" :key="session.session.id">
+      <span slot="head">{{session.session.start.format("Do MMM")}}</span>
+      <div>{{session.session.name}}</div>
+      <div>{{duration(session)}}</div>
+      <span class="exercise-list">{{listExercises(session)}}</span>
     </card-link>
   </div>
 </template>
 
 <script>
 import CardLink from "../CardLink.vue";
-import {mapState} from "vuex";
+import {mapState, mapGetters} from "vuex";
 import moment from "moment";
+import _ from "lodash";
 
 export default {
   computed: {
+    ...mapGetters([
+      "workoutSessions"
+    ]),
     ...mapState({
       sessions: state => state.exercise.sessions,
-      loadingSessions: state => state.exercise.loadingSessions,
       start: state => state.dates.start,
       end: state => state.dates.end
     }),
     reversedSessions() {
-      return this.sessions.reverse();
+      return _.sortBy(this.workoutSessions, s => -s.session.start.valueOf());
     }
   },
   components: {
@@ -37,7 +42,22 @@ export default {
     },
     formatDate(date) {
       return moment(date).format("Do MMM YY");
+    },
+    listExercises(session) {
+      return _.uniq(session.sets.map(s => s.exerciseName)).join(", ");
+    },
+    duration(session) {
+      const {start, end} = session.session;
+      const durationMillis = end - start;
+      return `${Math.round(durationMillis / 1000 / 60)} minutes`;
     }
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.exercise-list {
+  font-size: 0.8em;
+  font-style: italic;
+}
+</style>

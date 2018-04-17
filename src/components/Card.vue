@@ -51,6 +51,11 @@ $min-card-total-height: $min-card-height + ($space-between * 2);
     padding: $space-between;
     position: relative;
     @include drop-shadow;
+
+    .secondary {
+      font-size: 0.8em;
+      font-style: italic;
+    }
   }
 }
 
@@ -69,6 +74,7 @@ $min-card-total-height: $min-card-height + ($space-between * 2);
   }
 }
 
+// TODO this doesn't work if the size of the card increases
 .card-container:not(:last-child) .ball:after {
   content: '';
   width: $line-width;

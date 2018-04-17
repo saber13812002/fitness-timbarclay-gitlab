@@ -1,7 +1,7 @@
 <template>
   <el-card>
-    <div>Max resistance: {{maxResistance.resistance}} ({{maxResistance.reps}} reps)</div>
-    <div>Max last session: {{maxResistanceLastSession.resistance}} ({{maxResistanceLastSession.reps}} reps)</div>
+    <div>Max resistance: {{maxResistance.resistance}}kg ({{maxResistance.reps}} reps)</div>
+    <div>Max last session: {{maxResistanceLastSession.resistance}}kg ({{maxResistanceLastSession.reps}} reps)</div>
   </el-card>
 </template>
 

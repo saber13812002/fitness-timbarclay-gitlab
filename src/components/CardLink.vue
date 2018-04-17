@@ -1,10 +1,8 @@
 <template>
-  <router-link class="card-link" :to="to">
-    <card>
-      <slot slot="head" name="head"></slot>
-      <slot></slot>
-    </card>
-  </router-link>
+  <card class="card-link" v-on:click.native="navigate">
+    <slot slot="head" name="head"></slot>
+    <slot></slot>
+  </card>
 </template>
 
 <script>
@@ -16,6 +14,11 @@ export default {
   },
   components: {
     Card
+  },
+  methods: {
+    navigate() {
+      this.$router.push(this.to);
+    }
   }
 }
 </script>
@@ -31,9 +34,10 @@ $space-between: 1em;
 
 .card-link {
   text-decoration: none;
+  cursor: pointer;
 }
 
-.card-link:hover .card-container {
+.card-link:hover.card-container {
   .ball {
     background-color: $secondary-brand;
   }
@@ -43,18 +47,6 @@ $space-between: 1em;
       0 4px 2px -1px rgba(0,0,0,0.12),
       0 2px 6px 2px rgba(0,0,0,0.2);
   }
-}
-
-// TODO this is duplicated here from Card.vue because otherwise we can't tell if we're last child
-.card-link:not(:last-child) .card-container .ball:after {
-  content: '';
-  width: $line-width;
-  height: calc(#{$min-card-height} + #{$ball-size});
-  background-color: $base-border;
-  display: block;
-  position: absolute;
-  top: calc(50% + 5px);
-  left: calc(#{($ball-size / 2)} - #{($line-width / 2)});
 }
 </style>
 

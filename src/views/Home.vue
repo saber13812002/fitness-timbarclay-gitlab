@@ -62,7 +62,7 @@ export default {
 }
 @media only screen and (max-width: 990px) {
   .home {
-    font-size: 0.7em;
+    font-size: 0.9em;
     padding-top: $nav-height;
   }
   .sidebar {

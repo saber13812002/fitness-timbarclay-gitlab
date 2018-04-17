@@ -1,7 +1,7 @@
 import mutations from "./mutations";
 import moment from "moment";
 
-const defaultStart = moment().subtract(1, "months").toDate();
+const defaultStart = moment().subtract(3, "months").toDate();
 const defaultEnd = new Date();
 
 export default {
