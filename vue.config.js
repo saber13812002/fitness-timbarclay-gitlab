@@ -39,6 +39,8 @@ if(isCiBuild) {
 
 if(!isTest) {
   module.exports = {
+    baseUrl: isCiBuild ? "/fitness/" : "/",
+
     configureWebpack: config => {
       config.plugins.push(
         new webpack.DefinePlugin({
@@ -59,10 +61,6 @@ if(!isTest) {
 
           })
         );
-      }
-  
-      if(isCiBuild) {
-        config.output.publicPath = "/fitness/"
       }
     }
   }

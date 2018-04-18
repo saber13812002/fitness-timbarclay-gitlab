@@ -1,38 +1,24 @@
 <template>
-  <div>
-    <el-table :data="sets" class="set-table">
-      <el-table-column
-        prop="start"
-        label="Time"
-        sortable
-        :formatter="formatTime">
-      </el-table-column>
-      <el-table-column
-        label="Exercise"
-        prop="exerciseName"
-        sortable
-        :show-overflow-tooltip="true">
-        <template slot-scope="scope">
-          <router-link :to="linkTo(scope.row)">
-            {{scope.row.exerciseName}}
-          </router-link>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="reps"
-        label="Reps"
-        sortable/>
-      <el-table-column
-        prop="resistance"
-        label="Resistance (kg)"
-        sortable/>
-      <el-table-column
-        prop="duration"
-        label="Duration (seconds)"
-        :formatter="formatDuration"
-        sortable/>
-    </el-table>
-  </div>
+  <table class="set-table">
+    <thead>
+      <tr>
+        <th>Exercise</th>
+        <th>Reps</th>
+        <th>Resistance (kg)</th>
+        <th>Duration (s)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(set, i) in sets" :key="set.id" :class="{duplicate: isDuplicate(set, i)}">
+        <td>
+          <router-link :to="linkTo(set)">{{formatName(set, i)}}</router-link>
+        </td>
+        <td>{{set.reps}}</td>
+        <td>{{set.resistance}}</td>
+        <td>{{formatDuration(set)}}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -41,12 +27,17 @@ export default {
     sets: {type: Array, default: () => []}
   },
   methods: {
-    formatDuration(set) {
-      return set.end.diff(set.start, "seconds");
+    formatName(set, index) {
+      return this.isDuplicate(set, index) ? "" : set.exerciseName;
     },
 
-    formatTime(set) {
-      return set.start.format("h:mm:ss a")
+    isDuplicate(set, index) {
+      if(index === 0) return false;
+      return set.exerciseName === this.sets[index - 1].exerciseName;
+    },
+    
+    formatDuration(set) {
+      return set.end.diff(set.start, "seconds");
     },
 
     linkTo(set) {
@@ -64,13 +55,27 @@ export default {
 <style lang="scss" scoped>
 @import "../../sass/variables";
 
-.set-table {
+table.set-table {
   width: 100%;
-  .cell a {
-    color: $regular-text;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
+  border-collapse: collapse;
+
+  tr {
+    line-height: 2.2em;
+    td, th {
+      text-align: left;
+      padding: 4px 1em;
+      a {
+        color: $regular-text;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  tr:not(.duplicate) {
+    td {
+      border-top: $base-border 1px solid;
     }
   }
 }
