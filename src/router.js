@@ -26,7 +26,6 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      name: "home",
       component: Home,
       beforeEnter: ensureLoggedIn,
       props(route) {
@@ -38,7 +37,8 @@ const router = new Router({
       children: [
         {
           path: "",
-          redirect: "/sessions"
+          name: "home",
+          component: Sessions,
         },
         {
           path: "sessions",

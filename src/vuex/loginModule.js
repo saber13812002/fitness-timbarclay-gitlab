@@ -28,6 +28,13 @@ export default {
     }
   },
 
+  actions: {
+    [actions.SIGN_OUT]({commit}) {
+      commit(mutations.LOGOUT);
+      commit(mutations.CLEAR_DATA);
+    }
+  },
+
   getters: {
     isLoggedIn(state) {
       return !!state.user;

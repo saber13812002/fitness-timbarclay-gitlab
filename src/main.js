@@ -15,7 +15,10 @@ import GoogleApi from "./application/googleApi";
 import mutations from "./vuex/mutations";
 
 GoogleApi.initialiseGoogleApi()
-  .then(() => store.commit(mutations.INIT_COMPLETE));
+  .then(() => {
+    debugger;
+    store.commit(mutations.INIT_COMPLETE)
+  });
 
 Vue.use(ElementUi, {locale});
 

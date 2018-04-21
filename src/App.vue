@@ -1,20 +1,17 @@
 <template>
-  <div>
-    <el-container v-if="initialised" class="container">
-      <el-header>
-        <navbar :light="light" />
-      </el-header>
-      
-      <el-main>
-        <router-view/>
-      </el-main>
+  <el-container class="container">
+    <el-header>
+      <navbar :light="light" />
+    </el-header>
+    
+    <el-main>
+      <router-view/>
+    </el-main>
 
-      <el-footer>
-        
-      </el-footer>
-    </el-container>
-    <div v-else></div>
-  </div>
+    <el-footer>
+      
+    </el-footer>
+  </el-container>
 </template>
 
 <script>
@@ -29,10 +26,7 @@ export default {
   computed: {
     light() {
       return this.$route.name === "login";
-    },
-    ...mapState({
-      initialised: state => state.initialised
-    })
+    }
   }
 }
 </script>
