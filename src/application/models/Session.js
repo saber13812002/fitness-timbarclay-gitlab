@@ -6,7 +6,7 @@ import _ from "lodash";
  * A single workout session. This will generally be a single trip to the gym
  */
 export class Session {
-  constructor(json,) {
+  constructor(json) {
     this.id = json.id
     this.name = json.name
     this.description = json.description;
