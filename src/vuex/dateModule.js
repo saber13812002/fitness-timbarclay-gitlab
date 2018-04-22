@@ -12,6 +12,7 @@ export default {
 
   mutations: {
     [mutations.SET_DATES](state, {dates}) {
+      debugger;
       state.start = dates[0];
       state.end = dates[1];
     }

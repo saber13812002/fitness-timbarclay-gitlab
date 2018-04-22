@@ -118,6 +118,10 @@ export default {
   getters: {
     sessionsByDate(state, getters, root) {
       const {start, end} = root.dates;
+      if(!start || !end || !state.sessions.length) {
+        return [];
+      }
+      console.log(state.sessions.map(s => s.start))
       return state.sessions.filter(s =>
         s.start.isSameOrAfter(moment(start) &&
         s.start.isSameOrBefore(moment(end))));
@@ -125,6 +129,9 @@ export default {
 
     setsByDate(state, getters, root) {
       const {start, end} = root.dates;
+      if(!start || !end || !state.sets.length) {
+        return [];
+      }
       return state.sets.filter(s =>
         s.start.isSameOrAfter(moment(start) &&
         s.start.isSameOrBefore(moment(end))));

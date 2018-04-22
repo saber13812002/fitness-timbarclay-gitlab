@@ -52,7 +52,7 @@ export default {
         const end = new Date(this.end);
         if(!(moment(currentStart).isSame(start) && moment(currentEnd).isSame(end))) {
           const dates = [start, end];
-          this.$store.commit(mutations.SET_DATES, {dates});  
+          //this.$store.commit(mutations.SET_DATES, {dates});  
         }
       }
     },

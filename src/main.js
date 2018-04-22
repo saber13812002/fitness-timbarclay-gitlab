@@ -13,12 +13,17 @@ import "./sass/style.scss";
 
 import GoogleApi from "./application/googleApi";
 import mutations from "./vuex/mutations";
+import moment from "moment";
 
 GoogleApi.initialiseGoogleApi()
   .then(() => {
-    debugger;
+    //debugger;
     store.commit(mutations.INIT_COMPLETE)
   });
+
+store.commit(mutations.SET_DATES, {
+  dates: [moment().subtract(3, "months").toDate(), new Date()]
+})
 
 Vue.use(ElementUi, {locale});
 

@@ -9,7 +9,7 @@
 
     <span v-else-if="isLoggingIn">Loading...</span>
     
-    <login-button :size="buttonSize" v-else />
+    <login-button :size="buttonSize" :initialised="initialised" v-else />
   </span>
 </template>
 
