@@ -13,6 +13,8 @@ function ensureLoggedIn(to, from, next) {
   }
 }
 
+const Sessions = () => import("./views/Sessions.vue");
+
 const router = new Router({
   mode: "history",
 
@@ -43,12 +45,12 @@ const router = new Router({
       children: [
         {
           path: "",
-          component: () => import("./views/Sessions.vue"),
+          component: Sessions,
         },
         {
           path: "sessions",
           name: "sessions",
-          component: () => import("./views/Sessions.vue"),
+          component: Sessions,
           children: [
             {
               path: "session/:id",
