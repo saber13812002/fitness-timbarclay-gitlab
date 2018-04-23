@@ -91,6 +91,16 @@ const router = new Router({
       component: () => import("./views/About.vue")
     },
     {
+      path: "/contact",
+      name: "contact",
+      component: () => import("./views/Contact.vue")
+    },
+    {
+      path: "/privacy",
+      name: "privacy",
+      component: () => import("./views/PrivacyPolicy.vue")
+    },
+    {
       path: "*",
       component: NotFound
     }

@@ -5,7 +5,7 @@
     </div>
 
     <div class="nav-group">
-      <router-link to="/about">About</router-link>
+      <!-- <router-link to="/about">About</router-link> -->
       <login-container/>
     </div>
   </nav>

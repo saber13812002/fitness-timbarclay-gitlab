@@ -34,3 +34,8 @@ h1, h2 {
 .low-emphasis {
   color: $placeholder-text;
 }
+
+.content-section {
+  max-width: $content-width;
+  margin: 1em auto;
+}

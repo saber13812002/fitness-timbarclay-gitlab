@@ -1,20 +1,15 @@
 <template>
-  <el-row class="home">
-    <el-col :xs="24" :md="6" class="sidebar">
-      <side-menu/>
-    </el-col>
-    <el-col :xs="24" :md="18" class="main-content">
-      <div class="date-picker">
-        <date-picker />
-      </div>
+  <div>
+    <div class="date-picker">
+      <date-picker />
+    </div>
 
-      <dates-container :start="start" :end="end">
-        <fitness-container>
-          <router-view></router-view>
-        </fitness-container>
-      </dates-container>
-    </el-col>
-  </el-row>
+    <dates-container :start="start" :end="end">
+      <fitness-container>
+        <router-view></router-view>
+      </fitness-container>
+    </dates-container>
+  </div>
 </template>
 
 <script>
@@ -22,7 +17,6 @@ import DatePicker from "../components/DatePicker.vue";
 import FitnessContainer from "../components/fitness/FitnessContainer.vue";
 import SessionsList from "../components/sessions/SessionsList.vue";
 import DatesContainer from "../components/dates/DatesContainer.vue";
-import SideMenu from "../components/navbar/SideMenu.vue";
 
 export default {
   name: 'home',
@@ -34,8 +28,7 @@ export default {
     DatePicker,
     FitnessContainer,
     SessionsList,
-    DatesContainer,
-    SideMenu
+    DatesContainer
   },
 
 }
@@ -44,32 +37,8 @@ export default {
 <style lang="scss">
 @import "../sass/variables";
 
-.home {
-  padding-top: $nav-height + 20px;
-  max-width: 1470px;
-  margin: 0 auto;
-}
-.sidebar {
-  padding: $normal-space;
-}
-.main-content {
-  padding: $normal-space $normal-space ($normal-space * 2) $normal-space;
-  position: relative;
-}
 .date-picker {
   margin-bottom: $normal-space;
   text-align: center;
-}
-@media only screen and (max-width: 990px) {
-  .home {
-    font-size: 0.9em;
-    padding-top: $nav-height;
-  }
-  .sidebar {
-    padding: 0;
-  }
-  .main-content {
-    padding: $small-space $small-space $normal-space $small-space;
-  }
 }
 </style>

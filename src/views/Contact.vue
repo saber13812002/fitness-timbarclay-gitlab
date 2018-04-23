@@ -1,5 +1,5 @@
 <template>
   <div class="content-section">
-    <h1>This is an about page</h1>
+    Contact page
   </div>
 </template>

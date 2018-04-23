@@ -1,30 +1,40 @@
 <template>
   <el-container class="container">
     <el-header>
-      <navbar :light="light" />
+      <navbar :light="isLogin" />
     </el-header>
     
-    <el-main>
-      <router-view/>
+    <el-main :class="{pushed: !isLogin}">
+      <router-view v-if="!isLoggedIn"/>
+      
+      <with-sidebar v-else>
+        <router-view/>
+      </with-sidebar>
     </el-main>
 
-    <el-footer>
-      
+    <el-footer style="height: inherit">
+      <app-footer/>
     </el-footer>
   </el-container>
 </template>
 
 <script>
 import Navbar from "./components/navbar/Navbar.vue";
-import {mapState} from "vuex";
-
+import AppFooter from "./components/navbar/AppFooter.vue";
+import WithSidebar from "./components/WithSidebar.vue";
+import {mapGetters} from "vuex";
 
 export default {
   components: {
-    Navbar
+    Navbar,
+    AppFooter,
+    WithSidebar
   },
   computed: {
-    light() {
+    ...mapGetters([
+      "isLoggedIn"
+    ]),
+    isLogin() {
       return this.$route.name === "login";
     }
   }
@@ -46,6 +56,9 @@ main.el-main {
   padding: 0;
   margin-top: -$nav-height;
   min-height: 100vh;
+  &.pushed {
+    padding-top: calc(#{$nav-height} + #{$normal-space});
+  }
 }
 .el-header {
   z-index: 10;
