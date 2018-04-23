@@ -3,8 +3,13 @@
 </template>
 
 <script>
-import * as d3 from "d3";
-import * as fc from "d3fc";
+import {select, event as d3Event} from "d3-selection";
+import {scaleTime, scaleLinear} from "d3-scale";
+import {transition} from 'd3-transition';
+import {seriesSvgPoint, seriesSvgLine, seriesSvgMulti} from "d3fc-series";
+import {chartSvgCartesian} from "d3fc-chart";
+import {extentLinear, extentDate} from "d3fc-extent";
+import "d3fc-element";
 import moment from "moment";
 import Vue from "vue";
 
@@ -26,17 +31,17 @@ export default {
     }
   },
   mounted() {
-    tooltipDiv = d3.select("body").append("div")
+    tooltipDiv = select("body").append("div")
       .attr("class", "tooltip")
       .style("opacity", 0);
   },
   destroyed() {
-    d3.select(".tooltip").remove();
+    select(".tooltip").remove();
   },
   methods: {
     setupChart(data) {
       // A series of points that won't show up on the chart but are there as a hover target for the tooltips
-      const hoverPoint = fc.seriesSvgPoint()
+      const hoverPoint = seriesSvgPoint()
         .size(80)
         .crossValue(d => d.date)
         .mainValue(d => d.intensity)
@@ -49,9 +54,9 @@ export default {
                 .duration(200)
                 .style("opacity", 1);
               tooltipDiv
-                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${d.intensity}kg`)
-                .style("left", `${d3.event.pageX - 80}px`)
-                .style("top", `${d3.event.pageY - 80}px`);
+                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${d.intensity}kg`) // TODO remove moment from here
+                .style("left", `${d3Event.pageX - 80}px`)
+                .style("top", `${d3Event.pageY - 80}px`);
             })
             .on("mouseout", d => {
               tooltipDiv
@@ -61,33 +66,33 @@ export default {
             });
         });
 
-      const visiblePoint = fc.seriesSvgPoint()
+      const visiblePoint = seriesSvgPoint()
         .size(20)
         .crossValue(d => d.date)
         .mainValue(d => d.intensity);
 
-      const lineSeries = fc.seriesSvgLine()
+      const lineSeries = seriesSvgLine()
         .mainValue(d => d.intensity)
         .crossValue(d => d.date);
 
-      const pointLineSeries = fc.seriesSvgMulti()
+      const pointLineSeries = seriesSvgMulti()
         .series([lineSeries, visiblePoint, hoverPoint]);
 
-      const xExtent = fc.extentDate()
+      const xExtent = extentDate()
         .accessors([d => d.date]);
 
-      const yExtent = fc.extentLinear()
+      const yExtent = extentLinear()
         .pad([0.1, 0.1])
         .accessors([d => d.intensity]);
 
       const mapped = data.map(row => {
         return {
           intensity: this.getIntensity(row),
-          date: row.session.start.toDate()
+          date: new Date(row.session.start)
         }
       });
 
-      const chart = fc.chartSvgCartesian(d3.scaleTime(), d3.scaleLinear())
+      const chart = chartSvgCartesian(scaleTime(), scaleLinear())
         .yOrient('left')
         .yLabel("Intensity")
         .xLabel("Date")
@@ -96,7 +101,7 @@ export default {
         .yDomain(yExtent(mapped))
 
       Vue.nextTick(() => 
-        d3.select('#chart-element')
+        select('#chart-element')
           .datum(mapped)
           .transition()
           .duration(500)

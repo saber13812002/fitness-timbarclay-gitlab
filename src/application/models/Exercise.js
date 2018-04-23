@@ -1,6 +1,7 @@
 import {WorkoutSession} from "./Session";
 import {Set} from "./Set";
-import _ from "lodash";
+import _flatMap from "lodash/flatMap";
+import _maxBy from "lodash/maxBy";
 
 export class Exercise {
   constructor(name, workoutSessions) {
@@ -19,7 +20,7 @@ export class Exercise {
    * @returns {Set}
    */
   maxResistance() {
-    return this._getMaxResistance(_.flatMap(this.sessions, session => session.sets));
+    return this._getMaxResistance(_flatMap(this.sessions, session => session.sets));
   }
 
   /**
@@ -27,12 +28,16 @@ export class Exercise {
    * @returns {Set}
    */
   maxResistanceLastSession() {
-    const lastSession = _.maxBy(this.sessions, s => s.session.start.valueOf());
+    const lastSession = _maxBy(this.sessions, s => s.session.start.valueOf());
     return this._getMaxResistance(lastSession.sets);
   }
 
+  /**
+   * Get the set with the maximum resistance from a collection of sets
+   * @returns {Set}
+   */
   _getMaxResistance(sets) {
     const allLoads = sets.map(set => set.resistance);
-    return _.maxBy(sets, set => set.resistance);
+    return _maxBy(sets, set => set.resistance);
   }
 }

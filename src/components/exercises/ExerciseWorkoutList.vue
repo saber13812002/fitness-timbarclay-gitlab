@@ -1,7 +1,7 @@
 <template>
   <div>
     <card v-for="session in reversedSessions" :key="session.session.id">
-      <div>{{session.session.start.format("Do MMM YY")}}</div>
+      <div>{{sessionStart(session)}}</div>
       <span v-for="set in session.sets" :key="set.id" class="set-summary">
         <el-tooltip :content="setTooltip(set)" effect="dark" placement="top">
           <el-tag>{{set.resistance}}kg x {{set.reps}}</el-tag>
@@ -13,7 +13,8 @@
 
 <script>
 import Card from "../Card.vue";
-import _ from "lodash";
+import _sortBy from "lodash/sortBy";
+import moment from "moment";
 
 export default {
   props: {
@@ -21,15 +22,19 @@ export default {
   },
   computed: {
     reversedSessions() {
-      return _.sortBy(this.exercise.sessions, s => -s.session.start.valueOf());
+      return _sortBy(this.exercise.sessions, s => -s.session.start);
     }
   },
   components: {
     Card
   },
   methods: {
+    sessionStart(session) {
+      return moment(session.session.start).format("Do MMM YY");
+    },
     setTooltip(set) {
-      return `${set.start.format("h:mm:ss a")}, duration: ${Math.round(set.duration / 1000)} seconds`;
+      // TODO remove moment from here
+      return `${moment(set.start).format("h:mm:ss a")}, duration: ${Math.round(set.duration / 1000)} seconds`;
     }
   }
 }

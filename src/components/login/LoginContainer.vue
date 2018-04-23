@@ -1,7 +1,7 @@
 <template>
   <span>
     <el-dropdown v-if="isLoggedIn" @command="handleDropdown">
-      <img :src="user.imageUrl" class="el-dropdown-link"></img>
+      <img :src="user.imageUrl" class="el-dropdown-link"/>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="logout">Log out</el-dropdown-item>
       </el-dropdown-menu>
@@ -9,7 +9,7 @@
 
     <span v-else-if="isLoggingIn">Loading...</span>
     
-    <login-button :size="buttonSize" v-else />
+    <login-button :size="buttonSize" :initialised="initialised" v-else />
   </span>
 </template>
 
@@ -28,7 +28,8 @@ export default {
   computed: {
     ...mapState({
       user: state => state.login.user,
-      isLoggingIn: state => state.login.isLoggingIn
+      isLoggingIn: state => state.login.isLoggingIn,
+      initialised: state => state.initialised
     }),
     ...mapGetters([
       "isLoggedIn"

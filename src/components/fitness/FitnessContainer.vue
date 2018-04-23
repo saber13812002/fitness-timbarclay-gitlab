@@ -20,13 +20,19 @@ import SessionsList from "../sessions/SessionsList.vue";
 import {mapState, mapGetters} from "vuex";
 import actions from "../../vuex/actions";
 import moment from "moment";
+import _debounce from "lodash/debounce";
 
 export default {
   computed: {
     ...mapState({
+      initialised: state => state.initialised,
+      
       sessions: state => state.exercise.sessions,
       loadingSessions: state => state.exercise.loadingSessions,
-      lastRequest: state => state.exercise.lastRequest
+      lastRequest: state => state.exercise.lastRequest,
+
+      sessionsError: state => state.exercise.sessionsError,
+      setsError: state => state.exercise.setsError
     }),
     ...mapGetters([
       "dates"
@@ -48,15 +54,45 @@ export default {
     dates: {
       handler: "fetchData",
       immediate: true
-    }
+    },
+    initialised() {
+      if(this.initialised) {
+        this.fetchData();
+      }
+    },
+    sessionsError(err) {
+      if(err) {
+        this.$notify.error({
+          title: 'Error',
+          message: 'Failed to download new sessions from Google'
+        });
+      }
+    },
+    setsError(err) {
+      if(err) {
+        this.$notify.error({
+          title: 'Error',
+          message: 'Failed to download new sets from Google'
+        });
+      }
+    },
+    lastRequest: _debounce(function() {
+      this.$notify({
+        title: 'Success',
+        message: 'Updated successfully',
+        type: 'success'
+      });
+    }, 500)
   },
   components: {
     SessionsList
   },
   methods: {
     fetchData() {
-      this.$store.dispatch(actions.FETCH_SESSIONS);
-      this.$store.dispatch(actions.FETCH_SETS);
+      if(this.initialised) {
+        this.$store.dispatch(actions.FETCH_SESSIONS);
+        this.$store.dispatch(actions.FETCH_SETS);
+      }
     }
   }
 }

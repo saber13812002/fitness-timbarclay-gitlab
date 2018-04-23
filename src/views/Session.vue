@@ -4,7 +4,7 @@
     <div v-else-if="!session">There doesn't seem to be anything here</div>
     <div v-else>
       <h2>{{session.session.name}}</h2>
-      <span>{{session.session.start.format("dddd Do MMM YYYY, h:mm a")}}</span>
+      <span>{{sessionStart}}</span>
       <sets-list :sets="session.sets" />
     </div>
   </div>
@@ -13,7 +13,8 @@
 <script>
 import SetsList from "../components/sessions/SetsList.vue";
 import {mapGetters, mapState} from "vuex";
-import _ from "lodash";
+import _find from "lodash/find";
+import moment from "moment";
 
 export default {
   data() {
@@ -30,7 +31,10 @@ export default {
       "workoutSessions"
     ]),
     session() {
-      return _.find(this.workoutSessions, s => s.session.id === this.sessionId);
+      return _find(this.workoutSessions, s => s.session.id === this.sessionId);
+    },
+    sessionStart() {
+      return moment(this.session.session.start).format("dddd Do MMM YYYY, h:mm a");
     }
   },
   components: {

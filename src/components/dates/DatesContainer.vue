@@ -8,7 +8,6 @@
 import mutations from "../../vuex/mutations";
 import {isValidDate} from "../../application/timeHelpers";
 import {mapGetters} from "vuex";
-import _ from "lodash";
 import moment from "moment";
 
 export default {
@@ -50,6 +49,7 @@ export default {
         const currentEnd = this.dates[1];
         const start = new Date(this.start);
         const end = new Date(this.end);
+        // TODO remove moment from here
         if(!(moment(currentStart).isSame(start) && moment(currentEnd).isSame(end))) {
           const dates = [start, end];
           this.$store.commit(mutations.SET_DATES, {dates});  
@@ -58,7 +58,7 @@ export default {
     },
 
     getQueryWithDates() {
-      return _.assign({}, this.$route.query, {
+      return Object.assign({}, this.$route.query, {
         start: this.dates[0].toISOString(),
         end: this.dates[1].toISOString()
       })

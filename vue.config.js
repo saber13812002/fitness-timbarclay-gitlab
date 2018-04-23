@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let clientId;
 let clientSecret;
@@ -53,14 +54,18 @@ if(!isTest) {
               NODE_ENV: JSON.stringify(process.env.NODE)
             }
           }
-        }))
+        }
+      ));
+      
+      // Exclude moment locale files from bundle
+      // TODO remove moment altogether and use Luxon
+      config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
+      
+      // Uncomment this to generate webpack bundle analysis
+      //config.plugins.push(new BundleAnalyzerPlugin());
 
       if(isProd) {
-        config.plugins.push(
-          new CompressionPlugin({
-
-          })
-        );
+        config.plugins.push(new CompressionPlugin());
       }
     }
   }

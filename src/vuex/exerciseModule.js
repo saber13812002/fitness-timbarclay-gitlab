@@ -4,7 +4,10 @@ import GoogleApi from "../application/googleApi";
 import {WorkoutSession} from "../application/models/Session";
 import {Exercise} from "../application/models/Exercise";
 import moment from "moment";
-import _ from "lodash";
+import _minBy from "lodash/minBy";
+import _maxBy from "lodash/maxBy";
+import _uniq from "lodash/uniq";
+import _pick from "lodash/pick";
 
 const googleApi = new GoogleApi();
 
@@ -13,13 +16,6 @@ export default {
     dataSources: [],
     sessions: [],
     sets: [],
-    
-    // These were the start and end dates at the point data was last fetched so we 
-    // can avoid refetching data when we don't need to
-    sessionsStart: null,
-    sessionsEnd: null,
-    setsStart: null,
-    setsEnd: null,
 
     lastRequest: null,
 
@@ -47,13 +43,16 @@ export default {
 
     [mutations.EXERCISE_SESSIONS_FETCH_BEGIN](state, {start, end}) {
       state.loadingSessions = true;
-      state.sessionsStart = start;
-      state.sessionsEnd = end;
     },
     [mutations.EXERCISE_SESSIONS_FETCH_SUCCESS](state, {sessions}) {
       state.loadingSessions = false;
-      state.sessions = sessions;
-      state.lastRequest = new Date();
+      const sessionsMin = _minBy(sessions, s => s.start).start;
+      const sessionsMax = _maxBy(sessions, s => s.start).start;
+      const before = state.sessions.filter(s => moment(s.start).isBefore(moment(sessionsMin)));
+      const after = state.sessions.filter(s => moment(s.start).isAfter(moment(sessionsMax)));
+      
+      state.sessions = [...before, ...sessions, ...after];
+      state.lastRequest = new Date().getTime();
     },
     [mutations.EXERCISE_SESSIONS_FETCH_FAILURE](state, {err}) {
       state.loadingSessions = false;
@@ -62,18 +61,36 @@ export default {
 
     [mutations.EXERCISE_SETS_FETCH_BEGIN](state, {start, end}) {
       state.loadingSets = true;
-      state.setsStart = start;
-      state.setsEnd = end;
     },
     [mutations.EXERCISE_SETS_FETCH_SUCCESS](state, {sets}) {
       state.loadingSets = false;
-      state.sets = sets;
-      state.lastRequest = new Date();
+      const setsMin = _minBy(sets, s => s.start).start;
+      const setsMax = _maxBy(sets, s => s.start).start;
+      const before = state.sets.filter(s => moment(s.start).isBefore(moment(setsMin)));
+      const after = state.sets.filter(s => moment(s.start).isAfter(moment(setsMax)));
+      
+      state.sets = [...before, ...sets, ...after];
+      state.lastRequest = new Date().getTime();
     },
     [mutations.EXERCISE_SETS_FETCH_FAILURE](state, {err}) {
       state.loadingSets = false;
       state.setsError = err;
     },
+    [mutations.CLEAR_DATA](state) {
+      dataSources = [];
+      sessions = [];
+      sets = [];
+
+      lastRequest = null;
+
+      loadingDataSources = false;
+      loadingSessions = false;
+      loadingSets = false;
+
+      dataSourcesError = null;
+      sessionsError = null;
+      setsError = null;
+    }
   },
 
   actions: {
@@ -102,18 +119,46 @@ export default {
   },
 
   getters: {
-    workoutSessions(state) {
-      return state.sessions.map(session => {
-        const sets = state.sets.filter(set =>
-          set.start.isSameOrAfter(session.start) &&
-          set.end.isSameOrBefore(session.end));
+    sessionsByDate(state, getters, root) {
+      const {start, end} = root.dates;
+      if(!start || !end || !state.sessions.length) {
+        return [];
+      }
+      return state.sessions.filter(s => {
+        const startMoment = moment(s.start);
+        return startMoment.isSameOrAfter(moment(start)) &&
+          startMoment.isSameOrBefore(moment(end))
+      });
+    },
+
+    setsByDate(state, getters, root) {
+      const {start, end} = root.dates;
+      if(!start || !end || !state.sets.length) {
+        return [];
+      }
+      return state.sets.filter(s => {
+        const startMoment = moment(s.start);
+        return startMoment.isSameOrAfter(moment(start)) &&
+        startMoment.isSameOrBefore(moment(end))
+      });
+    },
+    
+    workoutSessions(state, getters) {
+      return getters.sessionsByDate.map(session => {
+        const sets = getters.setsByDate.filter(set => 
+          moment(set.start).isSameOrAfter(session.start) &&
+            moment(set.end).isSameOrBefore(session.end));
         return new WorkoutSession(session, sets);
       });
     },
 
     exercises(state, getters) {
-      const allExerciseNames = _.uniq(state.sets.map(set => set.exerciseName));
+      const allExerciseNames = _uniq(state.sets.map(set => set.exerciseName));
       return allExerciseNames.map(exercise => new Exercise(exercise, getters.workoutSessions))
     }
   }
+}
+
+export function exerciseReducer(state) {
+  return _pick(state, ["dataSources", "sessions", "sets", "lastRequest"]);
 }

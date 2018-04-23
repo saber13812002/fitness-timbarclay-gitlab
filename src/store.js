@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersistence from "vuex-persist"
 
-import login from "./vuex/loginModule";
+import login, {loginReducer} from "./vuex/loginModule";
 import dates from "./vuex/dateModule";
-import exercise from "./vuex/exerciseModule";
+import exercise, {exerciseReducer} from "./vuex/exerciseModule";
 import mutations from "./vuex/mutations";
 
 Vue.use(Vuex)
@@ -12,7 +12,12 @@ Vue.use(Vuex)
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
   key: "fitness",
-  modules: ["login"]
+  reducer(state) {
+    return {
+      login: loginReducer(state.login),
+      exercise: exerciseReducer(state.exercise)
+    }
+  }
 });
 
 export default new Vuex.Store({

@@ -17,7 +17,7 @@ export default {
   },
   computed: {
     isChildRoute() {
-      return this.$route.name !== "sessions";
+      return this.$route.name === "session";
     }
   }
 }

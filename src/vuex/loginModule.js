@@ -1,5 +1,6 @@
 import mutations from "./mutations";
 import actions from "./actions";
+import _pick from "lodash/pick";
 
 export default {
   state: {
@@ -28,9 +29,20 @@ export default {
     }
   },
 
+  actions: {
+    [actions.SIGN_OUT]({commit}) {
+      commit(mutations.LOGOUT);
+      commit(mutations.CLEAR_DATA);
+    }
+  },
+
   getters: {
     isLoggedIn(state) {
       return !!state.user;
     }
   }
+}
+
+export function loginReducer(state) {
+  return _pick(state, ["user"]);
 }

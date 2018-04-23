@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   props: {
     sets: {type: Array, default: () => []}
@@ -37,7 +39,7 @@ export default {
     },
     
     formatDuration(set) {
-      return set.end.diff(set.start, "seconds");
+      return moment(set.end).diff(moment(set.start), "seconds");
     },
 
     linkTo(set) {
