@@ -13,7 +13,7 @@
 <script>
 import SetsList from "../components/sessions/SetsList.vue";
 import {mapGetters, mapState} from "vuex";
-import _ from "lodash";
+import _find from "lodash/find";
 
 export default {
   data() {
@@ -30,7 +30,7 @@ export default {
       "workoutSessions"
     ]),
     session() {
-      return _.find(this.workoutSessions, s => s.session.id === this.sessionId);
+      return _find(this.workoutSessions, s => s.session.id === this.sessionId);
     }
   },
   components: {

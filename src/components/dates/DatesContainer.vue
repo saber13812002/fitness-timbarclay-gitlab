@@ -8,7 +8,6 @@
 import mutations from "../../vuex/mutations";
 import {isValidDate} from "../../application/timeHelpers";
 import {mapGetters} from "vuex";
-import _ from "lodash";
 import moment from "moment";
 
 export default {
@@ -58,7 +57,7 @@ export default {
     },
 
     getQueryWithDates() {
-      return _.assign({}, this.$route.query, {
+      return Object.assign({}, this.$route.query, {
         start: this.dates[0].toISOString(),
         end: this.dates[1].toISOString()
       })

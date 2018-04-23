@@ -1,6 +1,8 @@
 import {Set} from "./Set";
 import moment from "moment";
-import _ from "lodash";
+import _maxBy from "lodash/maxBy";
+import _minBy from "lodash/minBy";
+import _last from "lodash/last";
 
 /**
  * A single workout session. This will generally be a single trip to the gym
@@ -51,7 +53,7 @@ export class WorkoutSession {
    * @returns {Set}
    */
   maxSessionIntensity(intensityFunc) {
-    return _.maxBy(this.sets, s => intensityFunc(s));
+    return _maxBy(this.sets, s => intensityFunc(s));
   }
 
   /**
@@ -60,7 +62,7 @@ export class WorkoutSession {
    * @returns {Set}
    */
   minSessionIntensity(intensityFunc) {
-    return _.minBy(this.sets, s => intensityFunc(s));
+    return _minBy(this.sets, s => intensityFunc(s));
   }
 
   /**
@@ -77,7 +79,7 @@ export class WorkoutSession {
       open: this.sets[0],
       high: this.maxSessionIntensity(intensityFunc),
       low: this.minSessionIntensity(intensityFunc),
-      close: _.last(this.sets)
+      close: _last(this.sets)
     };
   }
 }

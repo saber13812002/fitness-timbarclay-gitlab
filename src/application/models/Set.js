@@ -1,14 +1,15 @@
 import {nanosToMoment} from "../timeHelpers";
-import _ from "lodash";
+import _capitalize from "lodash/capitalize";
+import _kebabCase from "lodash/kebabCase";
 
 function normaliseName(name) {
-  return _.capitalize(name.split(".").reverse().join(" ").replace("_", " "));
+  return _capitalize(name.split(".").reverse().join(" ").replace("_", " "));
 }
 
 export class Set {
   constructor(setJson) {
     this.exerciseName = normaliseName(setJson.value[0].stringVal);
-    this.id = `${setJson.startTimeNanos}-${_.kebabCase(this.exerciseName)}`;
+    this.id = `${setJson.startTimeNanos}-${_kebabCase(this.exerciseName)}`;
     this.start = nanosToMoment(setJson.startTimeNanos);
     this.end = nanosToMoment(setJson.endTimeNanos);
 

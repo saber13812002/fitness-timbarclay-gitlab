@@ -12,7 +12,7 @@
 <script>
 import ExerciseContainer from "../components/exercises/ExerciseContainer.vue";
 import {mapGetters, mapState} from "vuex";
-import _ from "lodash";
+import _find from "lodash/find";
 
 export default {
   data() {
@@ -29,7 +29,7 @@ export default {
       "exercises"
     ]),
     exercise() {
-      return _.find(this.exercises, e => e.name.toLowerCase() === this.exerciseName.toLowerCase());
+      return _find(this.exercises, e => e.name.toLowerCase() === this.exerciseName.toLowerCase());
     },
     maxResistance() {
       return this.exercise.maxResistance();

@@ -20,7 +20,7 @@ import SessionsList from "../sessions/SessionsList.vue";
 import {mapState, mapGetters} from "vuex";
 import actions from "../../vuex/actions";
 import moment from "moment";
-import _ from "lodash";
+import _debounce from "lodash/debounce";
 
 export default {
   computed: {
@@ -76,7 +76,7 @@ export default {
         });
       }
     },
-    lastRequest: _.debounce(function() {
+    lastRequest: _debounce(function() {
       this.$notify({
         title: 'Success',
         message: 'Updated successfully',

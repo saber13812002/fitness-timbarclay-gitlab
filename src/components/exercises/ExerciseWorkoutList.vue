@@ -13,7 +13,7 @@
 
 <script>
 import Card from "../Card.vue";
-import _ from "lodash";
+import _sortBy from "lodash/sortBy";
 
 export default {
   props: {
@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     reversedSessions() {
-      return _.sortBy(this.exercise.sessions, s => -s.session.start.valueOf());
+      return _sortBy(this.exercise.sessions, s => -s.session.start.valueOf());
     }
   },
   components: {

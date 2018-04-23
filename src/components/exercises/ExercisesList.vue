@@ -14,7 +14,7 @@
 <script>
 import CardLink from "../CardLink.vue";
 import {mapGetters, mapState} from "vuex";
-import _ from "lodash";
+import _sortBy from "lodash/sortBy";
 import moment from "moment";
 
 export default {
@@ -29,7 +29,7 @@ export default {
       "exercises"
     ]),
     orderedExercises() {
-      return _.orderBy(this.exercises, e => e.name);
+      return _sortBy(this.exercises, e => e.name);
     }
   },
   components: {

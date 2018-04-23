@@ -4,7 +4,9 @@ import GoogleApi from "../application/googleApi";
 import {WorkoutSession} from "../application/models/Session";
 import {Exercise} from "../application/models/Exercise";
 import moment from "moment";
-import _ from "lodash";
+import _minBy from "lodash/minBy";
+import _maxBy from "lodash/maxBy";
+import _uniq from "lodash/uniq";
 
 const googleApi = new GoogleApi();
 
@@ -43,8 +45,8 @@ export default {
     },
     [mutations.EXERCISE_SESSIONS_FETCH_SUCCESS](state, {sessions}) {
       state.loadingSessions = false;
-      const sessionsMin = _.minBy(sessions, s => s.start.valueOf()).start;
-      const sessionsMax = _.maxBy(sessions, s => s.start.valueOf()).start;
+      const sessionsMin = _minBy(sessions, s => s.start.valueOf()).start;
+      const sessionsMax = _maxBy(sessions, s => s.start.valueOf()).start;
       const before = state.sessions.filter(s => s.start.isBefore(sessionsMin));
       const after = state.sessions.filter(s => s.start.isAfter(sessionsMax));
       
@@ -61,8 +63,8 @@ export default {
     },
     [mutations.EXERCISE_SETS_FETCH_SUCCESS](state, {sets}) {
       state.loadingSets = false;
-      const setsMin = _.minBy(sets, s => s.start.valueOf()).start;
-      const setsMax = _.maxBy(sets, s => s.start.valueOf()).start;
+      const setsMin = _minBy(sets, s => s.start.valueOf()).start;
+      const setsMax = _maxBy(sets, s => s.start.valueOf()).start;
       const before = state.sets.filter(s => s.start.isBefore(setsMin));
       const after = state.sets.filter(s => s.start.isAfter(setsMax));
       
@@ -147,7 +149,7 @@ export default {
     },
 
     exercises(state, getters) {
-      const allExerciseNames = _.uniq(state.sets.map(set => set.exerciseName));
+      const allExerciseNames = _uniq(state.sets.map(set => set.exerciseName));
       return allExerciseNames.map(exercise => new Exercise(exercise, getters.workoutSessions))
     }
   }

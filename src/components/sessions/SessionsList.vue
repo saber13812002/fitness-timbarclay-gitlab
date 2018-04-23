@@ -14,7 +14,8 @@
 import CardLink from "../CardLink.vue";
 import {mapState, mapGetters} from "vuex";
 import moment from "moment";
-import _ from "lodash";
+import _sortBy from "lodash/sortBy";
+import _uniq from "lodash/uniq";
 
 export default {
   computed: {
@@ -27,7 +28,7 @@ export default {
       end: state => state.dates.end
     }),
     reversedSessions() {
-      return _.sortBy(this.workoutSessions, s => -s.session.start.valueOf());
+      return _sortBy(this.workoutSessions, s => -s.session.start.valueOf());
     }
   },
   components: {
@@ -44,7 +45,7 @@ export default {
       return moment(date).format("Do MMM YY");
     },
     listExercises(session) {
-      return _.uniq(session.sets.map(s => s.exerciseName)).join(", ");
+      return _uniq(session.sets.map(s => s.exerciseName)).join(", ");
     },
     duration(session) {
       const {start, end} = session.session;
