@@ -7,6 +7,7 @@
     "build": "vue-cli-service build",
     "prod": "cross-env NODE_ENV=production npm run build",
     "start": "npm run build",
+    "serve-dist": "npm run serve -s dist",
     "test": "cross-env NODE_ENV=test vue-cli-service test"
   },
   "dependencies": {
