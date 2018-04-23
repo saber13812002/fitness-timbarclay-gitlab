@@ -56,6 +56,7 @@ if(!isTest) {
           }
         }
       ));
+      config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
       config.plugins.push(new BundleAnalyzerPlugin());
 
       if(isProd) {
