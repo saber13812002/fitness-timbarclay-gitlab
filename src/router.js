@@ -1,12 +1,12 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Home from "./views/Home.vue";
-import Login from "./views/Login.vue";
+//import Home from "./views/Home.vue";
+/* import Login from "./views/Login.vue";
 import About from "./views/About.vue";
 import Sessions from "./views/Sessions.vue";
 import Session from "./views/Session.vue";
 import Exercises from "./views/Exercises.vue";
-import Exercise from "./views/Exercise.vue";
+import Exercise from "./views/Exercise.vue"; */
 import NotFound from "./views/NotFound.vue";
 import store from "./store";
 
@@ -26,7 +26,8 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      component: Home,
+      name: "home",
+      component: () => import("./views/Home.vue"),
       beforeEnter: ensureLoggedIn,
       props(route) {
         return {
@@ -37,30 +38,29 @@ const router = new Router({
       children: [
         {
           path: "",
-          name: "home",
-          component: Sessions,
+          component: () => import("./views/Sessions.vue"),
         },
         {
           path: "sessions",
           name: "sessions",
-          component: Sessions,
+          component: () => import("./views/Sessions.vue"),
           children: [
             {
               path: "session/:id",
               name: "session",
-              component: Session
+              component: () => import("./views/Session.vue")
             }
           ]
         },
         {
           path: "exercises",
           name: "exercises",
-          component: Exercises,
+          component: () => import("./views/Exercises.vue"),
           children: [
             {
               path: "exercise/:name",
               name: "exercise",
-              component: Exercise
+              component: () => import("./views/Exercise.vue")
             }
           ]
         }
@@ -69,7 +69,7 @@ const router = new Router({
     {
       path: "/login",
       name: "login",
-      component: Login,
+      component: () => import("./views/Login.vue"),
       beforeEnter(to, from, next) {
         if (store.getters.isLoggedIn) {
           next("/");
@@ -81,7 +81,7 @@ const router = new Router({
     {
       path: "/about",
       name: "about",
-      component: About
+      component: () => import("./views/About.vue")
     },
     {
       path: "*",
