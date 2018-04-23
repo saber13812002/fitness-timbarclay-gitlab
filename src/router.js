@@ -1,12 +1,5 @@
 import Vue from "vue";
 import Router from "vue-router";
-//import Home from "./views/Home.vue";
-/* import Login from "./views/Login.vue";
-import About from "./views/About.vue";
-import Sessions from "./views/Sessions.vue";
-import Session from "./views/Session.vue";
-import Exercises from "./views/Exercises.vue";
-import Exercise from "./views/Exercise.vue"; */
 import NotFound from "./views/NotFound.vue";
 import store from "./store";
 
