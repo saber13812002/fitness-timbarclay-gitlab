@@ -121,10 +121,10 @@ export default {
       if(!start || !end || !state.sessions.length) {
         return [];
       }
-      console.log(state.sessions.map(s => s.start))
-      return state.sessions.filter(s =>
-        s.start.isSameOrAfter(moment(start) &&
-        s.start.isSameOrBefore(moment(end))));
+      return state.sessions.filter(s => {
+        return s.start.isSameOrAfter(moment(start)) &&
+        s.start.isSameOrBefore(moment(end))
+      });
     },
 
     setsByDate(state, getters, root) {
@@ -133,8 +133,8 @@ export default {
         return [];
       }
       return state.sets.filter(s =>
-        s.start.isSameOrAfter(moment(start) &&
-        s.start.isSameOrBefore(moment(end))));
+        s.start.isSameOrAfter(moment(start)) &&
+        s.start.isSameOrBefore(moment(end)));
     },
     
     workoutSessions(state, getters) {

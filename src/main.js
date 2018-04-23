@@ -16,10 +16,7 @@ import mutations from "./vuex/mutations";
 import moment from "moment";
 
 GoogleApi.initialiseGoogleApi()
-  .then(() => {
-    //debugger;
-    store.commit(mutations.INIT_COMPLETE)
-  });
+  .then(() => store.commit(mutations.INIT_COMPLETE));
 
 store.commit(mutations.SET_DATES, {
   dates: [moment().subtract(3, "months").toDate(), new Date()]

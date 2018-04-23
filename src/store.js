@@ -11,7 +11,8 @@ Vue.use(Vuex)
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
-  key: "fitness"
+  key: "fitness",
+  modules: ["login"]
 });
 
 export default new Vuex.Store({
