@@ -1,6 +1,7 @@
 const webpack = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let clientId;
 let clientSecret;
@@ -53,7 +54,9 @@ if(!isTest) {
               NODE_ENV: JSON.stringify(process.env.NODE)
             }
           }
-        }))
+        }
+      ));
+      config.plugins.push(new BundleAnalyzerPlugin());
 
       if(isProd) {
         config.plugins.push(

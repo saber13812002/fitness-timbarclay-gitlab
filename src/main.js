@@ -4,9 +4,8 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
-import ElementUi from "element-ui";
-import locale from "element-ui/lib/locale/lang/en";
 import "element-ui/lib/theme-chalk/display.css";
+import "./setupElement";
 import 'vue-datetime/dist/vue-datetime.css';
 import "./sass/fonts.scss";
 import "./sass/style.scss";
@@ -21,8 +20,6 @@ GoogleApi.initialiseGoogleApi()
 store.commit(mutations.SET_DATES, {
   dates: [moment().subtract(3, "months").toDate(), new Date()]
 })
-
-Vue.use(ElementUi, {locale});
 
 Vue.config.productionTip = false
 
