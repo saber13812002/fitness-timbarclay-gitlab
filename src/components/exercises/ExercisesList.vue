@@ -43,7 +43,7 @@ export default {
       }
     },
     formatDate(date) {
-      return moment(date).format("Do MMM YY");
+      return moment(date).format("Do MMM YY"); // TODO remove moment from here
     },
     numberOfSessions(exercise) {
       return `${exercise.sessions.length} sessions`;

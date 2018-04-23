@@ -56,15 +56,16 @@ if(!isTest) {
           }
         }
       ));
+      
+      // Exclude moment locale files from bundle
+      // TODO remove moment altogether and use Luxon
       config.plugins.push(new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/));
-      config.plugins.push(new BundleAnalyzerPlugin());
+      
+      // Uncomment this to generate webpack bundle analysis
+      //config.plugins.push(new BundleAnalyzerPlugin());
 
       if(isProd) {
-        config.plugins.push(
-          new CompressionPlugin({
-
-          })
-        );
+        config.plugins.push(new CompressionPlugin());
       }
     }
   }

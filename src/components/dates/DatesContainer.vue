@@ -49,6 +49,7 @@ export default {
         const currentEnd = this.dates[1];
         const start = new Date(this.start);
         const end = new Date(this.end);
+        // TODO remove moment from here
         if(!(moment(currentStart).isSame(start) && moment(currentEnd).isSame(end))) {
           const dates = [start, end];
           this.$store.commit(mutations.SET_DATES, {dates});  

@@ -54,7 +54,7 @@ export default {
                 .duration(200)
                 .style("opacity", 1);
               tooltipDiv
-                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${d.intensity}kg`)
+                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${d.intensity}kg`) // TODO remove moment from here
                 .style("left", `${d3Event.pageX - 80}px`)
                 .style("top", `${d3Event.pageY - 80}px`);
             })
@@ -88,7 +88,7 @@ export default {
       const mapped = data.map(row => {
         return {
           intensity: this.getIntensity(row),
-          date: row.session.start.toDate()
+          date: new Date(row.session.start)
         }
       });
 

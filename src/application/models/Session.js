@@ -1,5 +1,4 @@
 import {Set} from "./Set";
-import moment from "moment";
 import _maxBy from "lodash/maxBy";
 import _minBy from "lodash/minBy";
 import _last from "lodash/last";
@@ -12,9 +11,9 @@ export class Session {
     this.id = json.id
     this.name = json.name
     this.description = json.description;
-    this.start = moment(+json.startTimeMillis);
-    this.end = moment(+json.endTimeMillis);
-    this.modified = moment(+json.modifiedTimeMillis);
+    this.start = +json.startTimeMillis;
+    this.end = +json.endTimeMillis;
+    this.modified = +json.modifiedTimeMillis;
   }
 }
 

@@ -1,5 +1,6 @@
 import mutations from "./mutations";
 import actions from "./actions";
+import _pick from "lodash/pick";
 
 export default {
   state: {
@@ -40,4 +41,8 @@ export default {
       return !!state.user;
     }
   }
+}
+
+export function loginReducer(state) {
+  return _pick(state, ["user"]);
 }
