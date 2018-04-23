@@ -5,7 +5,7 @@
       <div>{{exercise.name}}</div>
       <div class="exercise-details">
         <div>{{numberOfSessions(exercise)}}</div>
-        <div>Max resistance: {{exercise.maxResistance().resistance}}kg</div>
+        <div>Max resistance: {{maxResistance(exercise)}}kg</div>
       </div>
     </card-link>
   </div>
@@ -43,10 +43,14 @@ export default {
       }
     },
     formatDate(date) {
-      return moment(date).format("Do MMM YY"); // TODO remove moment from here
+      return moment(date).format("Do MMM YYYY"); // TODO remove moment from here
     },
     numberOfSessions(exercise) {
       return `${exercise.sessions.length} sessions`;
+    },
+    maxResistance(exercise) {
+      const max = exercise.maxResistance();
+      return max ? max.resistance : "";
     }
   }
 }

@@ -32,6 +32,10 @@ export class Exercise {
     return this._getMaxResistance(lastSession.sets);
   }
 
+  /**
+   * Get the set with the maximum resistance from a collection of sets
+   * @returns {Set}
+   */
   _getMaxResistance(sets) {
     const allLoads = sets.map(set => set.resistance);
     return _maxBy(sets, set => set.resistance);
