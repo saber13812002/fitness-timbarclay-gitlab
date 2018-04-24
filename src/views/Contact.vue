@@ -30,6 +30,7 @@ $gitlab-brand: #fca326;
 
 .contact-col {
   display: flex;
+  margin-bottom: 2em;
 }
 .fa-twitter {
   color: $twitter-brand;
