@@ -1,15 +1,16 @@
 <template>
   <div class="content-section">
-    Privacy Policy
+    <div v-html="content"></div>
   </div>
 </template>
 
 <script>
+import privacy from "./content/privacy.md";
 export default {
-
+  data() {
+    return {
+      content: privacy
+    }
+  }
 }
 </script>
-
-<style>
-
-</style>

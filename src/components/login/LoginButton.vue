@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     handleClick() {
-      this.googleApi.signIn(false,
+      this.googleApi.signIn(
         () => this.$store.commit(mutations.LOGIN_BEGIN),
         () => {
           this.googleApi.getUser()

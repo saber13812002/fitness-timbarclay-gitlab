@@ -55,7 +55,6 @@ main.el-main {
   background-color: $neutral;
   padding: 0;
   margin-top: -$nav-height;
-  min-height: 100vh;
   &.pushed {
     padding-top: calc(#{$nav-height} + #{$normal-space});
   }
@@ -66,5 +65,10 @@ main.el-main {
 .el-footer {
   background-color: $primary-text;
   color: $light-border;
+}
+@media only screen and (max-width: 990px) {
+  main.el-main.pushed {
+    padding-top: $nav-height;
+  }
 }
 </style>

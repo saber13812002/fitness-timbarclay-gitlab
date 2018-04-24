@@ -39,3 +39,10 @@ h1, h2 {
   max-width: $content-width;
   margin: 1em auto;
 }
+
+@media only screen and (max-width: 990px) {
+  .el-notification {
+    width: 100% !important;
+    right: 0 !important;
+  }
+}

@@ -1,5 +1,4 @@
-import moment from "moment";
-import {momentToNanos} from "./timeHelpers";
+import {millisToNanos} from "../application/timeHelpers";
 import {Set} from "../application/models/Set";
 import {DataSource} from "../application/models/DataSource";
 import {Session} from "../application/models/Session";
@@ -29,24 +28,6 @@ export default class GoogleApi {
     }));
   }
 
-  getGoogleToken() {
-    return this._getAuthInstance()
-      .then(auth => {
-        if(!auth.isSignedIn.get()){
-          throw "Not signed in";
-        }
-
-        const user = auth.currentUser.get();
-        const tokenObj = user.getAuthResponse();
-
-        if(new Date().getTime() > tokenObj.expires_at){
-          return user.reloadAuthResponse(response =>  response.access_token);
-        }
-        
-        return tokenObj.access_token;
-      });
-  }
-
   getUser() {
     return this._getAuthInstance()
       .then(auth => {
@@ -68,15 +49,11 @@ export default class GoogleApi {
       });
   }
 
-  signIn(offline, onRequest, onSuccess, onFailure) {
+  signIn(onRequest, onSuccess, onFailure) {
     onRequest();
     const auth = window.gapi.auth2.getAuthInstance();
-    if(!offline) {
       this._onlineSignIn(auth, onSuccess, onFailure);
-    } else {
-      this._grantOfflineAccess(auth, onSuccess, onFailure);
     }
-  }
 
   getDataSources() {
     return this._ensureFitness()
@@ -104,7 +81,7 @@ export default class GoogleApi {
   }
 
   getDataSets(start, end) {
-    const datasetId = `${momentToNanos(start)}-${momentToNanos(end)}`;
+    const datasetId = `${millisToNanos(start.getTime())}-${millisToNanos(end.getTime())}`;
 
     return this._ensureFitness()
       .then(() => gapi.client.fitness.users.dataSources.datasets.get({
@@ -163,13 +140,6 @@ export default class GoogleApi {
       }, err => {
         onFailure(err)
       });
-  }
-
-  _grantOfflineAccess(authInstance, onSuccess, onFailure) {
-    authInstance.grantOfflineAccess(signInOptions)
-      .then(
-        res => onSuccess(),
-        err => onFailure(err));
   }
 
   static _doScriptGubbins(callback) {
