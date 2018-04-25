@@ -1,6 +1,7 @@
 {
-  "name": "fitness",
-  "short_name": "fitness",
+  "name": "Superset",
+  "short_name": "Superset",
+  "description" : "Display your Google Fit strength training workouts",
   "icons": [
     {
       "src": "/fitness/img/icons/android-chrome-192x192.png",
@@ -15,6 +16,6 @@
   ],
   "start_url": "/fitness/index.html",
   "display": "standalone",
-  "background_color": "#EFEFEF",
+  "background_color": "#CAEBF2",
   "theme_color": "#FF3B3F"
 }

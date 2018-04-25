@@ -1,11 +1,10 @@
 <template>
   <nav :class="{light: light}">
     <div class="nav-group">
-      <router-link class="title-link" to="/sessions"><h1 class="brand">Fitness</h1></router-link>
+      <router-link class="title-link" to="/sessions"><h1 class="brand">Superset</h1></router-link>
     </div>
 
     <div class="nav-group">
-      <!-- <router-link to="/about">About</router-link> -->
       <login-container/>
     </div>
   </nav>
