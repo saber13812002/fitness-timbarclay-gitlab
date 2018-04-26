@@ -33,7 +33,6 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      name: "home",
       component: () => import("./views/Home.vue"),
       beforeEnter: ensureLoggedIn,
       props(route) {
@@ -45,7 +44,12 @@ const router = new Router({
       children: [
         {
           path: "",
-          component: Sessions,
+          name: "home",
+          component: Sessions
+        },
+        {
+          path: "index.html",
+          component: Sessions
         },
         {
           path: "sessions",
