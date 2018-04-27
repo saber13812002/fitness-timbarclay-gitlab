@@ -38,7 +38,8 @@ ul.el-menu {
 }
 
 @media only screen and (min-width: 990px) {
-ul.el-menu li.el-menu-item {
+  ul.el-menu li.el-menu-item {
+    font-size: 0.9em;
     border-left: solid 1px transparent;
     &.is-active {
       border-color: $primary-brand;
