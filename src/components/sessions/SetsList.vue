@@ -4,8 +4,9 @@
       <tr>
         <th>Exercise</th>
         <th>Reps</th>
-        <th>Resistance (kg)</th>
-        <th>Duration (s)</th>
+        <th>Resistance</th>
+        <th>Estimated 1RM</th>
+        <th>Duration</th>
       </tr>
     </thead>
     <tbody>
@@ -14,8 +15,9 @@
           <router-link :to="linkTo(set)">{{formatName(set, i)}}</router-link>
         </td>
         <td>{{set.reps}}</td>
-        <td>{{set.resistance}}</td>
-        <td>{{formatDuration(set)}}</td>
+        <td>{{set.resistance}}kg</td>
+        <td>{{Math.round(oneRepMax.calculate(set))}}kg</td>
+        <td>{{formatDuration(set)}}s</td>
       </tr>
     </tbody>
   </table>
@@ -23,10 +25,16 @@
 
 <script>
 import moment from "moment";
+import {mapGetters} from "vuex";
 
 export default {
   props: {
     sets: {type: Array, default: () => []}
+  },
+  computed: {
+    ...mapGetters([
+      "oneRepMax"
+    ])
   },
   methods: {
     formatName(set, index) {
