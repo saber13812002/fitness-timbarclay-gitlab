@@ -1,6 +1,6 @@
 <template>
   <div>
-    <exercise-summary :exercise="exercise"/>
+    <exercise-summary :exercise="exercise" :one-rep-max="oneRepMax"/>
     <exercise-chart :workout-sessions="exercise.sessions" :get-intensity="intensityFunc" style="height: 300px"/>
     <exercise-workout-list :exercise="exercise" />
   </div>
@@ -14,7 +14,8 @@ import {Set} from "../../application/models/Set";
 
 export default {
   props: {
-    exercise: {type: Object, required: true}
+    exercise: {type: Object, required: true},
+    oneRepMax: {type: Object, required: true}
   },
   data() {
     return {

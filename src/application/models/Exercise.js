@@ -2,6 +2,7 @@ import {WorkoutSession} from "./Session";
 import {Set} from "./Set";
 import _flatMap from "lodash/flatMap";
 import _maxBy from "lodash/maxBy";
+import _max from "lodash/max";
 
 export class Exercise {
   constructor(name, workoutSessions) {
@@ -30,6 +31,15 @@ export class Exercise {
   maxResistanceLastSession() {
     const lastSession = _maxBy(this.sessions, s => s.session.start.valueOf());
     return this._getMaxResistance(lastSession.sets);
+  }
+
+  /**
+   * Get the highest estimated 1 rep max from any of the sets performed of this exercise
+   * @param {(set: Set) => Number} oneRepMaxFunc The 1 rep max function to use
+   */
+  maxOneRepMax(oneRepMaxFunc) {
+    const sets = _flatMap(this.sessions, session => session.sets);
+    return _max(sets.map(s => oneRepMaxFunc(s)));
   }
 
   /**
