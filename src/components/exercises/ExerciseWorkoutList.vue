@@ -55,8 +55,7 @@ export default {
       return Math.round(set.duration / 1000);
     },
     percentOneRepMax(set) {
-      const oneRepMax = this.oneRepMax.calculate(set);
-      return Math.round((oneRepMax / this.maxOneRepMax) * 100);
+      return Math.round((set.resistance / this.maxOneRepMax) * 100);
     },
     volumeLoad(set) {
       return Set.volumeLoad(set);

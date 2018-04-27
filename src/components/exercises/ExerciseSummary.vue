@@ -1,6 +1,10 @@
 <template>
   <el-card>
-    <div>Max resistance: {{maxResistance.resistance}}kg ({{maxResistance.reps}} reps)</div>
+    <div>
+      <el-tooltip :content="formatSetDate(maxResistance)">
+        <span>Max resistance: {{maxResistance.resistance}}kg ({{maxResistance.reps}} reps)</span>
+      </el-tooltip>
+    </div>
     <div>Max last session: {{maxResistanceLastSession.resistance}}kg ({{maxResistanceLastSession.reps}} reps)</div>
     <div>
       <el-tooltip>
@@ -12,6 +16,8 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   props: {
     exercise: {type: Object, required: true},
@@ -26,6 +32,11 @@ export default {
     },
     estOneRepMax() {
       return Math.round(this.exercise.maxOneRepMax(this.oneRepMax.calculate));
+    }
+  },
+  methods: {
+    formatSetDate(set) {
+      return moment(set.start).format("dddd Do MMMM YYYY");
     }
   }
 }
