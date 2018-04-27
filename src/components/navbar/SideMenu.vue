@@ -33,13 +33,13 @@ ul.el-menu {
   background-color: inherit;
   border-right-color: $base-border;
   li.el-menu-item {
-    font-size: 1.3em;
+    font-size: 0.9em;
   }
 }
 
 @media only screen and (min-width: 990px) {
   ul.el-menu li.el-menu-item {
-    font-size: 0.9em;
+    font-size: 1.3em;
     border-left: solid 1px transparent;
     &.is-active {
       border-color: $primary-brand;
