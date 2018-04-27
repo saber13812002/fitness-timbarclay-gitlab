@@ -18,7 +18,7 @@ GoogleApi.initialiseGoogleApi()
   .then(() => store.commit(mutations.INIT_COMPLETE));
 
 store.commit(mutations.SET_DATES, {
-  dates: [moment().subtract(1, "months").toDate(), new Date()]
+  dates: [moment().subtract(3, "months").toDate(), new Date()]
 })
 
 Vue.config.productionTip = false
