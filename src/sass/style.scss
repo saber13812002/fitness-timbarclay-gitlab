@@ -40,6 +40,12 @@ h1, h2 {
   margin: 1em auto;
 }
 
+.el-select {
+  .el-input.is-focus .el-input__inner, .el-input__inner:focus {
+    border-color: $secondary-brand !important;
+  }
+}
+
 @media only screen and (max-width: 990px) {
   .el-notification {
     width: 100% !important;

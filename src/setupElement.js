@@ -17,7 +17,10 @@ import {
   Header,
   Main,
   Footer,
-  Notification
+  Notification,
+  Select,
+  Option,
+  Alert
 } from "element-ui";
 
 Vue.use(Menu);
@@ -36,4 +39,7 @@ Vue.use(Container);
 Vue.use(Header);
 Vue.use(Main);
 Vue.use(Footer);
+Vue.use(Select);
+Vue.use(Option);
+Vue.use(Alert);
 Vue.prototype.$notify = Notification;

@@ -74,6 +74,11 @@ const router = new Router({
               component: () => import("./views/Exercise.vue")
             }
           ]
+        },
+        {
+          path: "settings",
+          name: "settings",
+          component: () => import("./views/Settings.vue")
         }
       ]
     },
