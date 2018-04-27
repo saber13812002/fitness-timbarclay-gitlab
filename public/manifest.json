@@ -16,6 +16,6 @@
   ],
   "start_url": "/fitness/index.html",
   "display": "standalone",
-  "background_color": "#CAEBF2",
-  "theme_color": "#FF3B3F"
+  "background_color": "#FF3B3F",
+  "theme_color": "#ffffff"
 }
