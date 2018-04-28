@@ -36,9 +36,9 @@ export default {
   flex-direction: column;
   align-items: center;
   padding-top: 30vh;
-  background-color: #409EFF;
-  background-blend-mode: luminosity;
   font-size: 1.5em;
+  color: $white;
+  text-shadow: $primary-text 1px 1px 15px;
 
   &> * {
     margin: 1em;

@@ -1,5 +1,5 @@
 <template>
-  <nav :class="{light: light}">
+  <nav>
     <div class="nav-group">
       <router-link class="title-link" to="/sessions"><h1 class="brand">Superset</h1></router-link>
     </div>
@@ -14,9 +14,6 @@
 import LoginContainer from "../login/LoginContainer.vue";
 
 export default {
-  props: {
-    light: {type: Boolean, default: false}
-  },
   components: {
     LoginContainer
   }
@@ -60,12 +57,6 @@ nav {
   .nav-group {
     display: flex;
     align-items: center;
-  }
-
-  &.light {
-    a {
-      color: $lighter-border;
-    }
   }
 }
 

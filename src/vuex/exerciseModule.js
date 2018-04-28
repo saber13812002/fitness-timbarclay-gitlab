@@ -96,6 +96,7 @@ export default {
   actions: {
     [actions.FETCH_SOURCES](context) {
       context.commit(mutations.EXERCISE_SOURCES_FETCH_BEGIN);
+      if(!context.rootState.initialised) return;
       googleApi.getDataSources()
         .then(dataSources => context.commit(mutations.EXERCISE_SOURCES_FETCH_SUCCESS, {dataSources}))
         .catch(err => context.commit(mutations.EXERCISE_SOURCES_FETCH_FAILURE, {err}));
@@ -103,6 +104,7 @@ export default {
 
     [actions.FETCH_SESSIONS](context) {
       const {start, end} = context.rootState.dates;
+      if(!context.rootState.initialised) return;
       context.commit(mutations.EXERCISE_SESSIONS_FETCH_BEGIN, {start, end});
       googleApi.getSessions(start, end)
         .then(sessions => context.commit(mutations.EXERCISE_SESSIONS_FETCH_SUCCESS, {sessions}))
@@ -111,6 +113,7 @@ export default {
 
     [actions.FETCH_SETS](context) {
       const {start, end} = context.rootState.dates;
+      if(!context.rootState.initialised) return;
       context.commit(mutations.EXERCISE_SETS_FETCH_BEGIN, {start, end});
       googleApi.getDataSets(start, end)
         .then(sets => context.commit(mutations.EXERCISE_SETS_FETCH_SUCCESS, {sets}))

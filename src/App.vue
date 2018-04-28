@@ -1,7 +1,7 @@
 <template>
   <el-container class="container">
-    <el-header>
-      <navbar :light="isLogin" />
+    <el-header :class="{light: isLogin}">
+      <navbar/>
     </el-header>
     
     <el-main :class="{pushed: !isLogin}">
@@ -46,7 +46,18 @@ export default {
 
 header.el-header {
   background-color: $white;
+  z-index: 10;
+  transition: background-color 0.5s, color 0.5s, text-shadow 0.5s;
   @include drop-shadow;
+  &.light {
+    background-color: transparent;
+    box-shadow: none;
+    color: $white;
+    .brand {
+      color: $white;
+      text-shadow: $primary-text 1px 1px 15px;
+    }
+  }
 }
 .container {
   min-height: 100vh;
@@ -58,9 +69,6 @@ main.el-main {
   &.pushed {
     padding-top: calc(#{$nav-height} + #{$normal-space});
   }
-}
-.el-header {
-  z-index: 10;
 }
 .el-footer {
   background-color: $primary-text;
