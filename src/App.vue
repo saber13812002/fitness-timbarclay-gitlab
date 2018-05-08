@@ -75,6 +75,9 @@ main.el-main {
   color: $light-border;
 }
 @media only screen and (max-width: 990px) {
+  header.el-header {
+    padding: 0 $small-space;
+  }
   main.el-main.pushed {
     padding-top: $nav-height;
   }

@@ -1,5 +1,8 @@
 <template>
-  <el-button type="primary" round v-on:click="handleClick" :disabled="!initialised" :title="title">Login</el-button>
+  <el-button type="primary" round v-on:click="handleClick" :disabled="!initialised" :title="title">
+    <i class="fab fa-google" />
+    Connect with Google
+  </el-button>
 </template>
 
 <script>
