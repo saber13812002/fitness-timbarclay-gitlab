@@ -3,6 +3,7 @@ import actions from "./actions";
 import GoogleApi from "../application/googleApi";
 import {WorkoutSession} from "../application/models/Session";
 import {Exercise} from "../application/models/Exercise";
+import {Set} from "../application/models/Set";
 import moment from "moment";
 import _minBy from "lodash/minBy";
 import _maxBy from "lodash/maxBy";
@@ -25,7 +26,10 @@ export default {
 
     dataSourcesError: null,
     sessionsError: null,
-    setsError: null
+    setsError: null,
+
+    
+
   },
 
   mutations: {

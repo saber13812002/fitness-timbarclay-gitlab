@@ -10,6 +10,7 @@
 import ExerciseSummary from "./ExerciseSummary.vue";
 import ExerciseWorkoutList from "./ExerciseWorkoutList.vue";
 import ExerciseChart from "./ExerciseChart.vue";
+import {volumeLoad} from "../../application/models/IntensityMetrics";
 import {Set} from "../../application/models/Set";
 
 export default {
@@ -19,7 +20,7 @@ export default {
   },
   data() {
     return {
-      intensityFunc: workout => workout.sessionIntensityOhlc(Set.volumeLoad).high.resistance//Set.volumeLoad(workout.maxSessionIntensity(Set.volumeLoad))
+      intensityFunc: workout => workout.sessionIntensityOhlc(volumeLoad.calculate).high.resistance
     }
   },
   components: {
