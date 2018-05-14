@@ -2,18 +2,21 @@
   <div>
     <exercise-summary :exercise="exercise" :one-rep-max="oneRepMax"/>
 
-    <exercise-chart :workout-sessions="exercise.sessions" :options="chartOptions" style="height: 300px"/>
+    <el-card>
+      <exercise-chart :workout-sessions="exercise.sessions" :options="chartOptions" style="height: 300px"/>
 
-    <el-row>
-      <el-select :value="intensityMetric.id" v-on:input="setIntensityMetric">
-        <el-option v-for="opt in metricOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
-      </el-select>
+      <el-row>
+        <el-select :value="intensityMetric.id" v-on:input="setIntensityMetric">
+          <el-option v-for="opt in metricOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
+        </el-select>
 
-      <el-select :value="statsType.id" v-on:input="setStatsType">
-        <el-option v-for="opt in statsOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
-      </el-select>
-    </el-row>
+        <el-select :value="statsType.id" v-on:input="setStatsType">
+          <el-option v-for="opt in statsOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
+        </el-select>
+      </el-row>
+    </el-card>
 
+    <h3>Sessions</h3>
     <exercise-workout-list :exercise="exercise" />
   </div>
 </template>

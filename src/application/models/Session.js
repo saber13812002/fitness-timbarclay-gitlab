@@ -37,23 +37,6 @@ export class WorkoutSession {
   reduceSets(intensityFunc, statsFunc) {
     return statsFunc(this.sets.map(s => intensityFunc(s)));
   }
-  
-  /**
-   * The sum of the intensities of the included sets
-   * @param {(set: Set) => Number} intensityFunc 
-   * @returns {Number}
-   */
-  totalSessionIntensity(intensityFunc) {
-    return this.sets.reduce((acc, current) => intensityFunc(current) + acc, 0);
-  }
-
-  /**
-   * The mean of the intensities of the included sets
-   * @param {(set: Set) => Number} intensityFunc 
-   */
-  meanSessionIntensity(intensityFunc) {
-    return this.totalSessionIntensity(intensityFunc) / this.sets.length;
-  }
 
   /**
    * The set that represented the highest intensity based on the passed in intensity function

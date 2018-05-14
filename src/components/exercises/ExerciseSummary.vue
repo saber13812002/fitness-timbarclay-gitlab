@@ -1,5 +1,6 @@
 <template>
   <el-card>
+    <h4>Summary</h4>
     <div>
       <el-tooltip :content="formatSetDate(maxResistance)">
         <span>Max resistance: {{maxResistance.resistance}}kg ({{maxResistance.reps}} reps)</span>
