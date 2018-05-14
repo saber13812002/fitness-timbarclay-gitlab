@@ -19,14 +19,14 @@ let tooltipDiv;
 export default {
   props: {
     workoutSessions: {type: Array, default: () => {}},
-    getIntensity: {type: Function, required: true}
+    options: {type: Object, required: true}
   },
   watch: {
     workoutSessions: {
       handler: "setupChart",
       immediate: true
     },
-    getIntensity() {
+    options() {
       this.setupChart(this.workoutSessions)
     }
   },
@@ -40,6 +40,8 @@ export default {
   },
   methods: {
     setupChart(data) {
+      const {name, units} = this.options.intensity;
+      
       // A series of points that won't show up on the chart but are there as a hover target for the tooltips
       const hoverPoint = seriesSvgPoint()
         .size(80)
@@ -54,7 +56,7 @@ export default {
                 .duration(200)
                 .style("opacity", 1);
               tooltipDiv
-                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${d.intensity}kg`) // TODO remove moment from here
+                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${Math.round(d.intensity, 1)}${units}`) // TODO remove moment from here
                 .style("left", `${d3Event.pageX - 80}px`)
                 .style("top", `${d3Event.pageY - 80}px`);
             })
@@ -87,18 +89,23 @@ export default {
 
       const mapped = data.map(row => {
         return {
-          intensity: this.getIntensity(row),
+          intensity: this.options.calculate(row),
           date: new Date(row.session.start)
         }
       });
 
       const chart = chartSvgCartesian(scaleTime(), scaleLinear())
         .yOrient('left')
-        .yLabel("Intensity")
+        .yLabel(`${name} (${units})`)
         .xLabel("Date")
         .plotArea(pointLineSeries)
         .xDomain(xExtent(mapped))
         .yDomain(yExtent(mapped))
+        .decorate(sel => {
+          sel.enter()
+            .select(".y-axis-label").select(function() {return this.parentNode})
+            .style("white-space", "nowrap")
+        })
 
       Vue.nextTick(() => 
         select('#chart-element')

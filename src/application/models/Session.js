@@ -30,6 +30,15 @@ export class WorkoutSession {
 
   // Note the functions below probably only really make sense when all sets are of the same exercise. Otherwise they're not really comparable
   /**
+   * Reduce the sets of this session to a single number using a passed in intensity metric and stats type
+   * @param {(set: Set) => Number} intensityFunc Function to calculate the intensity of a set
+   * @param {(numbers: Number[]) => Number} statsFunc Function to boil a number of set intensities down to a single number
+   */
+  reduceSets(intensityFunc, statsFunc) {
+    return statsFunc(this.sets.map(s => intensityFunc(s)));
+  }
+  
+  /**
    * The sum of the intensities of the included sets
    * @param {(set: Set) => Number} intensityFunc 
    * @returns {Number}

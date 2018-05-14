@@ -1,9 +1,11 @@
 import mutations from "./mutations";
 import actions from "./actions";
 import GoogleApi from "../application/googleApi";
-import {WorkoutSession} from "../application/models/Session";
+import {WorkoutSession, Session} from "../application/models/Session";
 import {Exercise} from "../application/models/Exercise";
 import {Set} from "../application/models/Set";
+import * as metric from "../application/models/IntensityMetrics";
+import * as stats from "../application/models/DescriptiveStats";
 import moment from "moment";
 import _minBy from "lodash/minBy";
 import _maxBy from "lodash/maxBy";
@@ -28,8 +30,8 @@ export default {
     sessionsError: null,
     setsError: null,
 
-    
-
+    intensityMetric: metric.volumeLoad.id,
+    statsType: stats.max.id
   },
 
   mutations: {
@@ -80,20 +82,28 @@ export default {
       state.loadingSets = false;
       state.setsError = err;
     },
+
     [mutations.CLEAR_DATA](state) {
-      dataSources = [];
-      sessions = [];
-      sets = [];
+      state.dataSources = [];
+      state.sessions = [];
+      state.sets = [];
 
-      lastRequest = null;
+      state.lastRequest = null;
 
-      loadingDataSources = false;
-      loadingSessions = false;
-      loadingSets = false;
+      state.loadingDataSources = false;
+      state.loadingSessions = false;
+      state.loadingSets = false;
 
-      dataSourcesError = null;
-      sessionsError = null;
-      setsError = null;
+      state.dataSourcesError = null;
+      state.sessionsError = null;
+      state.setsError = null;
+    },
+
+    [mutations.SET_INTENSITY_METRIC](state, {metricId}) {
+      state.intensityMetric = metricId;
+    },
+    [mutations.SET_STATS_TYPE](state, {statsId}) {
+      state.statsType = statsId;
     }
   },
 
@@ -126,6 +136,10 @@ export default {
   },
 
   getters: {
+    /**
+     * All sessions that fall within the chosen dates
+     * @returns {Session[]}
+     */
     sessionsByDate(state, getters, root) {
       const {start, end} = root.dates;
       if(!start || !end || !state.sessions.length) {
@@ -138,6 +152,10 @@ export default {
       });
     },
 
+    /**
+     * All sets that fall withing the chosen dates
+     * @returns {Set[]}
+     */
     setsByDate(state, getters, root) {
       const {start, end} = root.dates;
       if(!start || !end || !state.sets.length) {
@@ -150,6 +168,10 @@ export default {
       });
     },
     
+    /**
+     * All workout sessions (i.e. sessions with their sets attached) within the chosen dates
+     * @returns {WorkoutSession[]}
+     */
     workoutSessions(state, getters) {
       return getters.sessionsByDate.map(session => {
         const sets = getters.setsByDate.filter(set => 
@@ -159,13 +181,33 @@ export default {
       });
     },
 
+    /**
+     * All exercises done within the chosen dates
+     * @returns {Exercise[]}
+     */
     exercises(state, getters) {
       const allExerciseNames = _uniq(state.sets.map(set => set.exerciseName));
       return allExerciseNames.map(exercise => new Exercise(exercise, getters.workoutSessions))
+    },
+
+    /**
+     * The selected intensity metric. This is the way we're defining the intensity of a set, e.g volume load, resisitance etc
+     * @returns {{id: String, name: String, description: String, calculate: (set: Set) => Number}}
+     */
+    intensityMetric(state) {
+      return metric.getById(state.intensityMetric);
+    },
+
+    /**
+     * The selected stats method. This is the method we're using to reduce the intensity of a set to a single metric, e.g mean, total, max etc
+     * @returns {{id: String, name: String, description: String, calculate: (numbers: Number[]) => Number}}
+     */
+    statsType(state) {
+      return stats.getById(state.statsType);
     }
   }
 }
 
 export function exerciseReducer(state) {
-  return _pick(state, ["dataSources", "sessions", "sets", "lastRequest"]);
+  return _pick(state, ["dataSources", "sessions", "sets", "lastRequest", "intensityMetric", "statsType"]);
 }
