@@ -11,6 +11,7 @@ import {chartSvgCartesian} from "d3fc-chart";
 import {extentLinear, extentDate} from "d3fc-extent";
 import "d3fc-element";
 import moment from "moment";
+import _round from "lodash/round";
 import Vue from "vue";
 
 // This will hold a reference to the tooltip div. It doesn't need to be reactive, so we'll keep it outside the vue model
@@ -59,7 +60,7 @@ export default {
                 .duration(200)
                 .style("opacity", 1);
               tooltipDiv
-                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${Math.round(d.intensity, 1)}${units}`) // TODO remove moment from here
+                .html(`${moment(d.date).format("dddd, Do MMMM YY")}<br/>${_round(d.intensity, 1)}${units}`)
                 .style("left", `${d3Event.pageX - 80}px`)
                 .style("top", `${d3Event.pageY - 80}px`);
             })

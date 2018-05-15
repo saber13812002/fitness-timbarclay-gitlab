@@ -1,3 +1,6 @@
+import _find from "lodash/find";
+import _round from "lodash/round";
+
 export const resistance = {
   id: "resistance",
   name: "Resistance",
@@ -38,12 +41,12 @@ export const percentageOf1RepMax = {
   units: "%",
   stats: ["max", "mean"],
   calculate(oneRepMax) {
-    return set => Math.round((set.resistance / oneRepMax) * 100);
+    return set => _round((set.resistance / oneRepMax) * 100);
   }
 }
 
 export const all = [resistance, volumeLoad, exerciseDensityLoad, percentageOf1RepMax];
 
 export function getById(id) {
-  return _.find(all, a => a.id === id);
+  return _find(all, a => a.id === id);
 }

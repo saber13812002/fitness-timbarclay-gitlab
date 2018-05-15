@@ -23,6 +23,7 @@
 import Card from "../Card.vue";
 import {Set} from "../../application/models/Set";
 import _sortBy from "lodash/sortBy";
+import _round from "lodash/round";
 import * as metrics from "../../application/models/IntensityMetrics";
 import {mapGetters} from "vuex";
 import moment from "moment";
@@ -53,10 +54,10 @@ export default {
       return moment(set.start).format("h:mm:ss a");
     },
     duration(set) {
-      return Math.round(set.duration / 1000);
+      return _round(set.duration / 1000);
     },
     percentOneRepMax(set) {
-      return Math.round((set.resistance / this.maxOneRepMax) * 100);
+      return _round((set.resistance / this.maxOneRepMax) * 100);
     },
     volumeLoad(set) {
       return metrics.volumeLoad.calculate()(set);

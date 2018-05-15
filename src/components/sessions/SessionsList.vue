@@ -16,6 +16,7 @@ import {mapState, mapGetters} from "vuex";
 import moment from "moment";
 import _sortBy from "lodash/sortBy";
 import _uniq from "lodash/uniq";
+import _round from "lodash/round";
 
 export default {
   computed: {
@@ -53,7 +54,7 @@ export default {
     duration(session) {
       const {start, end} = session.session;
       const durationMillis = end - start;
-      return `${Math.round(durationMillis / 1000 / 60)} minutes`;
+      return `${_round(durationMillis / 1000 / 60)} minutes`;
     }
   }
 }

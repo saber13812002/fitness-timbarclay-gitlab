@@ -36,7 +36,8 @@ import * as metrics from "../../application/models/IntensityMetrics";
 import * as stats from "../../application/models/DescriptiveStats";
 import {Set} from "../../application/models/Set";
 import {mapGetters} from "vuex";
-import _ from "lodash";
+import _includes from "lodash/includes";
+import _round from "lodash/round";
 
 export default {
   props: {
@@ -61,18 +62,18 @@ export default {
       }
     },
     estOneRepMax() {
-      return Math.round(this.exercise.maxOneRepMax(this.oneRepMax.calculate()));
+      return _round(this.exercise.maxOneRepMax(this.oneRepMax.calculate()));
     },
     showChart() {
       return this.exercise.sessions && this.exercise.sessions.length > 1;
     },
     statsOptions() {
-      return stats.all.filter(s => _.includes(this.intensityMetric.stats, s.id));
+      return stats.all.filter(s => _includes(this.intensityMetric.stats, s.id));
     }
   },
   watch: {
     statsOptions(options) {
-      if(!_.includes(options.map(o => o.id), this.statsType.id)) {
+      if(!_includes(options.map(o => o.id), this.statsType.id)) {
         this.setStatsType(options[0].id);
       }
     }

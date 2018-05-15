@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _find from "lodash/find";
 
 export const brzycki = {
   id: "brzycki",
@@ -75,5 +75,5 @@ export const baechle = {
 export const all = [brzycki, epley, landers, lombardi, mayhew, oConnor, wathan, baechle];
 
 export function getById(id) {
-  return _.find(all, a => a.id === id);
+  return _find(all, a => a.id === id);
 }

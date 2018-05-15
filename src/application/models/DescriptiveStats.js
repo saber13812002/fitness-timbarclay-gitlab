@@ -1,3 +1,5 @@
+import _find from "lodash/find";
+
 export const total = {
   id: "total",
   name: "Total",
@@ -28,5 +30,5 @@ export const mean = {
 export const all = [total, max, mean];
 
 export function getById(id) {
-  return _.find(all, a => a.id === id);
+  return _find(all, a => a.id === id);
 }
