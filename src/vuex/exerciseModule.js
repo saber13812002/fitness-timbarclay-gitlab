@@ -192,7 +192,7 @@ export default {
 
     /**
      * The selected intensity metric. This is the way we're defining the intensity of a set, e.g volume load, resisitance etc
-     * @returns {{id: String, name: String, description: String, calculate: (set: Set) => Number}}
+     * @returns {{id: String, name: String, description: String, calculate: () => (set: Set) => Number}}
      */
     intensityMetric(state) {
       return metric.getById(state.intensityMetric);
@@ -200,7 +200,7 @@ export default {
 
     /**
      * The selected stats method. This is the method we're using to reduce the intensity of a set to a single metric, e.g mean, total, max etc
-     * @returns {{id: String, name: String, description: String, calculate: (numbers: Number[]) => Number}}
+     * @returns {{id: String, name: String, description: String, calculate: () => (numbers: Number[]) => Number}}
      */
     statsType(state) {
       return stats.getById(state.statsType);

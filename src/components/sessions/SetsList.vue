@@ -16,7 +16,7 @@
         </td>
         <td>{{set.reps}}</td>
         <td>{{set.resistance}}kg</td>
-        <td>{{Math.round(oneRepMax.calculate(set))}}kg</td>
+        <td>{{Math.round(oneRepMax.calculate()(set))}}kg</td>
         <td>{{formatDuration(set)}}s</td>
       </tr>
     </tbody>

@@ -5,7 +5,7 @@ html, body {
   padding: 0;
 }
 
-body {
+body, text {
   font-family: "Poppins", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: $regular-text;
 }
@@ -16,7 +16,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1, h2 {
   margin-top: 1em;
-  margin-bottom: 1.5em;
+  margin-bottom: 0.8em;
 }
 
 .brand {
@@ -38,6 +38,10 @@ h1, h2 {
 .content-section {
   max-width: $content-width;
   margin: 1em auto;
+}
+
+.space {
+  margin-bottom: $normal-space;
 }
 
 .el-select {

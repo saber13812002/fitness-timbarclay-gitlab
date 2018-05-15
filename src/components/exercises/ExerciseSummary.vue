@@ -22,7 +22,8 @@ import moment from "moment";
 export default {
   props: {
     exercise: {type: Object, required: true},
-    oneRepMax: {type: Object, required: true}
+    oneRepMax: {type: Object, required: true},
+    estOneRepMax: {type: Number, required: true}
   },
   computed: {
     maxResistance() {
@@ -30,9 +31,6 @@ export default {
     },
     maxResistanceLastSession() {
       return this.exercise.maxResistanceLastSession();
-    },
-    estOneRepMax() {
-      return Math.round(this.exercise.maxOneRepMax(this.oneRepMax.calculate));
     }
   },
   methods: {

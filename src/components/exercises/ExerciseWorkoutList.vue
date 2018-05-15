@@ -39,7 +39,7 @@ export default {
       "oneRepMax"
     ]),
     maxOneRepMax() {
-      return this.exercise.maxOneRepMax(this.oneRepMax.calculate);
+      return this.exercise.maxOneRepMax(this.oneRepMax.calculate());
     }
   },
   components: {
@@ -59,7 +59,7 @@ export default {
       return Math.round((set.resistance / this.maxOneRepMax) * 100);
     },
     volumeLoad(set) {
-      return metrics.volumeLoad.calculate(set);
+      return metrics.volumeLoad.calculate()(set);
     }
   }
 }
