@@ -44,13 +44,16 @@ export default {
       
       // A series of points that won't show up on the chart but are there as a hover target for the tooltips
       const hoverPoint = seriesSvgPoint()
-        .size(80)
+        .size(120)
         .crossValue(d => d.date)
         .mainValue(d => d.intensity)
         .decorate(selection => {
           selection.enter()
             .attr("class", "hover-point")
-            .on("mouseover", d => {
+            .on("mouseover", function(d) {
+              select(this)
+                .classed("hovered", true)
+
               tooltipDiv
                 .transition()
                 .duration(200)
@@ -60,7 +63,10 @@ export default {
                 .style("left", `${d3Event.pageX - 80}px`)
                 .style("top", `${d3Event.pageY - 80}px`);
             })
-            .on("mouseout", d => {
+            .on("mouseout", function(d) {
+              select(this)
+                .classed("hovered", false);
+              
               tooltipDiv
                 .transition()
                 .duration(200)
@@ -69,7 +75,7 @@ export default {
         });
 
       const visiblePoint = seriesSvgPoint()
-        .size(20)
+        .size(40)
         .crossValue(d => d.date)
         .mainValue(d => d.intensity);
 
@@ -127,11 +133,16 @@ export default {
 }
 .point {
   fill: $primary-brand;
-  stroke: $primary-brand;
+  stroke: $white;
 }
 .hover-point {
   fill: transparent;
   stroke: transparent;
+  transition: fill 0.4s, stroke 0.4s;
+  &.hovered {
+    fill: $primary-brand;
+    stroke: $primary-brand;
+  }
 }
 div.tooltip {	
   position: absolute;
