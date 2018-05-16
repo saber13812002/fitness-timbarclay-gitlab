@@ -5,7 +5,7 @@
       <div>{{exercise.name}}</div>
       <div class="exercise-details">
         <div>{{numberOfSessions(exercise)}}</div>
-        <div>Max resistance: {{maxResistance(exercise)}}kg</div>
+        <div>Max resistance: {{maxResistance(exercise)}}</div>
       </div>
     </card-link>
   </div>
@@ -13,6 +13,7 @@
 
 <script>
 import CardLink from "../CardLink.vue";
+import {renderWeight} from "../../application/resistanceHelpers";
 import {mapGetters, mapState} from "vuex";
 import _sortBy from "lodash/sortBy";
 import moment from "moment";
@@ -50,7 +51,7 @@ export default {
     },
     maxResistance(exercise) {
       const max = exercise.maxResistance();
-      return max ? max.resistance : "";
+      return max ? renderWeight(max.resistance) : "";
     }
   }
 }

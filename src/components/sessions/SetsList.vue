@@ -14,7 +14,7 @@
           <router-link :to="linkTo(set)">{{formatName(set, i)}}</router-link>
         </td>
         <td>{{set.reps}}</td>
-        <td>{{set.resistance}}kg</td>
+        <td>{{resistance(set)}}</td>
         <td>{{formatDuration(set)}}s</td>
       </tr>
     </tbody>
@@ -23,7 +23,7 @@
 
 <script>
 import moment from "moment";
-import {mapGetters} from "vuex";
+import {renderWeight} from "../../application/resistanceHelpers";
 
 export default {
   props: {
@@ -41,6 +41,10 @@ export default {
     
     formatDuration(set) {
       return moment(set.end).diff(moment(set.start), "seconds");
+    },
+    
+    resistance(set) {
+      return renderWeight(set.resistance);
     },
 
     linkTo(set) {

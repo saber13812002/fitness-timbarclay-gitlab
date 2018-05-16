@@ -5,14 +5,14 @@
       <span v-for="set in session.sets" :key="set.id" class="set-summary">
         <el-tooltip placement="top">
           <div slot="content">
-            <div>Weight: {{set.resistance}}kg</div>
+            <div>Weight: {{resistance(set)}}</div>
             <div>Reps: {{set.reps}}</div>
-            <div>Volume load: {{volumeLoad(set)}}kg</div>
+            <div>Volume load: {{volumeLoad(set)}}kg</div> <!-- TODO -->
             <div>Time: {{time(set)}}</div>
             <div>Duration: {{duration(set)}} seconds</div>
-            <div>% of 1 rep max: {{percentOneRepMax(set)}}%</div>
+            <div>% of 1 rep max: {{percentOneRepMax(set)}}</div>
           </div>
-          <el-tag>{{set.resistance}}kg x {{set.reps}}</el-tag>
+          <el-tag>{{resistance(set)}} x {{set.reps}}</el-tag>
         </el-tooltip>
       </span>
     </card>
@@ -25,6 +25,7 @@ import {Set} from "../../application/models/Set";
 import _sortBy from "lodash/sortBy";
 import _round from "lodash/round";
 import * as metrics from "../../application/models/IntensityMetrics";
+import {renderWeight} from "../../application/resistanceHelpers";
 import {mapGetters} from "vuex";
 import moment from "moment";
 
@@ -37,7 +38,8 @@ export default {
       return _sortBy(this.exercise.sessions, s => -s.session.start);
     },
     ...mapGetters([
-      "oneRepMax"
+      "oneRepMax",
+      "weightUnit"
     ]),
     maxOneRepMax() {
       return this.exercise.maxOneRepMax(this.oneRepMax.calculate());
@@ -52,6 +54,9 @@ export default {
     },
     time(set) {
       return moment(set.start).format("h:mm:ss a");
+    },
+    resistance(set) {
+      return renderWeight(set.resistance);
     },
     duration(set) {
       return _round(set.duration / 1000);
