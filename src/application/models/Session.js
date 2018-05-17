@@ -34,8 +34,8 @@ export class WorkoutSession {
    * @param {(set: Set) => Number} intensityFunc Function to calculate the intensity of a set
    * @param {(numbers: Number[]) => Number} statsFunc Function to boil a number of set intensities down to a single number
    */
-  reduceSets(intensityFunc, statsFunc) {
-    return statsFunc(this.sets.map(s => intensityFunc(s)));
+  reduceSets(intensityFunc, statsFunc, weightUnit) {
+    return statsFunc(this.sets.map(s => intensityFunc(s, weightUnit)));
   }
 
   /**

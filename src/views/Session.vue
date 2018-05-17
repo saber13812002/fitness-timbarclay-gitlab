@@ -5,7 +5,9 @@
     <div v-else>
       <h2>{{session.session.name}}</h2>
       <span>{{sessionStart}}</span>
-      <sets-list :sets="session.sets" />
+      <el-card>
+        <sets-list :sets="session.sets" />
+      </el-card>
     </div>
   </div>
 </template>

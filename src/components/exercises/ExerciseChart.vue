@@ -41,7 +41,8 @@ export default {
   },
   methods: {
     setupChart(data) {
-      const {name, units} = this.options.intensity;
+      const name = this.options.intensity.name;
+      const units = this.options.intensity.units(this.options.weightUnit);
       
       // A series of points that won't show up on the chart but are there as a hover target for the tooltips
       const hoverPoint = seriesSvgPoint()

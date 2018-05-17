@@ -7,7 +7,7 @@
           <div slot="content">
             <div>Weight: {{resistance(set)}}</div>
             <div>Reps: {{set.reps}}</div>
-            <div>Volume load: {{volumeLoad(set)}}kg</div> <!-- TODO -->
+            <div>Volume load: {{volumeLoad(set)}}</div>
             <div>Time: {{time(set)}}</div>
             <div>Duration: {{duration(set)}} seconds</div>
             <div>% of 1 rep max: {{percentOneRepMax(set)}}</div>
@@ -65,7 +65,8 @@ export default {
       return _round((set.resistance / this.maxOneRepMax) * 100);
     },
     volumeLoad(set) {
-      return metrics.volumeLoad.calculate()(set);
+      const load = metrics.volumeLoad.calculate()(set, this.weightUnit);
+      return `${_round(load, 1)}${metrics.volumeLoad.units(this.weightUnit)}`;
     }
   }
 }

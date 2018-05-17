@@ -58,6 +58,7 @@ export default {
     chartOptions() {
       return {
         intensity: this.intensityMetric,
+        weightUnit: this.weightUnit,
         stats: this.statsType,
         calculate: this.calculate
       }
@@ -87,7 +88,7 @@ export default {
       this.$store.commit(mutations.SET_STATS_TYPE, {statsId});
     },
     calculate(workout) {
-      const value = workout.reduceSets(this.intensityMetric.calculate(this.estOneRepMax), this.statsType.calculate());
+      const value = workout.reduceSets(this.intensityMetric.calculate(this.estOneRepMax), this.statsType.calculate(), this.weightUnit);
       return _round(this.weightUnit.calculate()(value), 1);
     }
   },
