@@ -51,7 +51,7 @@ export default {
         .mainValue(d => d.intensity)
         .decorate(selection => {
           selection.enter()
-            .attr("class", "hover-point")
+            .classed("hover-point", true)
             .on("mouseover", function(d) {
               select(this)
                 .classed("hovered", true)
@@ -133,7 +133,7 @@ export default {
   stroke: $primary-brand;
   stroke-width: 2px;
 }
-.point {
+.point:not(.hover-point) {
   fill: $primary-brand;
   stroke: $white;
 }
