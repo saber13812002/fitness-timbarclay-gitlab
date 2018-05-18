@@ -11,6 +11,7 @@ import _minBy from "lodash/minBy";
 import _maxBy from "lodash/maxBy";
 import _uniq from "lodash/uniq";
 import _pick from "lodash/pick";
+import _sortBy from "lodash/sortBy";
 
 const googleApi = new GoogleApi();
 
@@ -187,7 +188,8 @@ export default {
      */
     exercises(state, getters) {
       const allExerciseNames = _uniq(state.sets.map(set => set.exerciseName));
-      return allExerciseNames.map(exercise => new Exercise(exercise, getters.workoutSessions))
+      const exercises = allExerciseNames.map(exercise => new Exercise(exercise, getters.workoutSessions)).filter(e => e.sessions.length);
+      return _sortBy(exercises, e => e.name);
     },
 
     /**

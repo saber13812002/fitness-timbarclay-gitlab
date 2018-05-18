@@ -19,9 +19,15 @@ import {
   Footer,
   Notification,
   Select,
+  Autocomplete,
   Option,
   Alert
 } from "element-ui";
+
+import lang from 'element-ui/lib/locale/lang/en';
+import locale from 'element-ui/lib/locale';
+
+locale.use(lang);
 
 Vue.use(Menu);
 Vue.use(MenuItem);
@@ -40,6 +46,7 @@ Vue.use(Header);
 Vue.use(Main);
 Vue.use(Footer);
 Vue.use(Select);
+Vue.use(Autocomplete);
 Vue.use(Option);
 Vue.use(Alert);
 Vue.prototype.$notify = Notification;

@@ -76,6 +76,11 @@ const router = new Router({
           ]
         },
         {
+          path: "calculator",
+          name: "calculator",
+          component: () => import("./views/IntensityCalculator.vue")
+        },
+        {
           path: "settings",
           name: "settings",
           component: () => import("./views/Settings.vue")

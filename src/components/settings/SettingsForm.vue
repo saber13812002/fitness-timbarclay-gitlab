@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3>Units</h3>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :xs="24" :md="8">
         <label>Weight unit</label> <transition name="fade"><span v-if="weightUnitSaved" class="saved-notifier"> <i class="el-icon-circle-check"></i> Saved</span></transition>
         <el-select :value="weightUnitId" v-on:input="setWeightUnit">
@@ -12,7 +12,7 @@
     
     <h3>1 Rep Max</h3>
     <p class="setting-description">Superset is able to estimate your 1 Rep Max for an exercise based on the sets you've recorded. There are a number of different formulae in use for estimating 1RM. You can choose which you would like to use here</p>
-    <el-row :gutter="20">
+    <el-row>
       <el-col :xs="24" :md="8">
         <label>Preferred 1RM formula</label> <transition name="fade"><span v-if="oneRepMaxSaved" class="saved-notifier"> <i class="el-icon-circle-check"></i> Saved</span></transition>
         <el-select :value="oneRepMaxId" v-on:input="set1RepMax">
