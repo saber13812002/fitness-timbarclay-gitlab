@@ -27,6 +27,7 @@ $normal-space: 1em;
 $small-space: 8px;
 $box-corner-radius: 4px;
 $content-width: 1470px;
+$col-gutter: $small-space;
 
 @mixin drop-shadow {
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

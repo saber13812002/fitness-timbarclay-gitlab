@@ -57,7 +57,7 @@ h1, h2 {
 }
 
 .el-col {
-  padding: 0 10px;
+  padding: 0 $col-gutter;
   &:first-child {padding-left: 0;}
   &:last-child {padding-right: 0;}
 
@@ -74,5 +74,9 @@ h1, h2 {
   .el-notification {
     width: 100% !important;
     right: 0 !important;
+  }
+
+  .el-col {
+    padding: 0;
   }
 }

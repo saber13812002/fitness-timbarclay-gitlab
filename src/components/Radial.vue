@@ -51,8 +51,8 @@ export default {
   },
   methods: {
     redraw() {
-      d3.select(this.$el.querySelector("g")).remove();
-      this.size = this.$el.offsetWidth;
+      d3.select(this.$el.querySelector("#radial-g")).remove();
+      this.size = this.$el.clientWidth;
       this.setupChart();
     },
 
@@ -67,7 +67,9 @@ export default {
         .startAngle(0);
 
       const svg = d3.select(this.$el.querySelector("svg"));
-      const g = svg.append("g").attr("transform", "translate(" + this.size / 2 + "," + this.size / 2 + ")");
+      const g = svg.append("g")
+        .attr("id", "radial-g")
+        .attr("transform", "translate(" + this.size / 2 + "," + this.size / 2 + ")");
 
       const background = g.append("path")
           .datum({endAngle: tau})
