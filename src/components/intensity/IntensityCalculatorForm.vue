@@ -19,7 +19,11 @@
       </el-col>
     </el-row>
 
-    <radial v-if="result" :percentage="percentage">{{result}}</radial>
+    <el-row>
+      <el-col :xs="24" :md="6">
+        <radial v-if="result" :percentage="percentage">{{result}}</radial>
+      </el-col>
+    </el-row>
   </div>
 </template>
 

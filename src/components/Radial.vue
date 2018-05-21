@@ -1,5 +1,5 @@
 <template>
-  <div class="radial-container" :style="{width: size + 'px', height: size + 'px'}">
+  <div class="radial-container" style="width: 100%">
     <svg :width="size" :height="size"></svg>
     <div v-if="showText" class="radial-inner">
       <slot>
@@ -11,6 +11,7 @@
 
 <script>
 import * as d3 from "d3";
+import Vue from "vue";
 
 const tau = 2 * Math.PI;
 
@@ -19,13 +20,13 @@ export default {
     percentage: {type: Number, required: true},
     text: {type: String, required: false},
     showText: {type: Boolean, default: true},
-    size: {type: Number, default: 200},
     lineWidth: {type: Number, default: 10}
   },
   data() {
     return {
       arc: null,
-      foreground: null
+      foreground: null,
+      size: 0
     }
   },
   computed: {
@@ -34,9 +35,27 @@ export default {
     }
   },
   mounted() {
-    this.setupChart();
+    Vue.nextTick(() => {
+      this.redraw();
+    });
+
+    window.addEventListener("resize", this.redraw);
+  },
+  destroyed() {
+    window.removeEventListener("resize", this.redraw);
+  },
+  watch: {
+    percentage(percentage) {
+      this.update(percentage);
+    }
   },
   methods: {
+    redraw() {
+      d3.select(this.$el.querySelector("g")).remove();
+      this.size = this.$el.offsetWidth;
+      this.setupChart();
+    },
+
     setupChart() {
       const outer = this.size / 2;
       const inner = outer - this.lineWidth;
