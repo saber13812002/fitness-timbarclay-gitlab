@@ -20,6 +20,7 @@ import {
   Notification,
   Select,
   Autocomplete,
+  Slider,
   Option,
   Alert
 } from "element-ui";
@@ -47,6 +48,7 @@ Vue.use(Main);
 Vue.use(Footer);
 Vue.use(Select);
 Vue.use(Autocomplete);
+Vue.use(Slider);
 Vue.use(Option);
 Vue.use(Alert);
 Vue.prototype.$notify = Notification;
