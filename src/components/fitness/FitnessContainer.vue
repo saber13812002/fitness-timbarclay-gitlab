@@ -75,14 +75,7 @@ export default {
           message: 'Failed to download new sets from Google'
         });
       }
-    },
-    lastRequest: _debounce(function() {
-      this.$notify({
-        title: 'Success',
-        message: 'Updated successfully',
-        type: 'success'
-      });
-    }, 500)
+    }
   },
   components: {
     SessionsList
