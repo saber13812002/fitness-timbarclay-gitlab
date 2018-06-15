@@ -17,6 +17,19 @@ h1, h2, h3, h4, h5, h6 {
 h1, h2 {
   margin-top: 1em;
   margin-bottom: 0.8em;
+  &.no-top {
+    margin-top: 0;
+  }
+}
+
+.heading-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  aside {
+    font-size: 0.8em;
+    font-style: italic;
+  }
 }
 
 .brand {

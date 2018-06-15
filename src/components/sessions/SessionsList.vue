@@ -1,12 +1,28 @@
 <template>
   <div>
-    <h2>Sessions from {{formatDate(start)}} to {{formatDate(end)}}</h2>
-    <card-link v-for="session in reversedSessions" :to="sessionLink(session.session)" :key="session.session.id">
-      <span slot="head">{{sessionStart(session)}}</span>
-      <div>{{session.session.name}}</div>
-      <div>{{duration(session)}}</div>
-      <span class="exercise-list">{{listExercises(session)}}</span>
-    </card-link>
+    <div class="heading-row">
+      <h2 class="no-top">Workout Sessions</h2>
+      <aside>Since {{formatDate(start)}}</aside>
+    </div>
+    <div v-if="reversedSessions.length">
+      <card-link v-for="session in reversedSessions" :to="sessionLink(session.session)" :key="session.session.id">
+        <span slot="head">{{sessionStart(session)}}</span>
+        <div>{{session.session.name}}</div>
+        <div>{{duration(session)}}</div>
+        <span class="exercise-list">{{listExercises(session)}}</span>
+      </card-link>
+      <div>
+        <el-button type="info" round v-on:click="loadMore">Load more</el-button>
+      </div>
+    </div>
+    <div v-else>
+      <div>
+        There's nothing here <!-- Give more information, maybe including instructions about Google Fit app etc -->
+      </div>
+      <div>
+        <el-button type="info" round v-on:click="loadMore">Look further back in time</el-button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,6 +30,7 @@
 import CardLink from "../CardLink.vue";
 import {mapState, mapGetters} from "vuex";
 import moment from "moment";
+import mutations from "../../vuex/mutations";
 import _sortBy from "lodash/sortBy";
 import _uniq from "lodash/uniq";
 import _round from "lodash/round";
@@ -25,8 +42,7 @@ export default {
     ]),
     ...mapState({
       sessions: state => state.exercise.sessions,
-      start: state => state.dates.start,
-      end: state => state.dates.end
+      start: state => state.dates.start
     }),
     reversedSessions() {
       return _sortBy(this.workoutSessions, s => -s.session.start);
@@ -46,7 +62,7 @@ export default {
       }
     },
     formatDate(date) {
-      return moment(date).format("Do MMM YY");
+      return moment(date).format("Do MMMM YYYY");
     },
     listExercises(session) {
       return _uniq(session.sets.map(s => s.exerciseName)).join(", ");
@@ -55,6 +71,9 @@ export default {
       const {start, end} = session.session;
       const durationMillis = end - start;
       return `${_round(durationMillis / 1000 / 60)} minutes`;
+    },
+    loadMore() {
+      this.$store.commit(mutations.PUSH_DATE);
     }
   }
 }

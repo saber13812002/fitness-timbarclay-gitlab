@@ -17,8 +17,8 @@ import moment from "moment";
 GoogleApi.initialiseGoogleApi()
   .then(() => store.commit(mutations.INIT_COMPLETE));
 
-store.commit(mutations.SET_DATES, {
-  dates: [moment().subtract(3, "months").toDate(), new Date()]
+store.commit(mutations.SET_DATE, {
+  startDate: moment().subtract(3, "months").toDate()
 })
 
 Vue.config.productionTip = false

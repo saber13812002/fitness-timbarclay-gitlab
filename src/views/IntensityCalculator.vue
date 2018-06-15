@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Intensity Calculator</h2>
+    <h2 class="no-top">Intensity Calculator</h2>
     <intensity-calculator-container/>
   </div>
 </template>

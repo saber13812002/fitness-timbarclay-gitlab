@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Settings</h2>
+    <h2 class="no-top">Settings</h2>
     
     <settings-form class="settings"/>
 

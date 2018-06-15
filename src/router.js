@@ -37,8 +37,7 @@ const router = new Router({
       beforeEnter: ensureLoggedIn,
       props(route) {
         return {
-          start: route.query.start,
-          end: route.query.end
+          start: route.query.start
         }
       },
       children: [

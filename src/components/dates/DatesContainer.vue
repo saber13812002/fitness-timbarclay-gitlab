@@ -12,8 +12,7 @@ import moment from "moment";
 
 export default {
   props: {
-    start: {type: String, required: false},
-    end: {type: String, required: false}
+    start: {type: String, required: false}
   },
   computed: {
     ...mapGetters([
@@ -21,46 +20,39 @@ export default {
     ])
   },
   watch: {
-    dates() {
+    /* dates() {
       const query = this.getQueryWithDates();
       this.$router.push({query});
-    },
+    }, */
     start() {
       this.commitDates();
     },
-    end() {
-      this.commitDates();
-    },
-    "$route"(route) {
-      const {start, end} = route.query;
-      if(!(start && end)) {
+    /* "$route"(route) {
+      const {start} = route.query;
+      if(!start) {
         const query = this.getQueryWithDates();
         this.$router.replace({query});
       }
-    }
+    } */
   },
   mounted() {
     this.commitDates();
   },
   methods: {
     commitDates() {
-      if(isValidDate(this.start) && isValidDate(this.end)) {
+      if(isValidDate(this.start)) {
         const currentStart = this.dates[0];
-        const currentEnd = this.dates[1];
-        const start = new Date(this.start);
-        const end = new Date(this.end);
+        const startDate = new Date(this.start);
         // TODO remove moment from here
-        if(!(moment(currentStart).isSame(start) && moment(currentEnd).isSame(end))) {
-          const dates = [start, end];
-          this.$store.commit(mutations.SET_DATES, {dates});  
+        if(!(moment(currentStart).isSame(startDate))) {
+          this.$store.commit(mutations.SET_DATE, {startDate});  
         }
       }
     },
 
     getQueryWithDates() {
       return Object.assign({}, this.$route.query, {
-        start: this.dates[0].toISOString(),
-        end: this.dates[1].toISOString()
+        start: this.dates[0].toISOString()
       })
     }
   }

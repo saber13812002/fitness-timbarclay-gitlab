@@ -1,7 +1,6 @@
 <template>
   <div class="date-container">
     <div class="el-input"><date-time :value="startString" :auto="true" input-class="el-input__inner" v-on:input="updateStart"/></div>
-    <div class="el-input"><date-time :value="endString" :auto="true" input-class="el-input__inner" v-on:input="updateEnd"/></div>
   </div>
 </template>
 
@@ -16,25 +15,18 @@ export default {
   },
   computed: {
     ...mapState({
-      start: state => state.dates.start,
-      end: state => state.dates.end
+      start: state => state.dates.start
     }),
     startString() {
       return this.start.toISOString ? this.start.toISOString() : null;
-    },
-    endString() {
-      return this.end.toISOString ? this.end.toISOString() : null;
     }
   },
   methods: {
-    onInput(dates) {
-      this.$store.commit(mutations.SET_DATES, {dates});
+    onInput(startDate) {
+      this.$store.commit(mutations.SET_DATE, {startDate});
     },
     updateStart(date) {
-      this.onInput([new Date(date), this.end]);
-    },
-    updateEnd(date) {
-      this.onInput([this.start, new Date(date)]);
+      this.onInput(new Date(date));
     }
   }
 }

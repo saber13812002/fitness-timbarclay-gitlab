@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h2>Exercises done between {{formatDate(start)}} and {{formatDate(end)}}</h2>
+    <div class="heading-row">
+      <h2 class="no-top">Exercises</h2>
+      <aside>Since {{formatDate(start)}}</aside>
+    </div>
     <card-link v-for="exercise in orderedExercises" :to="exerciseLink(exercise)" :key="exercise.name">
       <div>{{exercise.name}}</div>
       <div class="exercise-details">
@@ -44,7 +47,7 @@ export default {
       }
     },
     formatDate(date) {
-      return moment(date).format("Do MMM YYYY"); // TODO remove moment from here
+      return moment(date).format("Do MMMM YYYY"); // TODO remove moment from here
     },
     numberOfSessions(exercise) {
       return `${exercise.sessions.length} sessions`;

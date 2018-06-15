@@ -11,9 +11,12 @@ export default {
   },
 
   mutations: {
-    [mutations.SET_DATES](state, {dates}) {
-      state.start = dates[0];
-      state.end = dates[1];
+    [mutations.SET_DATE](state, {startDate}) {
+      state.start = startDate;
+      state.end = new Date();
+    },
+    [mutations.PUSH_DATE](state) {
+      state.start = moment(state.start).subtract(1, "months").toDate();
     }
   },
 

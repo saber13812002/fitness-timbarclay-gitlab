@@ -1,15 +1,10 @@
 <template>
   <div>
     <div class="refresh-button">
-      <div class="hidden-sm-and-down">
-        <div class="last-request" v-if="lastRequest">
-          Last refreshed {{timeSinceLoad}}
-        </div>
-        <el-button v-on:click="fetchData" type="primary" round><i class="el-icon-refresh"/> Refresh</el-button>
+      <div class="last-request hidden-sm-and-down" v-if="lastRequest">
+        Last refreshed {{timeSinceLoad}}
       </div>
-      <div class="hidden-md-and-up">
-        <el-button v-on:click="fetchData" type="primary" round><i class="el-icon-refresh"/></el-button>
-      </div>
+      <el-button v-on:click="refresh" type="primary" round><i class="el-icon-refresh"/></el-button>
     </div>
     <slot></slot>
   </div>
@@ -21,6 +16,7 @@ import {mapState, mapGetters} from "vuex";
 import actions from "../../vuex/actions";
 import moment from "moment";
 import _debounce from "lodash/debounce";
+import mutations from '../../vuex/mutations';
 
 export default {
   computed: {
@@ -81,8 +77,13 @@ export default {
     SessionsList
   },
   methods: {
+    refresh() {
+      // This will cause the end date to be updated to the current date and that will trigger fetchData to be run
+      this.$store.commit(mutations.SET_DATE, {startDate: this.dates[0]})
+    },
+    
     fetchData() {
-      if(this.initialised) {
+      if(this.initialised) {  
         this.$store.dispatch(actions.FETCH_SESSIONS);
         this.$store.dispatch(actions.FETCH_SETS);
       }
@@ -94,12 +95,6 @@ export default {
 <style lang="scss" scoped>
 @import "../../sass/variables";
 
-.refresh-button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 1em;
-}
 .last-request {
   display: inline-block;
   font-size: 0.6em;
@@ -110,21 +105,20 @@ export default {
   color: $secondary-text;
 }
 
-@media only screen and (max-width: 990px) {
-  $button-size: 4em;
+$button-size: 4em;
 
-  .refresh-button {
-    position: fixed;
-    top: calc(100vh - 6em - #{$normal-space});
-    right: $normal-space;
-    z-index: 10;
-    .el-button {
-      border-radius: 50%;
-      height: $button-size;
-      width: $button-size;
-      text-align: center;
-      padding: 0;
-    }
+.refresh-button {
+  position: fixed;
+  top: calc(100vh - 6em - #{$normal-space});
+  padding: 1em;
+  right: $normal-space;
+  z-index: 10;
+  .el-button {
+    border-radius: 50%;
+    height: $button-size;
+    width: $button-size;
+    text-align: center;
+    padding: 0;
   }
 }
 </style>
