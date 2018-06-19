@@ -2,16 +2,14 @@
   <div>
     <div class="heading-row">
       <h2 class="no-top">Workout Sessions</h2>
-      <aside>Since {{formatDate(start)}}</aside>
     </div>
     <div v-if="reversedSessions.length">
       <card-link v-for="session in reversedSessions" :to="sessionLink(session.session)" :key="session.session.id">
-        <span slot="head">{{sessionStart(session)}}</span>
-        <div>{{session.session.name}}</div>
+        <div>{{sessionStart(session)}} - {{session.session.name}}</div>
         <div>{{duration(session)}}</div>
         <span class="exercise-list">{{listExercises(session)}}</span>
       </card-link>
-      <div>
+      <div class="center-content">
         <el-button type="info" round v-on:click="loadMore">Load more</el-button>
       </div>
     </div>
@@ -19,7 +17,7 @@
       <div>
         There's nothing here <!-- Give more information, maybe including instructions about Google Fit app etc -->
       </div>
-      <div>
+      <div class="center-content">
         <el-button type="info" round v-on:click="loadMore">Look further back in time</el-button>
       </div>
     </div>
@@ -53,7 +51,7 @@ export default {
   },
   methods: {
     sessionStart(session) {
-      return moment(session.session.start).format("Do MMM")
+      return moment(session.session.start).format("ddd Do MMM")
     },
     sessionLink(session) {
       return {

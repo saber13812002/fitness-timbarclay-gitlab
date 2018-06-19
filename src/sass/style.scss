@@ -57,6 +57,11 @@ h1, h2 {
   margin-bottom: $normal-space;
 }
 
+.center-content {
+  display: flex;
+  justify-content: center;
+}
+
 .el-select {
   .el-input.is-focus .el-input__inner, .el-input__inner:focus {
     border-color: $secondary-brand !important;
@@ -73,10 +78,6 @@ h1, h2 {
   padding: 0 $col-gutter;
   &:first-child {padding-left: 0;}
   &:last-child {padding-right: 0;}
-
-  .el-select, .el-input {
-    //width: 100%;
-  }
 }
 
 .el-tooltip__popper.is-dark a {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <card v-for="session in reversedSessions" :key="session.session.id">
+    <el-card v-for="session in reversedSessions" :key="session.session.id" class="space">
       <div>{{sessionStart(session)}}</div>
       <span v-for="set in session.sets" :key="set.id" class="set-summary">
         <el-tooltip placement="top">
@@ -15,15 +15,14 @@
           <el-tag>{{resistance(set)}} x {{set.reps}}</el-tag>
         </el-tooltip>
       </span>
-    </card>
-    <div>
+    </el-card>
+    <div class="center-content">
       <el-button type="info" round v-on:click="loadMore">Load more</el-button>
     </div>
   </div>
 </template>
 
 <script>
-import Card from "../Card.vue";
 import {Set} from "../../application/models/Set";
 import _sortBy from "lodash/sortBy";
 import _round from "lodash/round";
@@ -48,9 +47,6 @@ export default {
     maxOneRepMax() {
       return this.exercise.maxOneRepMax(this.oneRepMax.calculate());
     }
-  },
-  components: {
-    Card
   },
   methods: {
     sessionStart(session) {

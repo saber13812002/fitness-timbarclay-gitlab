@@ -1,19 +1,14 @@
 <template>
-  <card class="card-link" v-on:click.native="navigate">
-    <slot slot="head" name="head"></slot>
+  <el-card class="card-link space" v-on:click.native="navigate">
     <slot></slot>
-  </card>
+  </el-card>
 </template>
 
 <script>
-import Card from "./Card.vue";
 
 export default {
   props: {
     to: {type: [String, Object], required: false}
-  },
-  components: {
-    Card
   },
   methods: {
     navigate() {
@@ -37,16 +32,11 @@ $space-between: 1em;
   cursor: pointer;
 }
 
-.card-link:hover.card-container {
-  .ball {
-    background-color: $secondary-brand;
-  }
-  .card {
-    box-shadow:
-      0 3px 3px 0 rgba(0,0,0,0.14),
-      0 4px 2px -1px rgba(0,0,0,0.12),
-      0 2px 6px 2px rgba(0,0,0,0.2);
-  }
+.card-link:hover {
+  box-shadow:
+    0 3px 3px 0 rgba(0,0,0,0.14),
+    0 4px 2px -1px rgba(0,0,0,0.12),
+    0 2px 6px 2px rgba(0,0,0,0.2);
 }
 </style>
 

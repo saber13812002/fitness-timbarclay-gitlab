@@ -35,7 +35,8 @@ ul.el-menu {
   background-color: inherit;
   border-right-color: $base-border;
   li.el-menu-item {
-    font-size: 0.9em;
+    font-size: 0.8em;
+    padding: 0 10px;
   }
 }
 
