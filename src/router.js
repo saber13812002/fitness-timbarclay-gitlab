@@ -35,11 +35,6 @@ const router = new Router({
       path: "/",
       component: () => import("./views/Home.vue"),
       beforeEnter: ensureLoggedIn,
-      props(route) {
-        return {
-          start: route.query.start
-        }
-      },
       children: [
         {
           path: "",

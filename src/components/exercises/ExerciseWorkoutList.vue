@@ -16,6 +16,9 @@
         </el-tooltip>
       </span>
     </card>
+    <div>
+      <el-button type="info" round v-on:click="loadMore">Load more</el-button>
+    </div>
   </div>
 </template>
 
@@ -27,6 +30,7 @@ import _round from "lodash/round";
 import * as metrics from "../../application/models/IntensityMetrics";
 import {renderWeight} from "../../application/resistanceHelpers";
 import {mapGetters} from "vuex";
+import mutations from "../../vuex/mutations";
 import moment from "moment";
 
 export default {
@@ -67,6 +71,9 @@ export default {
     volumeLoad(set) {
       const load = metrics.volumeLoad.calculate()(set, this.weightUnit);
       return `${_round(load, 1)}${metrics.volumeLoad.units(this.weightUnit)}`;
+    },
+    loadMore() {
+      this.$store.commit(mutations.PUSH_DATE);
     }
   }
 }
