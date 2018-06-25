@@ -37,6 +37,7 @@ ul.el-menu {
   li.el-menu-item {
     font-size: 0.8em;
     padding: 0 10px;
+    font-family: $poppins;
   }
 }
 

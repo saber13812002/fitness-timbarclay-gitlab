@@ -5,7 +5,7 @@
     <div v-else>
       <h2>{{session.session.name}}</h2>
       <span>{{sessionStart}}</span>
-      <el-card>
+      <el-card class="scroll-card">
         <sets-list :sets="session.sets" />
       </el-card>
     </div>
@@ -44,3 +44,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.scroll-card {
+  overflow-x: auto;
+}
+</style>
