@@ -112,7 +112,7 @@ export default {
         .decorate(sel => {
           sel.enter()
             .select(".y-axis-label").select(function() {return this.parentNode})
-            .style("white-space", "nowrap")
+            .style("white-space", "nowrap");
         })
 
       Vue.nextTick(() => 
@@ -157,6 +157,11 @@ div.tooltip {
   border-radius: $box-corner-radius;
   pointer-events: none;
   @include drop-shadow;
+}
+@media only screen and (max-width: 990px) {
+  g.tick:nth-child(even) {
+    display: none;
+  }
 }
 </style>
 
