@@ -119,6 +119,9 @@ $button-size: 4em;
     width: $button-size;
     text-align: center;
     padding: 0;
+    i {
+      font-size: 1.5em;
+    }
   }
 }
 </style>
