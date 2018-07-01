@@ -4,13 +4,18 @@
       <h2 class="no-top">Exercises</h2>
       <aside>Since {{formatDate(start)}}</aside>
     </div>
-    <card-link v-for="exercise in orderedExercises" :to="exerciseLink(exercise)" :key="exercise.name">
-      <div>{{exercise.name}}</div>
-      <div class="exercise-details">
-        <div>{{numberOfSessions(exercise)}}</div>
-        <div>Max resistance: {{maxResistance(exercise)}}</div>
-      </div>
-    </card-link>
+    <div v-if="orderedExercises.length">
+      <card-link v-for="exercise in orderedExercises" :to="exerciseLink(exercise)" :key="exercise.name">
+        <div>{{exercise.name}}</div>
+        <div class="exercise-details">
+          <div>{{numberOfSessions(exercise)}}</div>
+          <div>Max resistance: {{maxResistance(exercise)}}</div>
+        </div>
+      </card-link>
+    </div>
+    <div v-else>
+      There doesn't seem to be anything here.
+    </div>
   </div>
 </template>
 

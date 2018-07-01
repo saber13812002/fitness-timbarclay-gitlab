@@ -2,7 +2,6 @@
   <div class="login-container">
     <div class="login-text-container">
       <div>
-        <p>Superset makes the most of the Strength Training data collected by your Google WearOS device</p>
         <p>Connect Superset to your Google account to start seeing better, more useful analyses of your workouts and start supercharging your progress</p>
       </div>
 
@@ -40,6 +39,7 @@ export default {
   align-items: center;
   max-width: 900px;
   margin: 0 auto;
+  font-size: 1.1em;
   color: $white;
   &> * {
     margin: 1em;

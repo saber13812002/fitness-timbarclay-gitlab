@@ -45,25 +45,21 @@ export default {
 @import "./sass/_variables.scss";
 
 header.el-header {
-  background-color: $white;
+  background-color: $primary-brand;
   z-index: 10;
   transition: background-color 0.5s, color 0.5s, text-shadow 0.5s;
-  @include drop-shadow;
+  color: $white;
+  .brand {
+    color: $white;
+  }
   &.light {
     background-color: transparent;
-    box-shadow: none;
-    color: $white;
-    .brand {
-      color: $white;
-      text-shadow: $primary-text 1px 1px 15px;
-    }
   }
 }
 .container {
   min-height: 100vh;
 }
 main.el-main {
-  background-color: $neutral;
   padding: 0;
   margin-top: -$nav-height;
   &.pushed {

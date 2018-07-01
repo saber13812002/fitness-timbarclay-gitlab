@@ -4,7 +4,7 @@
       <div class="last-request hidden-sm-and-down" v-if="lastRequest">
         Last refreshed {{timeSinceLoad}}
       </div>
-      <el-button v-on:click="refresh" type="primary" round><i class="el-icon-refresh"/></el-button>
+      <el-button v-on:click="refresh" class="secondary" round><i class="el-icon-refresh"/></el-button>
     </div>
     <slot></slot>
   </div>
@@ -58,6 +58,7 @@ export default {
     },
     sessionsError(err) {
       if(err) {
+        console.error(err)
         this.$notify.error({
           title: 'Error',
           message: 'Failed to download new sessions from Google'
@@ -66,6 +67,7 @@ export default {
     },
     setsError(err) {
       if(err) {
+        console.error(err)
         this.$notify.error({
           title: 'Error',
           message: 'Failed to download new sets from Google'
@@ -119,8 +121,13 @@ $button-size: 4em;
     width: $button-size;
     text-align: center;
     padding: 0;
+    background-color: $secondary-brand;
+    border: 0;
+    @include drop-shadow;
     i {
-      font-size: 1.5em;
+      font-size: 2em;
+      font-weight: bold;
+      color: $white;
     }
   }
 }

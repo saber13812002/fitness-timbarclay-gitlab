@@ -15,7 +15,7 @@
 
 <script>
 import LoginButton from "./LoginButton.vue";
-import mutations from "../../vuex/mutations";
+import actions from "../../vuex/actions";
 import {mapState, mapMutations, mapGetters} from "vuex";
 
 export default {
@@ -39,7 +39,7 @@ export default {
     handleDropdown(command) {
       switch(command){
         case "logout":
-          return this.$store.commit(mutations.LOGOUT);
+          return this.$store.dispatch(actions.SIGN_OUT);
       }
     }
   }

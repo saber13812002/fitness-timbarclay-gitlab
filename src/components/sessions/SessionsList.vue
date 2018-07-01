@@ -1,8 +1,5 @@
 <template>
   <div>
-    <div class="heading-row">
-      <h2 class="no-top">Workout Sessions</h2>
-    </div>
     <div v-if="reversedSessions.length">
       <card-link v-for="session in reversedSessions" :to="sessionLink(session.session)" :key="session.session.id">
         <div>{{sessionStart(session)}} - {{session.session.name}}</div>
@@ -10,15 +7,16 @@
         <span class="exercise-list">{{listExercises(session)}}</span>
       </card-link>
       <div class="center-content">
-        <el-button type="info" round v-on:click="loadMore">Load more</el-button>
+        <el-button type="info" v-on:click="loadMore">Load more</el-button>
       </div>
     </div>
     <div v-else>
-      <div>
-        There's nothing here <!-- Give more information, maybe including instructions about Google Fit app etc -->
+      <div class="space">
+        <p>There's nothing here</p> <!-- Give more information, maybe including instructions about Google Fit app etc -->
+        <p>To start collecting data, you'll need an Android WearOS device with the Google Fit app. Then just start a Strength Training session.</p>
       </div>
       <div class="center-content">
-        <el-button type="info" round v-on:click="loadMore">Look further back in time</el-button>
+        <el-button type="info" v-on:click="loadMore">Look further back in time</el-button>
       </div>
     </div>
   </div>

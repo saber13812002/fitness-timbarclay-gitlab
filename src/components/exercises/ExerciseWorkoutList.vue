@@ -17,7 +17,7 @@
       </span>
     </el-card>
     <div class="center-content">
-      <el-button type="info" round v-on:click="loadMore">Load more</el-button>
+      <el-button type="info" v-on:click="loadMore">Load more</el-button>
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <el-button type="primary" round v-on:click="handleClick" :disabled="!initialised" :title="title">
+  <el-button class="login-button" type="primary" v-on:click="handleClick" :disabled="!initialised" :title="title">
     <i class="fab fa-google" />
     Connect with Google
   </el-button>
@@ -40,3 +40,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.login-button {
+  font-size: 1.2em;
+}
+</style>

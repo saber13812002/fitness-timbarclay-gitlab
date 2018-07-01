@@ -53,12 +53,14 @@ export default {
     },
     [mutations.EXERCISE_SESSIONS_FETCH_SUCCESS](state, {sessions}) {
       state.loadingSessions = false;
-      const sessionsMin = _minBy(sessions, s => s.start).start;
-      const sessionsMax = _maxBy(sessions, s => s.start).start;
-      const before = state.sessions.filter(s => moment(s.start).isBefore(moment(sessionsMin)));
-      const after = state.sessions.filter(s => moment(s.start).isAfter(moment(sessionsMax)));
-      
-      state.sessions = [...before, ...sessions, ...after];
+      if(sessions.length) {
+        const sessionsMin = _minBy(sessions, s => s.start).start;
+        const sessionsMax = _maxBy(sessions, s => s.start).start;
+        const before = state.sessions.filter(s => moment(s.start).isBefore(moment(sessionsMin)));
+        const after = state.sessions.filter(s => moment(s.start).isAfter(moment(sessionsMax)));
+        
+        state.sessions = [...before, ...sessions, ...after];
+      }
       state.lastRequest = new Date().getTime();
     },
     [mutations.EXERCISE_SESSIONS_FETCH_FAILURE](state, {err}) {
@@ -71,12 +73,14 @@ export default {
     },
     [mutations.EXERCISE_SETS_FETCH_SUCCESS](state, {sets}) {
       state.loadingSets = false;
-      const setsMin = _minBy(sets, s => s.start).start;
-      const setsMax = _maxBy(sets, s => s.start).start;
-      const before = state.sets.filter(s => moment(s.start).isBefore(moment(setsMin)));
-      const after = state.sets.filter(s => moment(s.start).isAfter(moment(setsMax)));
-      
-      state.sets = [...before, ...sets, ...after];
+      if(sets.length) {
+        const setsMin = _minBy(sets, s => s.start).start;
+        const setsMax = _maxBy(sets, s => s.start).start;
+        const before = state.sets.filter(s => moment(s.start).isBefore(moment(setsMin)));
+        const after = state.sets.filter(s => moment(s.start).isAfter(moment(setsMax)));
+        
+        state.sets = [...before, ...sets, ...after];
+      }
       state.lastRequest = new Date().getTime();
     },
     [mutations.EXERCISE_SETS_FETCH_FAILURE](state, {err}) {
