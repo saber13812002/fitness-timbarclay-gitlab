@@ -1,7 +1,7 @@
 <template>
   <el-container class="container">
     <el-header :class="{light: isLogin}">
-      <navbar/>
+      <navbar :hide-login="isLogin"/>
     </el-header>
     
     <el-main :class="{pushed: !isLogin}">

@@ -5,7 +5,7 @@
     </div>
 
     <div class="nav-group">
-      <login-container/>
+      <login-container v-if="!hideLogin"/>
     </div>
   </nav>
 </template>
@@ -16,6 +16,9 @@ import LoginContainer from "../login/LoginContainer.vue";
 export default {
   components: {
     LoginContainer
+  },
+  props:{
+    hideLogin: {type: Boolean, default: false}
   }
 }
 </script>
