@@ -30,7 +30,7 @@ $content-width: 1470px;
 $col-gutter: $small-space;
 
 @mixin drop-shadow {
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.3);
 }
 
 $--color-primary: $primary-brand;
