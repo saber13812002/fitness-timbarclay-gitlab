@@ -23,7 +23,6 @@ export default {
   align-items: center;
   cursor: default;
   .description {
-    font-family: $poppins;
     color: $secondary-text;
   }
   .value {

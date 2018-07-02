@@ -1,10 +1,27 @@
 <template>
   <div>
     <div v-if="reversedSessions.length">
-      <card-link v-for="session in reversedSessions" :to="sessionLink(session.session)" :key="session.session.id">
-        <div>{{sessionStart(session)}} - {{session.session.name}}</div>
-        <div>{{duration(session)}}</div>
-        <span class="exercise-list">{{listExercises(session)}}</span>
+      <card-link v-for="session in reversedSessions" class="session-card" :to="sessionLink(session.session)" :key="session.session.id">
+        <el-row style="display:flex">
+          <el-col :span="6">
+            <div class="date-header">
+              <div>{{sessionStart(session).format("ddd")}}</div>
+              <div>{{sessionStart(session).format("Do")}}</div>
+              <div class="month">{{sessionStart(session).format("MMMM")}}</div>
+            </div>
+          </el-col>
+          <el-col :span="18">
+            <el-row><h3>{{session.session.name}}</h3></el-row>
+            <el-row><div class="exercise-list">{{listExercises(session)}}</div></el-row>
+            <el-row>
+              <div class="session-stats">
+                <div><i class="far fa-clock" /> {{duration(session)}}</div>
+                <div><i class="fas fa-dumbbell" /> {{session.sets.length}} sets</div>
+                <div><!-- <i class="far fa-clock" /> {{duration(session)}} --></div> <!-- TODO another stat here -->
+              </div>
+            </el-row>
+          </el-col>
+        </el-row>
       </card-link>
       <div class="center-content">
         <el-button type="info" v-on:click="loadMore">Load more</el-button>
@@ -49,7 +66,7 @@ export default {
   },
   methods: {
     sessionStart(session) {
-      return moment(session.session.start).format("ddd Do MMM")
+      return moment(session.session.start)
     },
     sessionLink(session) {
       return {
@@ -60,13 +77,21 @@ export default {
     formatDate(date) {
       return moment(date).format("Do MMMM YYYY");
     },
+    uniqExercises(session) {
+      return _uniq(session.sets.map(s => s.exerciseName));
+    },
     listExercises(session) {
-      return _uniq(session.sets.map(s => s.exerciseName)).join(", ");
+      return this.uniqExercises(session).join(", ");
     },
     duration(session) {
       const {start, end} = session.session;
       const durationMillis = end - start;
       return `${_round(durationMillis / 1000 / 60)} minutes`;
+    },
+    startToEnd(session) {
+      const {start, end} = session.session;
+      const dateSt = d => moment(d).format("h:mm a");
+      return `${dateSt(start)} - ${dateSt(end)}`;
     },
     loadMore() {
       this.$store.commit(mutations.PUSH_DATE);
@@ -76,8 +101,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.exercise-list {
-  font-size: 0.8em;
-  font-style: italic;
+@import "../../sass/variables";
+
+.session-card {
+  h3 {
+    margin: 0 0 0.3em;
+  }
+  .exercise-list {
+    font-size: 0.8em;
+    color: $secondary-text;
+    margin-bottom: 0.5em;
+  }
+  .session-stats {
+    font-size: 0.7em;
+    color: $regular-text;
+    display: flex;
+    justify-content: space-between;
+  }
+  .date-header {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    line-height: 0.9em;
+    font-size: 1.4em;
+    .month {
+      font-size: 0.8em;
+    }
+  }
 }
 </style>

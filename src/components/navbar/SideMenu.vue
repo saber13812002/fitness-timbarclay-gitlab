@@ -41,7 +41,7 @@ ul.el-menu {
       color: $white;
       border-color: $white;
     }
-    &:focus {
+    &:focus, &:hover {
       color: $white;
       background-color: inherit;
     }
