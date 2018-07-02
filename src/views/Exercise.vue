@@ -1,10 +1,7 @@
 <template>
   <div>
     <div v-if="!exercise">There doesn't seem to be anything here</div>
-    <div v-else>
-      <h2>{{exercise.name}}</h2>
-      <exercise-container :exercise="exercise" :one-rep-max="oneRepMax" />
-    </div>
+    <exercise-container v-else :exercise="exercise" :one-rep-max="oneRepMax" />
   </div>
 </template>
 

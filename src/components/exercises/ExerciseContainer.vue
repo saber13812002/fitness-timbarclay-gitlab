@@ -3,7 +3,7 @@
     <exercise-summary class="space" :exercise="exercise" :one-rep-max="oneRepMax" :est-one-rep-max="estOneRepMax"/>
 
     <el-card v-if="showChart">
-      <h3>Progression</h3>
+      <h3 class="padded">Progression</h3>
 
       <exercise-chart class="space" :workout-sessions="exercise.sessions" :options="chartOptions" style="height: 300px"/>
 
@@ -22,8 +22,10 @@
       </el-row>
     </el-card>
 
-    <h3>Sessions</h3>
-    <exercise-workout-list :exercise="exercise" />
+    <div class="padded">
+      <h3>Sessions</h3>
+      <exercise-workout-list :exercise="exercise" />
+    </div>
   </div>
 </template>
 

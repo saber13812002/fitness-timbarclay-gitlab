@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <div class="exercise-summary">
     <h4>Summary</h4>
     <div class="summary-items">
       <div>
@@ -21,7 +21,7 @@
         </el-tooltip>
       </div>
     </div>
-  </el-card>
+  </div>
 </template>
 
 <script>
@@ -66,6 +66,11 @@ export default {
   }
 }
 @media only screen and (max-width: 990px) {
+  .exercise-summary {
+    background: url("../../assets/images/plate-step-1000.jpg") no-repeat center center;
+    background-size: cover;
+    margin-top: -22px; // Not sure why this needs to be here...
+  }
   .summary-items {
     display: block;
   }
