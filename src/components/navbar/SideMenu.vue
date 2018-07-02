@@ -1,6 +1,14 @@
 <template>
   <div class="page-menu">
-    <el-menu mode="horizontal" :router="true" :default-active="active">
+    <!-- TODO: there must be a better way to show a horizontal menu on small screens --> 
+    <el-menu class="hidden-sm-and-down" :router="true" :default-active="active"> 
+      <el-menu-item index="/sessions">Sessions</el-menu-item> 
+      <el-menu-item index="/exercises">Exercises</el-menu-item> 
+      <el-menu-item index="/calculator">Intensity Calculator</el-menu-item> 
+      <el-menu-item index="/settings">Settings</el-menu-item> 
+    </el-menu>
+    
+    <el-menu class="hidden-md-and-up" mode="horizontal" :router="true" :default-active="active"> 
       <el-menu-item index="/sessions">Sessions</el-menu-item>
       <el-menu-item index="/exercises">Exercises</el-menu-item>
       <el-menu-item index="/calculator">Calculator</el-menu-item>
@@ -49,19 +57,27 @@ ul.el-menu {
 }
 
 @media only screen and (min-width: 990px) {
-  ul.el-menu li.el-menu-item {
-    font-size: 1.3em;
-    border-left: solid 1px transparent;
-    &.is-active {
-      border-color: $primary-brand;
-    }
-    &:hover {
-      border-color: rgba($primary-brand, 0.6);
-      background-color: transparent;
-      color: rgba($primary-brand, 0.6);
-    }
-    &:focus {
-      background-color: transparent;
+  .page-menu {
+    background-color: transparent;
+    margin-top: 0;
+  }
+  ul.el-menu {
+    li.el-menu-item:not(.is-disabled) {
+      font-size: 1.3em;
+      border-left: solid 1px transparent;
+      color: $regular-text;
+      &.is-active {
+        border-color: $primary-brand;
+        color: $primary-text;
+      }
+      &:hover {
+        border-color: rgba($primary-brand, 0.6);
+        background-color: transparent;
+        color: rgba($primary-brand, 0.6);
+      }
+      &:focus {
+        background-color: transparent;
+      }
     }
   }
 }

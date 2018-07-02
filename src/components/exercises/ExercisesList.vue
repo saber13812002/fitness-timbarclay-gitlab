@@ -1,9 +1,5 @@
 <template>
   <div class="padded">
-    <div class="heading-row">
-      <h2 class="no-top">Exercises</h2>
-      <aside>Since {{formatDate(start)}}</aside>
-    </div>
     <div v-if="orderedExercises.length">
       <card-link v-for="exercise in orderedExercises" :to="exerciseLink(exercise)" :key="exercise.name">
         <div>{{exercise.name}}</div>
