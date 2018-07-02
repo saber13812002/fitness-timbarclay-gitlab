@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="padded">
     <div v-if="reversedSessions.length">
       <card-link v-for="session in reversedSessions" class="session-card" :to="sessionLink(session.session)" :key="session.session.id">
         <el-row style="display:flex">

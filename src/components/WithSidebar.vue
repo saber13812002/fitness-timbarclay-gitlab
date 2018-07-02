@@ -26,7 +26,7 @@ export default {
   padding: $normal-space;
 }
 .main-content {
-  padding: $normal-space $normal-space ($normal-space * 2) $normal-space;
+  padding: $normal-space 0 ($normal-space * 2);
   position: relative;
 }
 @media only screen and (max-width: 990px) {
@@ -38,7 +38,7 @@ export default {
     padding: 0;
   }
   .main-content {
-    padding: $small-space $small-space $normal-space $small-space;
+    padding: $small-space 0 $normal-space;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="padded">
     <h2 class="no-top">Intensity Calculator</h2>
     <intensity-calculator-container/>
   </div>

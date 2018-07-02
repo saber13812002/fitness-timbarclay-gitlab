@@ -5,7 +5,6 @@
         <th>Exercise</th>
         <th>Reps</th>
         <th>Resistance</th>
-        <th>Duration</th>
       </tr>
     </thead>
     <tbody>
@@ -15,7 +14,6 @@
         </td>
         <td>{{set.reps}}</td>
         <td>{{resistance(set)}}</td>
-        <td>{{formatDuration(set)}}s</td>
       </tr>
     </tbody>
   </table>
@@ -66,6 +64,10 @@ table.set-table {
   width: 100%;
   border-collapse: collapse;
 
+  thead {
+    background-color: $primary-text;
+    color: $white;
+  }
   tr {
     line-height: 2.2em;
     td, th {
@@ -74,8 +76,10 @@ table.set-table {
       a {
         color: $regular-text;
         text-decoration: none;
+        padding-bottom: 0.1em;
+        border-bottom: 1px solid $secondary-text;
         &:hover {
-          text-decoration: underline;
+          border-color: red;
         }
       }
     }

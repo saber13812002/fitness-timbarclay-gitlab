@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="padded">
     <h2 class="no-top">Settings</h2>
     
     <settings-form class="settings"/>

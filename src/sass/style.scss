@@ -26,6 +26,11 @@ h1, h2, h3 {
   }
 }
 
+.padded {
+  padding-left: $normal-space;
+  padding-right: $normal-space;
+}
+
 div.el-card {
   border: 0 !important;
   border-left: 6px solid $primary-brand !important;
@@ -101,5 +106,10 @@ div.el-card {
 
   .el-col {
     padding: 0;
+  }
+
+  .padded {
+    padding-left: $small-space;
+    padding-right: $small-space;
   }
 }

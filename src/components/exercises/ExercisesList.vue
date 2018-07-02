@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="padded">
     <div class="heading-row">
       <h2 class="no-top">Exercises</h2>
       <aside>Since {{formatDate(start)}}</aside>
