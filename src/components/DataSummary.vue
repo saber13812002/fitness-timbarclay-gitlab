@@ -1,7 +1,7 @@
 <template>
   <div class="summary-item">
-    <div v-if="description" class="description">{{description}}</div>
     <div class="value">{{value}}</div>
+    <div v-if="description" class="description">{{description}}</div>
   </div>
 </template>
 
@@ -22,14 +22,13 @@ export default {
   flex-direction: column;
   align-items: center;
   cursor: default;
-  .description {
-    color: $secondary-text;
-  }
   .value {
-    font-size: 2.8em;
-    color: $primary-brand;
-    line-height: 0.8em;
+    font-size: 1.4em;
+    line-height: 1.3em;
     font-weight: bold;
+  }
+  .description {
+    font-size: 0.8em;
   }
 }
 </style>

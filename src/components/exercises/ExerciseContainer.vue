@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="exercise-page">
     <exercise-summary class="space" :exercise="exercise" :one-rep-max="oneRepMax" :est-one-rep-max="estOneRepMax"/>
 
     <el-card v-if="showChart">
@@ -107,5 +107,8 @@ export default {
 
 .el-select {
   width: 100%;
+}
+.exercise-page {
+  margin-top: -9px; // Not sure what's going on here...
 }
 </style>
