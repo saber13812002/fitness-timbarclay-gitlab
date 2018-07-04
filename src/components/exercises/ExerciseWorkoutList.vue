@@ -1,7 +1,8 @@
 <template>
   <div>
     <el-card v-for="session in reversedSessions" :key="session.session.id" class="space">
-      <div>{{sessionStart(session)}}</div>
+      <h4 class="no-top">{{sessionStart(session)}}</h4>
+      
       <span v-for="set in session.sets" :key="set.id" class="set-summary">
         <el-tooltip placement="top">
           <div slot="content">
@@ -12,10 +13,11 @@
             <div>Duration: {{duration(set)}} seconds</div>
             <div>% of 1 rep max: {{percentOneRepMax(set)}}</div>
           </div>
-          <el-tag>{{resistance(set)}} x {{set.reps}}</el-tag>
+          <div>{{resistance(set)}} x {{set.reps}}</div>
         </el-tooltip>
       </span>
     </el-card>
+
     <div class="center-content">
       <el-button type="info" v-on:click="loadMore">Load more</el-button>
     </div>
@@ -75,8 +77,17 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "../../sass/variables";
+
 .set-summary {
-  margin-right: 0.5em;
+  display: inline-block;
+  font-size: 0.8em;
+  padding: 0.4em 0.8em;
+  margin: 0 4px 4px 0;
+  border-radius: 16px;
+  background-color: $primary-brand;
+  color: $white;
+  cursor: default;
 }
 </style>

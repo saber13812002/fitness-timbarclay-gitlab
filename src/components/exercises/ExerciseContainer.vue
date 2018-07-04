@@ -2,25 +2,28 @@
   <div>
     <exercise-summary class="space" :exercise="exercise" :one-rep-max="oneRepMax" :est-one-rep-max="estOneRepMax"/>
 
-    <el-card v-if="showChart">
+    <div class="padded progression-container" v-if="showChart">
+    
       <h3 class="padded">Progression</h3>
+      
+      <el-card>
+        <exercise-chart class="space" :workout-sessions="exercise.sessions" :options="chartOptions" style="height: 300px"/>
 
-      <exercise-chart class="space" :workout-sessions="exercise.sessions" :options="chartOptions" style="height: 300px"/>
+        <el-row :gutter="true">
+          <el-col :xs="12" :md="6">
+            <el-select :value="intensityMetric.id" v-on:input="setIntensityMetric">
+              <el-option v-for="opt in metricOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
+            </el-select>
+          </el-col>
 
-      <el-row>
-        <el-col :xs="12" :md="6">
-          <el-select :value="intensityMetric.id" v-on:input="setIntensityMetric">
-            <el-option v-for="opt in metricOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
-          </el-select>
-        </el-col>
-
-        <el-col :xs="12" :md="6">
-          <el-select :value="statsType.id" v-on:input="setStatsType">
-            <el-option v-for="opt in statsOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
-          </el-select>
-        </el-col>
-      </el-row>
-    </el-card>
+          <el-col :xs="12" :md="6">
+            <el-select :value="statsType.id" v-on:input="setStatsType">
+              <el-option v-for="opt in statsOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
+            </el-select>
+          </el-col>
+        </el-row>
+      </el-card>
+    </div>
 
     <div class="padded">
       <h3>Sessions</h3>
@@ -107,5 +110,13 @@ export default {
 
 .el-select {
   width: 100%;
+}
+.progression-container {
+  div.el-card {
+    border: 0 !important;
+  }
+}
+.point {
+  @include drop-shadow;
 }
 </style>
