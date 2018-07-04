@@ -77,7 +77,7 @@ export default {
 }
 @media only screen and (max-width: 990px) {
   .exercise-summary {
-    background: url("../../assets/images/plate-step-1000.jpg") no-repeat center center;
+    background: url("../../assets/images/plate-step-dark-1000.jpg") no-repeat center center;
     background-size: cover;
     height: 100%;
     position: relative;
@@ -85,5 +85,11 @@ export default {
   .extra-padded {
     padding: 0 1em;
   }
+}
+@media only screen and (max-width: 600px) {
+  background: url("../../assets/images/plate-step-dark-600.jpg") no-repeat center center;
+}
+@media only screen and (max-width: 400px) {
+  background: url("../../assets/images/plate-step-dark-400.jpg") no-repeat center center;
 }
 </style>

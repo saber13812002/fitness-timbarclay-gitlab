@@ -53,5 +53,15 @@ export default {
     background-size: cover;
   }
 }
+@media only screen and (max-width: 600px) {
+  .login-container {
+    background: url("../assets/images/plate-step-600.jpg") no-repeat top center;
+  }
+}
+@media only screen and (max-width: 400px) {
+  .login-container {
+    background: url("../assets/images/plate-step-400.jpg") no-repeat top center;
+  }
+}
 </style>
 
