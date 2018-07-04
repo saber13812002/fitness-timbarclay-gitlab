@@ -9,7 +9,7 @@
       <el-card>
         <exercise-chart class="space" :workout-sessions="exercise.sessions" :options="chartOptions" style="height: 300px"/>
 
-        <el-row :gutter="true">
+        <el-row :gutter="20">
           <el-col :xs="12" :md="6">
             <el-select :value="intensityMetric.id" v-on:input="setIntensityMetric">
               <el-option v-for="opt in metricOptions" :key="opt.id" :value="opt.id" :label="opt.name" />

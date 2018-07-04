@@ -4,17 +4,17 @@
       <h4 class="no-top">{{sessionStart(session)}}</h4>
       
       <span v-for="set in session.sets" :key="set.id" class="set-summary">
-        <el-tooltip placement="top">
-          <div slot="content">
-            <div>Weight: {{resistance(set)}}</div>
-            <div>Reps: {{set.reps}}</div>
-            <div>Volume load: {{volumeLoad(set)}}</div>
-            <div>Time: {{time(set)}}</div>
-            <div>Duration: {{duration(set)}} seconds</div>
-            <div>% of 1 rep max: {{percentOneRepMax(set)}}</div>
-          </div>
-          <div>{{resistance(set)}} x {{set.reps}}</div>
-        </el-tooltip>
+        <el-popover placement="top" trigger="hover">
+          <table>
+            <tr><td>Weight</td><td>{{resistance(set)}}</td></tr>
+            <tr><td>Reps</td><td>{{set.reps}}</td></tr>
+            <tr><td>Volume load</td><td>{{volumeLoad(set)}}</td></tr>
+            <tr><td>Time</td><td>{{time(set)}}</td></tr>
+            <tr><td>Duration</td><td>{{duration(set)}} seconds</td></tr>
+            <tr><td>% of 1 rep max</td><td>{{percentOneRepMax(set)}}</td></tr>
+          </table>
+          <div slot="reference">{{resistance(set)}} x {{set.reps}}</div>
+        </el-popover>
       </span>
     </el-card>
 
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     sessionStart(session) {
-      return moment(session.session.start).format("Do MMM YY");
+      return moment(session.session.start).format("dddd Do MMMM YYYY");
     },
     time(set) {
       return moment(set.start).format("h:mm:ss a");

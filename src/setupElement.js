@@ -7,6 +7,7 @@ import {
   Button,
   Card,
   Tooltip,
+  Popover,
   Tag,
   Dropdown,
   DropdownMenu,
@@ -36,6 +37,7 @@ Vue.use(Input);
 Vue.use(Button);
 Vue.use(Card);
 Vue.use(Tooltip);
+Vue.use(Popover);
 Vue.use(Tag);
 Vue.use(Dropdown);
 Vue.use(DropdownMenu);
