@@ -12,7 +12,7 @@ Vue.use(Vuex)
 
 const vuexLocal = new VuexPersistence({
   storage: window.localStorage,
-  key: "fitness",
+  key: "superset",
   reducer(state) {
     return {
       login: loginReducer(state.login),

@@ -40,7 +40,7 @@ if(isCiBuild) {
 
 if(!isTest) {
   module.exports = {
-    baseUrl: isCiBuild ? "/fitness/" : "/",
+    baseUrl: "/",
 
     configureWebpack: config => {
       config.plugins.push(

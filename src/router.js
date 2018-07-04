@@ -18,7 +18,7 @@ const Sessions = () => import("./views/Sessions.vue");
 const router = new Router({
   mode: "history",
 
-  base: IS_LIVE ? "/fitness/" : "/",
+  base: "/",
   
   scrollBehavior (to, from, savedPosition) {
     if (savedPosition) {
