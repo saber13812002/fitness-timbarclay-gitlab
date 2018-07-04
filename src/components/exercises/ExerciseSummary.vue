@@ -1,24 +1,27 @@
 <template>
   <div class="exercise-summary">
-    <h4>Summary</h4>
-    <div class="summary-items">
-      <div>
-        <el-tooltip>
-          <div slot="content">{{maxResistance.reps}} reps. {{formatSetDate(maxResistance)}}</div>
-          <data-summary description="Max resistance" :value="renderWeight(maxResistance.resistance)"/>
-        </el-tooltip>
-      </div>
-      <div>
-        <el-tooltip>
-          <div slot="content">{{maxResistanceLastSession.reps}} reps. {{formatSetDate(maxResistanceLastSession)}}</div>
-          <data-summary description="Max last session" :value="renderWeight(maxResistanceLastSession.resistance)"/>
-        </el-tooltip>
-      </div>
-      <div>
-        <el-tooltip>
-          <div slot="content">Estimated using {{oneRepMax.name}}. Change this in <a href="/settings">settings</a></div><!-- Not quite sure why I can't use a router-link here but it gives an error -->
-          <data-summary description="Estimated 1 rep max" :value="renderWeight(estOneRepMax)"/>
-        </el-tooltip>
+    <div class="extra-padded">
+      <el-row><h2>{{exercise.name}}</h2></el-row>
+      
+      <div class="summary-items">
+        <div>
+          <el-tooltip>
+            <div slot="content">{{maxResistance.reps}} reps. {{formatSetDate(maxResistance)}}</div>
+            <data-summary description="Max weight" :value="renderWeight(maxResistance.resistance)"/>
+          </el-tooltip>
+        </div>
+        <div>
+          <el-tooltip>
+            <div slot="content">{{maxResistanceLastSession.reps}} reps. {{formatSetDate(maxResistanceLastSession)}}</div>
+            <data-summary description="Max last session" :value="renderWeight(maxResistanceLastSession.resistance)"/>
+          </el-tooltip>
+        </div>
+        <div>
+          <el-tooltip>
+            <div slot="content">Estimated using {{oneRepMax.name}}. Change this in <a href="/settings">settings</a></div><!-- Not quite sure why I can't use a router-link here but it gives an error -->
+            <data-summary description="1 rep max" :value="renderWeight(estOneRepMax)"/>
+          </el-tooltip>
+        </div>
       </div>
     </div>
   </div>
@@ -58,21 +61,29 @@ export default {
 <style lang="scss" scoped>
 @import "../../sass/variables";
 
+.exercise-summary {
+  color: $white;
+  h2 {
+    color: $white;
+  }
+  @include drop-shadow;
+}
 .summary-items {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   &> div {
-    margin-bottom: $normal-space;
+    margin-bottom: $normal-space * 2;
   }
 }
 @media only screen and (max-width: 990px) {
   .exercise-summary {
     background: url("../../assets/images/plate-step-1000.jpg") no-repeat center center;
     background-size: cover;
-    margin-top: -22px; // Not sure why this needs to be here...
+    height: 100%;
+    position: relative;
   }
-  .summary-items {
-    display: block;
+  .extra-padded {
+    padding: 0 1em;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="exercise-page">
     <exercise-summary class="space" :exercise="exercise" :one-rep-max="oneRepMax" :est-one-rep-max="estOneRepMax"/>
 
     <div class="padded progression-container" v-if="showChart">
@@ -110,6 +110,9 @@ export default {
 
 .el-select {
   width: 100%;
+}
+.exercise-page {
+  margin-top: -9px; // Not sure what's going on here...
 }
 .progression-container {
   div.el-card {
