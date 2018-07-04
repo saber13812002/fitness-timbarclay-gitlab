@@ -2,11 +2,14 @@
   <div class="padded">
     <div v-if="orderedExercises.length">
       <card-link v-for="exercise in orderedExercises" :to="exerciseLink(exercise)" :key="exercise.name">
-        <div>{{exercise.name}}</div>
-        <div class="exercise-details">
-          <div>{{numberOfSessions(exercise)}}</div>
-          <div>Max resistance: {{maxResistance(exercise)}}</div>
-        </div>
+        <el-row><h3 class="no-top">{{exercise.name}}</h3></el-row>
+        <el-row>
+          <div class="exercise-stats">
+            <div>{{numberOfSessions(exercise)}}</div>
+            <div><i class="fas fa-dumbbell" /> Max weight: {{maxResistance(exercise)}}</div>
+            <div><!-- More stats --></div>
+          </div>
+        </el-row>
       </card-link>
     </div>
     <div v-else>
@@ -62,8 +65,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.exercise-details {
-  font-size: 0.8em;
-  font-style: italic;
+@import "../../sass/variables";
+
+.exercise-stats {
+  font-size: 0.7em;
+  color: $regular-text;
+  display: flex;
+  justify-content: space-between;
 }
 </style>
