@@ -25,9 +25,7 @@ export default {
 <style lang="scss" scoped>
 @import "../sass/_variables.scss";
 
-// TODO might be cool to do this https://codepen.io/jmperez/pen/wrVxga
 .login-container {
-  background: url("../assets/images/main-bg-1920-1281-orig.jpg") no-repeat center center;
   background-size: cover;
   min-height: 100vh;
   padding-top: 30vh;
@@ -41,11 +39,21 @@ export default {
   margin: 0 auto;
   font-size: 1.1em;
   color: $white;
+  text-shadow: 1px 1px $regular-text;
   &> * {
     margin: 1em;
   }
 }
-
+@media only screen and (min-width: 1367px) {
+  .login-container {
+    background: url("../assets/images/pullup-dark-1920.jpg") no-repeat top center;
+  }
+}
+@media only screen and (max-width: 1366px) {
+  .login-container {
+    background: url("../assets/images/pullup-dark-1366.jpg") no-repeat top center;
+  }
+}
 @media only screen and (max-width: 990px) {
   .login-container {
     background-color: $primary-text;

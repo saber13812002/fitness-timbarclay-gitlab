@@ -63,14 +63,20 @@ export default {
 
 .exercise-summary {
   color: $white;
+  background: url("../../assets/images/pullup-dark-1366.jpg") no-repeat center -180px;
+  background-size: cover;
+  margin: 0 1em;
   h2 {
     color: $white;
   }
   @include drop-shadow;
 }
+.extra-padded {
+  padding: 0 1em;
+}
 .summary-items {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   &> div {
     margin-bottom: $normal-space * 2;
   }
@@ -78,18 +84,21 @@ export default {
 @media only screen and (max-width: 990px) {
   .exercise-summary {
     background: url("../../assets/images/plate-step-dark-1000.jpg") no-repeat center center;
-    background-size: cover;
     height: 100%;
     position: relative;
+    margin: 0;
+    background-size: cover;
   }
-  .extra-padded {
-    padding: 0 1em;
+  .summary-items {
+    justify-content: space-between;
   }
 }
 @media only screen and (max-width: 600px) {
   background: url("../../assets/images/plate-step-dark-600.jpg") no-repeat center center;
+  background-size: cover;
 }
 @media only screen and (max-width: 400px) {
   background: url("../../assets/images/plate-step-dark-400.jpg") no-repeat center center;
+  background-size: cover;
 }
 </style>
