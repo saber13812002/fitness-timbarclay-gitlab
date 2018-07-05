@@ -26,7 +26,6 @@ export default {
 @import "../sass/_variables.scss";
 
 .login-container {
-  background-size: cover;
   min-height: 100vh;
   padding-top: 30vh;
 }
@@ -39,7 +38,7 @@ export default {
   margin: 0 auto;
   font-size: 1.1em;
   color: $white;
-  text-shadow: 1px 1px $regular-text;
+  text-shadow: 1px 1px 1px black;
   &> * {
     margin: 1em;
   }
@@ -47,11 +46,13 @@ export default {
 @media only screen and (min-width: 1367px) {
   .login-container {
     background: url("../assets/images/pullup-dark-1920.jpg") no-repeat top center;
+    background-size: cover;
   }
 }
 @media only screen and (max-width: 1366px) {
   .login-container {
     background: url("../assets/images/pullup-dark-1366.jpg") no-repeat top center;
+    background-size: cover;
   }
 }
 @media only screen and (max-width: 990px) {
@@ -64,11 +65,13 @@ export default {
 @media only screen and (max-width: 600px) {
   .login-container {
     background: url("../assets/images/plate-step-600.jpg") no-repeat top center;
+    background-size: cover;
   }
 }
 @media only screen and (max-width: 400px) {
   .login-container {
     background: url("../assets/images/plate-step-400.jpg") no-repeat top center;
+    background-size: cover;
   }
 }
 </style>
