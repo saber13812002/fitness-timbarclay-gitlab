@@ -1,5 +1,5 @@
 <template>
-  <div class="content-section">
+  <div class="content-section padded">
     <h1>Contact</h1>
     <el-row>
       <el-col :xs="24" :md="12" class="contact-col">

@@ -1,5 +1,5 @@
 <template>
-  <div class="content-section">
+  <div class="content-section padded">
     <div v-html="content"></div>
   </div>
 </template>
