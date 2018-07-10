@@ -1,7 +1,7 @@
 {
   "name": "Superset",
   "short_name": "Superset",
-  "description" : "Display your Google Fit strength training workouts",
+  "description" : "Get more value from your Google Fit strength training data by analysing and summarising your workouts so you track your progress effectively",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",
