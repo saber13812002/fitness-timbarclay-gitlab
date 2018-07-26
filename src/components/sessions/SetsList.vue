@@ -77,9 +77,9 @@ table.set-table {
         color: $regular-text;
         text-decoration: none;
         padding-bottom: 0.1em;
-        border-bottom: 1px solid $secondary-text;
+        box-shadow: inset 0px -4px 0 0 rgba($primary-brand, 0.77);
         &:hover {
-          border-color: red;
+          box-shadow: inset 0px -4px 0 0 $primary-brand;
         }
       }
     }

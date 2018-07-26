@@ -66,6 +66,7 @@ ul.el-menu {
       font-size: 1.3em;
       border-left: solid 1px transparent;
       color: $regular-text;
+      line-height: 2.5em;
       &.is-active {
         border-color: $primary-brand;
         color: $primary-text;
