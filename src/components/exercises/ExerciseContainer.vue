@@ -25,6 +25,14 @@
       </el-card>
     </div>
 
+    <div class="padded progression-container" v-if="showChart">
+      <h3 class="padded">Progression</h3>
+
+      <el-card>
+        <exercise-chart2 class="space" :workout-sessions="exercise.sessions" :options="chartOptions"/>
+      </el-card>
+    </div>
+
     <div class="padded">
       <h3>Sessions</h3>
       <exercise-workout-list :exercise="exercise" />
@@ -36,6 +44,7 @@
 import ExerciseSummary from "./ExerciseSummary.vue";
 import ExerciseWorkoutList from "./ExerciseWorkoutList.vue";
 import ExerciseChart from "./ExerciseChart.vue";
+import ExerciseChart2 from "./ExerciseChart2.vue";
 import mutations from "../../vuex/mutations";
 import * as metrics from "../../application/models/IntensityMetrics";
 import * as stats from "../../application/models/DescriptiveStats";
@@ -100,7 +109,8 @@ export default {
   components: {
     ExerciseSummary,
     ExerciseWorkoutList,
-    ExerciseChart
+    ExerciseChart,
+    ExerciseChart2
   }
 }
 </script>
