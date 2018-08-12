@@ -7,7 +7,7 @@
       <h3 class="padded">Progression</h3>
       
       <el-card>
-        <exercise-chart class="space" :workout-sessions="exercise.sessions" :options="chartOptions" style="height: 300px"/>
+        <exercise-chart class="space" :workout-sessions="exercise.sessions" :options="chartOptions"/>
 
         <el-row :gutter="20">
           <el-col :xs="12" :md="6">
@@ -29,7 +29,7 @@
       <h3 class="padded">Progression</h3>
 
       <el-card>
-        <exercise-chart2 class="space" :workout-sessions="exercise.sessions" :options="chartOptions"/>
+        <exercise-chart2 :workout-sessions="exercise.sessions" :one-rep-max="estOneRepMax" :weight-unit="weightUnit" :stats-type="statsType"/>
       </el-card>
     </div>
 
@@ -103,6 +103,10 @@ export default {
     },
     calculate(workout) {
       const value = workout.reduceSets(this.intensityMetric.calculate(this.estOneRepMax), this.statsType.calculate(), this.weightUnit);
+      return _round(this.weightUnit.calculate()(value), 1);
+    },
+    calculate2(workout, intensityMetric, estOneRepMax, statsType) {
+      const value = workout.reduceSets(intensityMetric.calculate(estOneRepMax), statsType.calculate(), this.weightUnit);
       return _round(this.weightUnit.calculate()(value), 1);
     }
   },

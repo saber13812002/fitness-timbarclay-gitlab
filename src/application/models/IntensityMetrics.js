@@ -45,7 +45,18 @@ export const percentageOf1RepMax = {
   }
 }
 
-export const all = [resistance, volumeLoad, exerciseDensityLoad, percentageOf1RepMax];
+export const repCount = {
+  id: "repCount",
+  name: "Rep count",
+  description: "The number of reps",
+  units: () => "",
+  stats: ["total", "mean"],
+  calculate() {
+    return (set) => set.reps;
+  }
+}
+
+export const all = [resistance, volumeLoad, exerciseDensityLoad, percentageOf1RepMax, repCount];
 
 export function getById(id) {
   return _find(all, a => a.id === id);
