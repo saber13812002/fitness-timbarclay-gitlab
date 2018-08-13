@@ -76,14 +76,16 @@ export default {
       return this.oneRepMaxWeight && this.percentage ? renderWeight(_round(this.percentage / 100 * this.oneRepMaxWeight, 1)) : null;
     },
     exerciseSuggestions() {
-      return this.exercises.map(e => {
-        const oneRepMax = _round(e.maxOneRepMax(this.oneRepMax.calculate()));
-        return {
-          name: `${e.name} (${renderWeight(oneRepMax)})`,
-          id: e.name,
-          oneRepMax: this.weightUnit.calculate()(oneRepMax)
-        }
-      })
+      return this.exercises
+        .filter(e => e.maxResistance().resistance > 0)
+        .map(e => {
+          const oneRepMax = _round(e.maxOneRepMax(this.oneRepMax.calculate()));
+          return {
+            name: `${e.name} (${renderWeight(oneRepMax)})`,
+            id: e.name,
+            oneRepMax: this.weightUnit.calculate()(oneRepMax)
+          }
+        });
     },
     exercise() {
       return _find(this.exerciseSuggestions, e => e.id === this.exerciseId);
@@ -122,7 +124,7 @@ export default {
   }
 }
 .el-input .el-input-group__append {
-  width: 35%;
+  width: 40%;
 }
 </style>
 
