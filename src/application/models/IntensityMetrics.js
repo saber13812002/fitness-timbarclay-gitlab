@@ -50,7 +50,7 @@ export const repCount = {
   name: "Rep count",
   description: "The number of reps",
   units: () => "",
-  stats: ["total", "mean"],
+  stats: ["total", "max", "mean"],
   calculate() {
     return (set) => set.reps;
   }
