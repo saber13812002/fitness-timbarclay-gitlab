@@ -25,7 +25,8 @@ export default {
         {
           metric: metrics.volumeLoad,
           type: "line",
-          colour: "#46237A"
+          colour: "#46237A",
+          opposite: true
         },
         {
           metric: metrics.repCount,
@@ -40,7 +41,7 @@ export default {
       handler: "setupChart",
       immediate: true
     },
-    options() {
+    statsType() {
       this.setupChart()
     }
   },
@@ -61,14 +62,24 @@ export default {
 
       const yaxis = this.configs.map(config => {
         return {
+          opposite: !!config.opposite,
           axisTicks: {
-            show: false
+            show: true
+          },
+          axisBorder: {
+            show: true,
+            color: config.colour
+          },
+          labels: {
+            style: {
+              color: config.colour
+            }
           },
           title: {
             text: config.metric.name
           }
         }
-      })
+      }).slice(0, 2); // We're not going to show a y axis for the reps columns
 
       const options = {
         chart: {
@@ -84,17 +95,10 @@ export default {
         },
         plotOptions: {
           bar: {
-            columnWidth: '20%'
+            columnWidth: '30%'
           }
         },
         series,
-        /* yaxis: {
-          labels: {
-            formatter(value) {
-              return `${value}${units}`;
-            }
-          },
-        }, */
         xaxis: {
           type: 'datetime'
         },

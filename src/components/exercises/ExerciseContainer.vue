@@ -2,7 +2,7 @@
   <div class="exercise-page">
     <exercise-summary class="space" :exercise="exercise" :one-rep-max="oneRepMax" :est-one-rep-max="estOneRepMax"/>
 
-    <div class="padded progression-container" v-if="showChart">
+    <!-- <div class="padded progression-container" v-if="showChart">
     
       <h3 class="padded">Progression</h3>
       
@@ -23,13 +23,21 @@
           </el-col>
         </el-row>
       </el-card>
-    </div>
+    </div> -->
 
     <div class="padded progression-container" v-if="showChart">
       <h3 class="padded">Progression</h3>
 
       <el-card>
         <exercise-chart2 :workout-sessions="exercise.sessions" :one-rep-max="estOneRepMax" :weight-unit="weightUnit" :stats-type="statsType"/>
+
+        <el-row :gutter="20">
+          <el-col :xs="12" :md="6">
+            <el-select :value="statsType.id" v-on:input="setStatsType">
+              <el-option v-for="opt in statsOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
+            </el-select>
+          </el-col>
+        </el-row>
       </el-card>
     </div>
 
