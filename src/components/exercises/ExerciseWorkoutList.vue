@@ -6,14 +6,15 @@
       <span v-for="set in session.sets" :key="set.id" class="set-summary">
         <el-popover placement="top" trigger="hover">
           <table>
-            <tr><td>Weight</td><td>{{resistance(set)}}</td></tr>
+            <tr v-if="!isBodyWeight"><td>Weight</td><td>{{resistance(set)}}</td></tr>
             <tr><td>Reps</td><td>{{set.reps}}</td></tr>
-            <tr><td>Volume load</td><td>{{volumeLoad(set)}}</td></tr>
+            <tr v-if="!isBodyWeight"><td>Volume load</td><td>{{volumeLoad(set)}}</td></tr>
             <tr><td>Time</td><td>{{time(set)}}</td></tr>
             <tr><td>Duration</td><td>{{duration(set)}} seconds</td></tr>
-            <tr><td>% of 1 rep max</td><td>{{percentOneRepMax(set)}}</td></tr>
+            <tr v-if="!isBodyWeight"><td>% of 1 rep max</td><td>{{percentOneRepMax(set)}}</td></tr>
           </table>
-          <div slot="reference">{{resistance(set)}} x {{set.reps}}</div>
+          <div v-if="!isBodyWeight" slot="reference">{{resistance(set)}} x {{set.reps}}</div>
+          <div v-else slot="reference">{{set.reps}} reps</div>
         </el-popover>
       </span>
     </el-card>
@@ -36,7 +37,8 @@ import moment from "moment";
 
 export default {
   props: {
-    exercise: {type: Object, required: true}
+    exercise: {type: Object, required: true},
+    isBodyWeight: {type: Boolean, default: false}
   },
   computed: {
     reversedSessions() {

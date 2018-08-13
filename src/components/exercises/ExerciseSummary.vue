@@ -3,7 +3,8 @@
     <div class="extra-padded">
       <el-row><h2>{{exercise.name}}</h2></el-row>
       
-      <div class="summary-items">
+      <!-- We generally show this summary when we're talking about an exercise that uses weights -->
+      <div v-if="!isBodyWeight" class="summary-items">
         <div>
           <el-tooltip>
             <div slot="content">{{maxResistance.reps}} reps. {{formatSetDate(maxResistance)}}</div>
@@ -23,6 +24,22 @@
           </el-tooltip>
         </div>
       </div>
+
+      <!-- We show this summary when we're talking about a body weight exercise -->
+      <div v-else class="summary-items">
+        <div>
+          <el-tooltip>
+            <div slot="content">{{formatSetDate(maxReps)}}</div>
+            <data-summary description="Max reps" :value="maxReps.reps"/>
+          </el-tooltip>
+        </div>
+        <div>
+          <el-tooltip>
+            <div slot="content">{{formatSetDate(maxRepsLastSession)}}</div>
+            <data-summary description="Max reps last session" :value="maxRepsLastSession.reps"/>
+          </el-tooltip>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -36,7 +53,8 @@ export default {
   props: {
     exercise: {type: Object, required: true},
     oneRepMax: {type: Object, required: true},
-    estOneRepMax: {type: Number, required: true}
+    estOneRepMax: {type: Number, required: true},
+    isBodyWeight: {type: Boolean, default: false}
   },
   computed: {
     maxResistance() {
@@ -44,6 +62,12 @@ export default {
     },
     maxResistanceLastSession() {
       return this.exercise.maxResistanceLastSession();
+    },
+    maxReps() {
+      return this.exercise.maxReps();
+    },
+    maxRepsLastSession() {
+      return this.exercise.maxRepsLastSession();
     }
   },
   methods: {

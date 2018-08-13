@@ -29,8 +29,15 @@ export class Exercise {
    * @returns {Set}
    */
   maxResistanceLastSession() {
-    const lastSession = _maxBy(this.sessions, s => s.session.start.valueOf());
-    return this._getMaxResistance(lastSession.sets);
+    return this._getMaxResistance(this._lastSession().sets);
+  }
+
+  maxReps() {
+    return this._getMaxReps(_flatMap(this.sessions, session => session.sets));
+  }
+
+  maxRepsLastSession() {
+    return this._getMaxReps(this._lastSession().sets);
   }
 
   /**
@@ -47,7 +54,19 @@ export class Exercise {
    * @returns {Set}
    */
   _getMaxResistance(sets) {
-    const allLoads = sets.map(set => set.resistance);
     return _maxBy(sets, set => set.resistance);
+  }
+
+  /**
+   * Get the set with highest number of reps
+   * @param {Set[]} sets 
+   * @returns {Set}
+   */
+  _getMaxReps(sets) {
+    return _maxBy(sets, set => set.reps);
+  }
+
+  _lastSession() {
+    return _maxBy(this.sessions, s => s.session.start.valueOf());
   }
 }

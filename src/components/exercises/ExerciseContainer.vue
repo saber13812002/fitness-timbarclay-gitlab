@@ -1,12 +1,12 @@
 <template>
   <div class="exercise-page">
-    <exercise-summary class="space" :exercise="exercise" :one-rep-max="oneRepMax" :est-one-rep-max="estOneRepMax"/>
+    <exercise-summary class="space" :exercise="exercise" :one-rep-max="oneRepMax" :est-one-rep-max="estOneRepMax" :is-body-weight="isBodyWeight"/>
 
     <div class="padded progression-container" v-if="showChart">
       <h3 class="padded">Progression</h3>
 
       <el-card>
-        <exercise-chart :workout-sessions="exercise.sessions" :one-rep-max="estOneRepMax" :weight-unit="weightUnit" :stats-type="statsType"/>
+        <exercise-chart :workout-sessions="exercise.sessions" :one-rep-max="estOneRepMax" :weight-unit="weightUnit" :stats-type="statsType" :is-body-weight="isBodyWeight"/>
 
         <el-row :gutter="20">
           <el-col :xs="12" :md="6">
@@ -20,7 +20,7 @@
 
     <div class="padded">
       <h3>Sessions</h3>
-      <exercise-workout-list :exercise="exercise" />
+      <exercise-workout-list :exercise="exercise" :is-body-weight="isBodyWeight"/>
     </div>
   </div>
 </template>
@@ -61,6 +61,9 @@ export default {
     },
     statsOptions() {
       return stats.all.filter(s => _includes(this.intensityMetric.stats, s.id));
+    },
+    isBodyWeight() {
+      return this.estOneRepMax === 0;
     }
   },
   watch: {

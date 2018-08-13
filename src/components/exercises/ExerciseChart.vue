@@ -1,5 +1,5 @@
 <template>
-  <vue-apex-charts height="300" type="line" :options="options" :series="series"></vue-apex-charts>
+  <vue-apex-charts height="300" :type="options.chart.type" :options="options" :series="series"></vue-apex-charts>
 </template>
 
 <script>
@@ -14,11 +14,12 @@ export default {
     workoutSessions: {type: Array, default: () => []},
     oneRepMax: {type: Number, required: true},
     weightUnit: {type: Object, required: true},
-    statsType: {type: Object, required: true}
+    statsType: {type: Object, required: true},
+    isBodyWeight: {type: Boolean, default: false}
   },
   data() {
-    return {
-      configs: [
+    const configs = !this.isBodyWeight ?
+      [
         {
           metric: metrics.repCount,
           type: "column",
@@ -35,10 +36,20 @@ export default {
           metric: metrics.volumeLoad,
           type: "line",
           colour: "#46237A",
+          show: true,
+          opposite: true
+        }
+      ] :
+      [
+        {
+          metric: metrics.repCount,
+          type: "column",
+          colour: "#3DDC97",
           show: true
         }
       ]
-    }
+    
+    return {configs};
   },
   computed: {
     series() {
@@ -59,16 +70,17 @@ export default {
     yaxis() {
       return this.configs.map((config, i) => {
         return {
-          opposite: i % 2 === 0,
+          opposite: config.opposite,
+          floating: !config.show,
           axisTicks: {
             show: config.show
           },
           axisBorder: {
-            show: config.show,
-            color: config.colour
+            show: false,
           },
           labels: {
             show: config.show,
+            formatter: value => Math.floor(value),
             style: {
               color: config.colour
             }
@@ -83,6 +95,7 @@ export default {
     yaxisSmall() {
       return this.yaxis.map(() => {
         return {
+          floating: true,
           axisTicks: {
             show: false
           },
@@ -101,12 +114,25 @@ export default {
         chart: {
           height: 300,
           width: "100%",
-          type: 'line',
-          stacked: false
+          type: this.isBodyWeight ? 'bar' : 'line',
+          stacked: false,
+          animations: {
+            enabled: true,
+            easing: 'easeinout',
+            speed: 500,
+            animateGradually: {
+                enabled: true,
+                delay: 150
+            },
+            dynamicAnimation: {
+                enabled: true,
+                speed: 350
+            }
+          }
         },
         colors: this.configs.map(c => c.colour),
         stroke: {
-          width: [2, 2],
+          width: [2, 2, 2],
           curve: 'smooth'
         },
         plotOptions: {
@@ -114,8 +140,17 @@ export default {
             columnWidth: '30%'
           }
         },
+        tooltip: {
+          followCursor: false,
+          x: {
+            format: "ddd d MMMM"
+          }
+        },
         xaxis: {
-          type: 'datetime'
+          type: 'datetime',
+          tooltip: {
+            enabled: false
+          }
         },
         yaxis: this.yaxis,
         
@@ -140,6 +175,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.apexcharts-tooltip {
+  background-color: black
+}
 </style>
+
