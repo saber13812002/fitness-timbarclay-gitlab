@@ -2,34 +2,11 @@
   <div class="exercise-page">
     <exercise-summary class="space" :exercise="exercise" :one-rep-max="oneRepMax" :est-one-rep-max="estOneRepMax"/>
 
-    <!-- <div class="padded progression-container" v-if="showChart">
-    
-      <h3 class="padded">Progression</h3>
-      
-      <el-card>
-        <exercise-chart class="space" :workout-sessions="exercise.sessions" :options="chartOptions"/>
-
-        <el-row :gutter="20">
-          <el-col :xs="12" :md="6">
-            <el-select :value="intensityMetric.id" v-on:input="setIntensityMetric">
-              <el-option v-for="opt in metricOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
-            </el-select>
-          </el-col>
-
-          <el-col :xs="12" :md="6">
-            <el-select :value="statsType.id" v-on:input="setStatsType">
-              <el-option v-for="opt in statsOptions" :key="opt.id" :value="opt.id" :label="opt.name" />
-            </el-select>
-          </el-col>
-        </el-row>
-      </el-card>
-    </div> -->
-
     <div class="padded progression-container" v-if="showChart">
       <h3 class="padded">Progression</h3>
 
       <el-card>
-        <exercise-chart2 :workout-sessions="exercise.sessions" :one-rep-max="estOneRepMax" :weight-unit="weightUnit" :stats-type="statsType"/>
+        <exercise-chart :workout-sessions="exercise.sessions" :one-rep-max="estOneRepMax" :weight-unit="weightUnit" :stats-type="statsType"/>
 
         <el-row :gutter="20">
           <el-col :xs="12" :md="6">
@@ -52,7 +29,6 @@
 import ExerciseSummary from "./ExerciseSummary.vue";
 import ExerciseWorkoutList from "./ExerciseWorkoutList.vue";
 import ExerciseChart from "./ExerciseChart.vue";
-import ExerciseChart2 from "./ExerciseChart2.vue";
 import mutations from "../../vuex/mutations";
 import * as metrics from "../../application/models/IntensityMetrics";
 import * as stats from "../../application/models/DescriptiveStats";
@@ -77,14 +53,6 @@ export default {
       "statsType",
       "weightUnit"
     ]),
-    chartOptions() {
-      return {
-        intensity: this.intensityMetric,
-        weightUnit: this.weightUnit,
-        stats: this.statsType,
-        calculate: this.calculate
-      }
-    },
     estOneRepMax() {
       return _round(this.exercise.maxOneRepMax(this.oneRepMax.calculate()));
     },
@@ -108,21 +76,12 @@ export default {
     },
     setStatsType(statsId) {
       this.$store.commit(mutations.SET_STATS_TYPE, {statsId});
-    },
-    calculate(workout) {
-      const value = workout.reduceSets(this.intensityMetric.calculate(this.estOneRepMax), this.statsType.calculate(), this.weightUnit);
-      return _round(this.weightUnit.calculate()(value), 1);
-    },
-    calculate2(workout, intensityMetric, estOneRepMax, statsType) {
-      const value = workout.reduceSets(intensityMetric.calculate(estOneRepMax), statsType.calculate(), this.weightUnit);
-      return _round(this.weightUnit.calculate()(value), 1);
     }
   },
   components: {
     ExerciseSummary,
     ExerciseWorkoutList,
-    ExerciseChart,
-    ExerciseChart2
+    ExerciseChart
   }
 }
 </script>
