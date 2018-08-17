@@ -30,7 +30,6 @@ import ExerciseSummary from "./ExerciseSummary.vue";
 import ExerciseWorkoutList from "./ExerciseWorkoutList.vue";
 import ExerciseChart from "./ExerciseChart.vue";
 import mutations from "../../vuex/mutations";
-import * as metrics from "../../application/models/IntensityMetrics";
 import * as stats from "../../application/models/DescriptiveStats";
 import {Set} from "../../application/models/Set";
 import {mapGetters} from "vuex";
@@ -49,7 +48,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "intensityMetric",
       "statsType",
       "weightUnit"
     ]),
@@ -60,23 +58,13 @@ export default {
       return this.exercise.sessions && this.exercise.sessions.length > 1;
     },
     statsOptions() {
-      return stats.all.filter(s => _includes(this.intensityMetric.stats, s.id));
+      return [stats.total, stats.max, stats.mean];
     },
     isBodyWeight() {
       return this.estOneRepMax === 0;
     }
   },
-  watch: {
-    statsOptions(options) {
-      if(!_includes(options.map(o => o.id), this.statsType.id)) {
-        this.setStatsType(options[0].id);
-      }
-    }
-  },
   methods: {
-    setIntensityMetric(metricId) {
-      this.$store.commit(mutations.SET_INTENSITY_METRIC, {metricId});
-    },
     setStatsType(statsId) {
       this.$store.commit(mutations.SET_STATS_TYPE, {statsId});
     }
