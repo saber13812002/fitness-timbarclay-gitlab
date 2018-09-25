@@ -41,11 +41,6 @@ export default {
     exercise: {type: Object, required: true},
     oneRepMax: {type: Object, required: true}
   },
-  data() {
-    return {
-      metricOptions: metrics.all
-    }
-  },
   computed: {
     ...mapGetters([
       "statsType",

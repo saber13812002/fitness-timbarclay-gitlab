@@ -1,7 +1,16 @@
 <template>
   <div class="padded">
     <div v-if="orderedExercises.length">
-      <card-link v-for="exercise in orderedExercises" :to="exerciseLink(exercise)" :key="exercise.name">
+      <el-row class="space">
+        <el-col :xs="0" :md="16">&nbsp;</el-col> <!-- Element doesn't have offsets for different responsive sizes, so this'll have to do -->
+        <el-col :xs="24" :md="8">
+          <el-input
+            size="mini"
+            placeholder="Search"
+            v-model.trim="filterText" />
+        </el-col>
+      </el-row>
+      <card-link v-for="exercise in filteredExercises" :to="exerciseLink(exercise)" :key="exercise.name">
         <el-row><h3 class="no-top">{{exercise.name}}</h3></el-row>
         <el-row>
           <div class="exercise-stats">
@@ -23,9 +32,15 @@ import CardLink from "../CardLink.vue";
 import {renderWeight} from "../../application/resistanceHelpers";
 import {mapGetters, mapState} from "vuex";
 import _sortBy from "lodash/sortBy";
+import _includes from "lodash/includes";
 import moment from "moment";
 
 export default {
+  data() {
+    return {
+      filterText: ""
+    }
+  },
   computed: {
     ...mapState({
       loadingSessions: state => state.exercise.loadingSessions,
@@ -38,6 +53,10 @@ export default {
     ]),
     orderedExercises() {
       return _sortBy(this.exercises, e => e.name);
+    },
+    filteredExercises() {
+      if(!this.filterText.length) return this.orderedExercises;
+      return this.orderedExercises.filter(e => _includes(e.name.toLowerCase(), this.filterText.toLowerCase()));
     }
   },
   components: {
