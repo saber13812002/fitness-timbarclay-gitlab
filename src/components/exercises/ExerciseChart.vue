@@ -82,11 +82,17 @@ export default {
             show: config.show,
             formatter: value => Math.floor(value),
             style: {
-              color: config.colour
+              color: config.colour,
+              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif",
+              fontSize: "12px"
             }
           },
           title: {
-            text: config.show ? config.metric.name : ""
+            text: config.show ? config.metric.name : "",
+            style: {
+              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif",
+              fontSize: "12px"
+            }
           }
         }
       })
@@ -150,6 +156,12 @@ export default {
           type: 'datetime',
           tooltip: {
             enabled: false
+          },
+          labels: {
+            style: {
+              fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif",
+              fontSize: "12px"
+            }
           }
         },
         yaxis: this.yaxis,
