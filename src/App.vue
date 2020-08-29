@@ -22,6 +22,7 @@
 import Navbar from "./components/navbar/Navbar.vue";
 import AppFooter from "./components/navbar/AppFooter.vue";
 import WithSidebar from "./components/WithSidebar.vue";
+import {MessageBox} from 'element-ui';
 import {mapGetters} from "vuex";
 
 export default {
@@ -30,12 +31,49 @@ export default {
     AppFooter,
     WithSidebar
   },
+  data() {
+    return {
+      registration: null,
+      updateExists: false,
+      refreshing: false
+    }
+  },
+  created() {
+    document.addEventListener('swUpdated', this.updateAvailable, { once: true })
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (this.refreshing) return
+      this.refreshing = true
+      // Reload the page to pick up the newly installed version
+      window.location.reload()
+    })
+  },
   computed: {
     ...mapGetters([
       "isLoggedIn"
     ]),
     isLogin() {
       return this.$route.name === "login";
+    }
+  },
+  methods: {
+    updateAvailable(event) {
+      this.registration = event.detail
+      this.updateExists = true
+
+      MessageBox.alert('An update has been installed. Press update to use the new version', 'Update available', {
+        confirmButtonText: 'Update',
+        showClose: false,
+        callback: () => {
+          this.refreshApp()
+        }
+      });
+    },
+    refreshApp() {
+      this.updateExists = false
+      // Make sure we only send a 'skip waiting' message if the SW is waiting
+      if (!this.registration || !this.registration.waiting) return
+      // Send message to SW to skip the waiting and activate the new SW
+      this.registration.waiting.postMessage({ type: 'SKIP_WAITING' })
     }
   }
 }
@@ -69,6 +107,9 @@ main.el-main {
 .el-footer {
   background-color: $primary-text;
   color: $light-border;
+}
+.el-message-box {
+  max-width: 100%;
 }
 @media only screen and (max-width: 990px) {
   header.el-header {
