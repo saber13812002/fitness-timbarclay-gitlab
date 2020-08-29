@@ -6,7 +6,7 @@ export const resistance = {
   name: "Weight",
   description: "The weight/resistance used in the set",
   units: unit => unit.unit,
-  stats: ["max", "mean"],
+  stats: ["total", "max", "mean"],
   calculate() {
     return (set, unit) => unit.calculate()(set.resistance);
   }

@@ -6,7 +6,6 @@ import './registerServiceWorker'
 
 import "element-ui/lib/theme-chalk/display.css";
 import "./setupElement";
-import 'vue-datetime/dist/vue-datetime.css';
 import "./sass/style.scss";
 
 import GoogleApi from "./application/googleApi";

@@ -125,8 +125,11 @@ export default {
     justify-content: center;
     line-height: 0.9em;
     font-size: 1.4em;
+    margin-right: 0.5em;
     .month {
       font-size: 0.8em;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
