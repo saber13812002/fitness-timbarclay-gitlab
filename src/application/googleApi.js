@@ -16,6 +16,8 @@ const signInOptions = {
 const exerciseSource = "com.google.activity.exercise";
 const dataSourceId = "derived:com.google.activity.exercise:com.google.android.gms:merged";
 const exerciseType = 80;
+const apiClient = "https://apis.google.com/js/platform.js"
+const fitnessDiscoveryDoc = "https://www.googleapis.com/discovery/v1/apis/fitness/v1/rest"
 
 export default class GoogleApi {
   static initialiseGoogleApi() {
@@ -57,9 +59,11 @@ export default class GoogleApi {
 
   getDataSources() {
     return this._ensureFitness()
-      .then(() => gapi.client.fitness.users.dataSources.list({
-        userId: "me",
-        dataTypeName: exerciseSource
+      .then(() => gapi.client.request({
+        path: 'fitness/v1/users/me/dataSources',
+        params: {
+          dataTypeName: exerciseSource
+        }
       }))
       .then(res => res.result.dataSource)
       .then(sources => sources.map(s => new DataSource(s)));
@@ -67,14 +71,15 @@ export default class GoogleApi {
 
   getSessions(start, end) {
     return this._ensureFitness()
-      .then(() => gapi.client.fitness.users.sessions.list({
-          userId: "me",
+      .then(() => gapi.client.request({
+        path: 'fitness/v1/users/me/sessions',
+        params: {
           endTime: end.toISOString(),
           startTime: start.toISOString(),
-          key: API_KEY,
           fields: "hasMoreData,nextPageToken,session",
           includeDeleted: false
-        }))
+        }
+      }))
       .then(res => res.result.session)
       .then(sessions => sessions.filter(s => s.activityType === exerciseType))
       .then(sessions => sessions.map(s => new Session(s)));
@@ -84,25 +89,39 @@ export default class GoogleApi {
     const datasetId = `${millisToNanos(start.getTime())}-${millisToNanos(end.getTime())}`;
 
     return this._ensureFitness()
-      .then(() => gapi.client.fitness.users.dataSources.datasets.get({
-        userId: "me",
-        dataSourceId: dataSourceId,
-        fields: "dataSourceId,maxEndTimeNs,minStartTimeNs,nextPageToken,point",
-        key: API_KEY,
-        datasetId: datasetId
+      .then(() => gapi.client.request({
+        path: `fitness/v1/users/me/dataSources/${dataSourceId}/datasets/${datasetId}`,
+        params: {
+          fields: "dataSourceId,maxEndTimeNs,minStartTimeNs,nextPageToken,point"
+        }
       }))
       .then(res => res.result.point)
       .then(sets => sets.map(p => new Set(p)));
   }
 
   _ensureFitness() {
-    if(gapi.client.fitness) {
+    return this._ensureClient().then(() => {
+      if(gapi.client.fitness) {
+        return Promise.resolve();
+      } else {
+        return gapi.client.init({
+          apiKey: API_KEY,
+          discoveryDocs: [fitnessDiscoveryDoc]
+        });
+      }
+    })
+  }
+
+  _ensureClient() {
+    if(gapi.client) {
       return Promise.resolve();
     } else {
-      return gapi.client.init({
-        apiKey: API_KEY,
-        discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/fitness/v1/rest"]
-      });
+      return new Promise(resolve => {
+        gapi.load('client', () => {
+          gapi.client.setApiKey(API_KEY)
+          resolve()
+        })
+      })
     }
   }
 
@@ -150,7 +169,7 @@ export default class GoogleApi {
     let js = element;
     js = document.createElement(scriptTag);
     js.id = id;
-    js.src = '//apis.google.com/js/client:platform.js';
+    js.src = apiClient;
     fjs.parentNode.insertBefore(js, fjs);
     js.onload = callback;
   }
