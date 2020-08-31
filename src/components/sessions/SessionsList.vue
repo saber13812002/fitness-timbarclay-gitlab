@@ -29,7 +29,7 @@
     </div>
     <div v-else>
       <div class="space">
-        <p>There's nothing here</p> <!-- Give more information, maybe including instructions about Google Fit app etc -->
+        <p>There's nothing here. Looking back as far as {{ formatDate(start) }}.</p>
         <p>To start collecting data, you'll need an Android WearOS device with the Google Fit app. Then just start a Strength Training session.</p>
       </div>
       <div class="center-content">
