@@ -9,7 +9,8 @@
             <tr v-if="!isBodyWeight"><td>Weight</td><td>{{resistance(set)}}</td></tr>
             <tr><td>Reps</td><td>{{set.reps}}</td></tr>
             <tr v-if="!isBodyWeight"><td>Volume load</td><td>{{volumeLoad(set)}}</td></tr>
-            <tr><td>Time</td><td>{{time(set)}}</td></tr>
+            <tr><td>Session time</td><td>{{sessionStartTime(session)}}</td></tr>
+            <tr><td>Set time</td><td>{{time(set)}}</td></tr>
             <tr><td>Duration</td><td>{{duration(set)}} seconds</td></tr>
             <tr v-if="!isBodyWeight"><td>% of 1 rep max</td><td>{{percentOneRepMax(set)}}</td></tr>
           </table>
@@ -55,6 +56,9 @@ export default {
   methods: {
     sessionStart(session) {
       return moment(session.session.start).format("dddd Do MMMM YYYY");
+    },
+    sessionStartTime(session) {
+      return moment(session.session.start).format("h:mm:ss a");
     },
     time(set) {
       return moment(set.start).format("h:mm:ss a");

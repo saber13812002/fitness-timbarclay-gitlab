@@ -161,7 +161,8 @@ export default {
             style: {
               fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen-Sans,Ubuntu,Cantarell,'Helvetica Neue',sans-serif",
               fontSize: "12px"
-            }
+            },
+            datetimeUTC: false
           }
         },
         yaxis: this.yaxis,
