@@ -3,7 +3,7 @@
     <el-row class="space">
       <el-col :xs="24" :md="12">
         <label>1 Rep Max
-          <el-input v-model="oneRepMaxWeight" type="number" placeholder="1 Rep Max weight">
+          <el-input v-model="convertedOneRepMaxWeight" type="number" placeholder="1 Rep Max weight">
             <el-select v-model="exerciseId" placeholder="Choose exercise" filterable default-first-option slot="append" clearable>
               <el-option v-for="exercise in exerciseSuggestions" :key="exercise.id" :label="exercise.name" :value="exercise.id"/>
             </el-select>
@@ -18,7 +18,7 @@
           <el-slider
             v-model="percentage"
             :step="5"
-            :min="50"
+            :min="0"
             :max="100"
             show-stops>
           </el-slider>
@@ -83,12 +83,15 @@ export default {
           return {
             name: `${e.name} (${renderWeight(oneRepMax)})`,
             id: e.name,
-            oneRepMax: this.weightUnit.calculate()(oneRepMax)
+            oneRepMax: oneRepMax
           }
         });
     },
     exercise() {
       return _find(this.exerciseSuggestions, e => e.id === this.exerciseId);
+    },
+    convertedOneRepMaxWeight() {
+      return _round(this.weightUnit.calculate()(this.oneRepMaxWeight), 1)
     }
   },
   watch:{

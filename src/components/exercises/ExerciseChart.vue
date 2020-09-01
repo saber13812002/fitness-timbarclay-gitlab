@@ -181,7 +181,7 @@ export default {
   methods: {
     calculate(workout, intensityMetric) {
       const value = workout.reduceSets(intensityMetric.calculate(this.oneRepMax), this.statsType.calculate(), this.weightUnit);
-      return _round(value, 2);
+      return _round(value, 1);
     }
   }
 }
